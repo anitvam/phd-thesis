@@ -1,0 +1,180 @@
+% !TeX root = ../paper-2024-sncs-jakta.tex
+\begin{landscape}
+% GC: ho messo landscape perché adjustbox non funziona
+\begin{table}
+    \footnotesize
+%    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{r||c||c|c|c|c|c|c|c}
+    \textbf{} &
+      \textbf{\jakta} &
+      \textbf{\makecell[c]{\jason\\\cite{BordiniHW2007}}} &
+      \textbf{\makecell[c]{\spadebdi\\\cite{PalancaRCJT22}}} &
+      \textbf{\makecell[c]{\phidias\\\cite{DUrsoLS19}}} &
+      \textbf{\makecell[c]{\astra\\\cite{CollierRL15}}} &
+      \textbf{\makecell[c]{\jack\\\cite{Winikoff2005}}} &
+      \textbf{\makecell[c]{\jadex\\\cite{PokahrBL2005}}} &
+      \textbf{\makecell[c]{\goal\\\cite{Hindriks2009}}}
+      \\\hline\hline
+    \textbf{\makecell[r]{\agentspeak{}\\compliance}} &
+      \yes &
+      \yes &
+      \yes &
+      \yes &
+      \no &
+      \no &
+      \no &
+      \no
+      \\\hline
+    \textbf{DSL Type} &
+      internal &
+      external &
+      both &
+      internal &
+      external &
+      external &
+      external &
+      external
+      \\\hline
+    \textbf{\makecell[r]{Hosting\\Syntax}} &
+      Kotlin &
+      \makecell{\agentspeak{}\\extension} &
+      Python &
+      Python &
+      \makecell{custom Java\\extension} &  % astra
+      \makecell{custom Java\\extension} &  % jack
+      \makecell{XML\\Java annotations} &  % jadex
+      \makecell{custom Prolog\\extension}  % goal
+      \\\hline
+    \textbf{\makecell[r]{Execution\\Platform}} &
+      JVM &
+      JVM &
+      Python &
+      Python &
+      JVM &
+      JVM &
+      JVM &
+      \makecell{JVM}
+      \\\hline
+    \textbf{Interoperability} &
+      \makecell[c]{native Java, Kotlin\\FFI native} &
+      \makecell[c]{FFI Java} &
+      \makecell[c]{native Python\\FFI native} &
+      \makecell[c]{native Python\\FFI native} &
+      \makecell[c]{FFI Java} &
+      \makecell[c]{FFI Java} &
+      \makecell[c]{FFI Java} &
+      \makecell[c]{native\\SWI-Prolog}
+      \\\hline
+    \textbf{\makecell[r]{Paradigm\\blending}} &
+      \yes &
+      \no &
+      \yes &
+      \yes &
+      \yes &
+      \yes &
+      \no &
+      \yes
+      \\\hline
+    \textbf{Type safety} &
+      \yes &
+      \no &
+      \no &
+      \no &
+      \yes &
+      \yes &
+      \yes &
+      \no
+      \\\hline
+    \textbf{\makecell[r]{Reuse\\mechanisms}} &
+      \makecell{Any Kotlin\\mechanism} &
+      \makecell{file incl.,\\internal actions} &
+      \makecell{Any Python\\mechanism} &
+      \makecell{Any Python\\mechanism} &
+      \makecell{agent\\extension} &
+      \makecell{reusable plans \\and capabilities} &
+      \makecell{selective file incl.\\Java inheritance} &
+      \makecell{reusable plans,\\beliefs, goals,\\and agents}
+      \\\hline
+     \textbf{\makecell[r]{Concurrency\\Model conf.}} &
+    %  Pluggable &
+    %  \makecell{One thread\\ per agent} &
+    %  \makecell{Python\\ coroutines} &
+    %  \makecell{One thread\\ per agent} &
+    %  \makecell{One thread\\ per intention} &
+     \yes &
+     \yes &
+     \no &
+     \no &
+     \yes &
+     \dunno &
+     \yes &
+     \yes
+     \\\hline
+    \textbf{\makecell[r]{Explicit\\Environment}} &
+      \yes &
+      \yes &
+      \no &
+      \no &
+      \yes &
+      \no &
+      \no &
+      \yes
+      \\\hline
+    \textbf{\makecell[r]{Internal\\Actions}} &
+      \yes &
+      \yes &
+      \yes &
+      \yes &
+      \yes &
+      \no &
+      \no &
+      \yes
+      \\\hline
+    \textbf{\makecell[r]{External\\Actions}} &
+      \yes &
+      \yes &
+      \no &
+      \no &
+      \yes &
+      \no &
+      \no &
+      \yes
+      \\\hline
+   \textbf{\makecell[r]{Message\\Passing}} &
+     pluggable &
+     pluggable &
+     XMPP &
+     \makecell{HTTP \\ TCP Sockets} &
+     UDP &
+     pluggable &
+     TCP / SSL &
+     in process
+     \\\hline
+    \textbf{License} &
+      Apache 2.0 &
+      LGPL v3 &
+      GPL v3 &
+      MIT &
+      GPL v3 &
+      Proprietary &
+      GPL v3 &
+      GPL v3
+    \end{tabular}%
+%    \end{adjustbox}
+    % \begin{center}\tiny
+    %     * \jason{} supports plugging custom external actions by overriding a method on the environment class of choice.
+    % \end{center}
+    \normalsize
+    \bigskip
+    \caption{
+        Comparison of the identified practical features across several common \ac{BDI} agent programming languages.
+        Columns denote languages, rows denote features.
+        \jakta{} is the language proposed in this paper: it is reported here for to ease comparison.
+        In non-textual cells, symbol \yes{} indicates the feature availability,
+        \no{} unavailability,
+        and % ``\maybe'' means uncertainty, and
+        \dunno{} that we were not able to find conclusive evidence.
+    }
+    \label{tab:languages-comparison}
+  \end{table}
+\end{landscape} 

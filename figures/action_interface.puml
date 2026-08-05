@@ -1,0 +1,39 @@
+@startuml
+interface Action {
+    + signature: Signature
+    + execute(Request): Response
+}
+
+class Signature {
+     + name: String
+     + arity: String
+}
+
+Action "1" *--r-- "1" Signature
+
+interface Request {
+    + sender: Agent
+    + arguments: List<Term>
+}
+
+interface Response {
+    + effects: Iterable<SideEffect>
+}
+
+interface SideEffect
+
+Action <.. Request: triggers
+Action ..> Response: produces
+
+
+Request "1" ..right..> "1" Response: corresponds to
+
+
+Response "1" o-r- "*" SideEffect
+
+interface AgentChange
+interface EnvironmentChage
+
+SideEffect <|-- AgentChange
+SideEffect <|-- EnvironmentChage
+@enduml
