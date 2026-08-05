@@ -4,6 +4,7 @@
 \usepackage{code-lstlistings}
 \usepackage{notes}
 \usepackage{shortcuts}
+\usepackage{acronyms}
 
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
@@ -35,47 +36,318 @@ Optional. Max 1 page.
 %----------------------------------------------------------------------------------------
 \chapter{Introduction}
 \label{chap:introduction}
-%----------------------------------------------------------------------------------------
 
-Write your intro here.
-\sidenote{Add sidenotes in this way. They are named after the author of the thesis}
+\section{Context}
+Software engineering is not anymore solely a matter of designing and implementing software, 
+because nowadays software is only a part of larger systems %
+-- named complex systems -- 
+that are composed of many autonomous entities, 
+each one with its own sensors, actuators.
+%
+These heterogeneous entities are situated in a dynamic and partially unknown environment,
+of which they can only perceive a limited portion through their sensors.
+%
+Therefore,
+in order to optimally fulfill the goal they are designed for,
+these entities need to interact with each other and coordinate their behavior.
+%
+Depending on the specific application domain,
+the interaction between these entities allows for better knowledge of the surrounding environment or for coordinating the execution of complex tasks.
+
+Examples of complex systems can be found in many application domains,
+such as maritime systems,
+vehicular systems,
+drone systems,
+and robotic systems.
+
+% MARITIME
+%
+In the maritime domain,
+\acp{MASS} are progressively being deployed to minimize the risk of human error and to reduce operational costs.
+%
+The ambition is to have fully autonomous ships that can operate without human intervention.
+%
+However,
+this goal is ambitious not only because of the technical challenges involved in designing autonomous ships,
+but also because the communication infrastructure cannot currently support the coordination of a fleet of autonomous ships.
+%
+This scenario highlights how the design of complex systems is not only a matter of designing the individual entities, but also involves the design of the communication and coordination mechanisms that allow these entities to work together effectively.
+
+% VEHICULAR
+%
+Similarly, in the vehicular domain,
+there is a shift towards autonomous vehicles adoption.
+%
+In this scenario, 
+the infrastructure in which autonomous entities operate is fundamentally different; 
+its rules ease the definition of autonomous vehicles' behavior (i.e. road lanes, traffic lights, traffic rules, etc.), and the communication infrastructure is more reliable and robust than in the maritime domain.
+%
+The challenge for designing such systems lies more in the highly dynamic nature of the environment,
+in fact there are many unpredictable events that can occur on the road, such as accidents and traffic jams,
+which are not likely to occur in the maritime domain.
+%  
+From this scenario emerges the need for complex systems to share knowledge to improve their perception of the environment, thus allowing them to avoid accidents and traffic jams and enforce safety rules for passengers and pedestrians.
+
+% DRONES and ROBOT coordination
+%
+Another challenge for designing complex system can be found in the domain of drones and robots.
+%
+Often, this kind of autonomous entities are employed to coordinate their behavior to achieve a common goal, such as in search and rescue operations, exploration of unknown environments, or warehouse logistics.
+%
+In these scenarios, 
+the challenge is to design the coordination mechanisms that allow these entities to cooperate efficiently, 
+while also ensuring that they can adapt to changing conditions and unexpected events in the environment.
+%
+Efficiency is a key requirement in these scenarios, as the entities often have limited resources (e.g., battery life, computational power) and, at the same time, need to achieve the desired shared outcome.
+
+All these scenarios highlight the complexity of designing software for complex systems,
+which does not only involve the definition of the behavior of individual entities,
+but also include mechanisms for communication, coordination, and adaptation to changing conditions in the environment.
+%
+Software engineering has an approach to address this challenge: the choice of an appropriate level of abstraction.
+%
+The level of abstraction represents a way to hide complex, low-level details behind a simpler, higher-level interface to focus on solving directly the problem at hand.
+%
+However,
+the choice of an appropriate level of abstraction is not trivial,
+because different abstraction levels provide complementary advantages and disadvantages; 
+too many low-level details can hinder the ability to solve the problem at hand, while too much abstraction can limit the effectiveness of the solution.
+
+There are many approaches to design complex systems,
+one instance is the agent-based model which allows to express the heterogeneity of the devices composing the system, 
+but the resulting software is difficult to use for building reusable libraries that describe emergent coordinated behaviors.
+%
+% During the design process, 
+% software engineers must decide how to represent the entities composing the system, 
+% and this decision significantly affects both the expressiveness of the resulting model and the complexity of its implementation.
+%
+This is especially true for a family of approaches such as \ac{BDI}, which push abstraction to the extreme, allowing for a level of abstraction close to human reasoning, but at the price of limited support for building reusable software modules.
+%
+\note{
+    Bdi ha come obbiettivo quello di fornire un buon strumento in sistemi dove le entita sono generalmente poche e più intelligenti in quanto singoli,
+    ma esistono altre classi di sistemi in cui l'intellingenza non è tanto quella dei singoli ma quella del collettivo, e in questi casi bdi non è la scelta migliore.
+    Il sistema nel suo complesso esibisce un compostamento intelligente, che viene riferita come intelligenza collettiva.
+}
+Alternatively,
+other approaches provide a higher-level abstraction that allows for the specification of collective behaviors, but at the cost of losing the ability to express the heterogeneity of individual devices.
+%
+Collective behaviors describes emergent phenomena arising from the interaction of many entities
+(i.e. large-scale patterns and traits that the individual parts do not have on their own),
+and \ac{AC} provides a high-level abstraction for programming distributed systems by treating a collection of devices as a computational aggregate rather than as independent interacting processes.
+%
+An example of emergent phenomena is the flocking behavior of birds, where the collective movement of the flock emerges from the local interactions between individual birds, without any centralized control or coordination.
+
+\section{Motivation}
+
+The context briefly described above
+outlines a fundamental gap in the current state of the art of software engineering for complex systems.
+%
+Either the software allows for expressing the heterogeneity of the entities composing the system,
+but at the cost of making it difficult to express a coordinated behavior,
+or the software is designed to express the latter,
+but loosing the level of heterogeneity of the former.
+%
+From a software engineering perspective instead,
+the two aspects can be seen as complementary, and the ability to combine them within a unified programming model has the potential to improve both the expressiveness and the modularity of software models for complex systems.
+
+Over the last decades,
+this software engineering challenge has been addressed by different research fields, each one proposing its own solution.
+%
+Even though these solutions were developed independently,
+they share common design principles and abstractions that were lately evolved in different ways.
+\note{
+    Aggiungere che queste comunità di ricerca limitrofe hanno trovato sistemi diversi per affrontare problemi simili perchè si sono focalizzati su aspetti diversi del sistema complesso. (Emerge dal testo ma c'è bisogno di stressarlo ancora di più)
+}
+%
+For instance, 
+the agent-oriented research field has focused on the design of software for individual heterogeneous entities,
+proposing the abstract language \agentspeak{} to express the internal reasoning of autonomous \ac{BDI} agents, inspired by human reasoning.
+%
+Autonomic computing researchers instead,
+did not focus on the human expressiveness of software entities, 
+but rather defined a feedback loop to structure the control of autonomous entities, 
+called \mapek{}, 
+which is a more general abstraction that can be applied to different types of systems.
+%
+Research on \acp{CAS} has instead focused on the design of software for collective behaviors,
+proposing a paradigm to define reusable software modules to express emergent phenomena arising from the interaction of many entities, 
+called \ac{AC}, 
+without the need to explicitly define the interaction between individual entities,
+thus reducing the heterogeneity expressiveness of the paradigm.
+%
+
+All these approaches share the principle of subdividing the system 
+into a set of autonomous entities that can perceive their environment, 
+reason about their goals, 
+and perform actions.
+%
+At the same time, 
+these approaches differ in the level of abstraction they provide to express the internal reasoning of these entities and their interactions.
+%
+Each abstraction level has its own advantages and disadvantages,
+and we believe that combining them into a singular programming framework can provide a more expressive and modular approach to software engineering for complex systems.
+%
+By unifying these complementary abstractions,
+software engineers can pick the most appropriate level of abstraction for each part of the system,
+allowing them to express both the heterogeneity of individual entities and define (or reuse) collective behaviors that emerge from their interactions.
+%
+This thesis explores how these complementary abstractions,
+can be effectively combined into a coherent programming framework,
+enabling developers to seamlessly move between global and local perspectives according to the modeling requirements of the system.
+
+Along with design, 
+software requires to be verified too.
+%
+Software verification is essential to assess that the complex system being designed is behaving as expected, 
+especially before the deployment
+to minimize the economical impact of potential failures.
+%
+Often, 
+the verification of multi-agent systems adopts a simplified implementation, 
+\note{Qui mi sto riferendo al model checking, si capisce?}
+which cannot really guarantee that the system converges to the desired behavior in all possible scenarios that can occur in a non-deterministic environment.
+%
+This simplification is required for many reasons, 
+some being software engineers requirement to easily understand the action sequence that took to a failure, 
+or to express model checking rules
+\sidenote{Si scrivono così?}
+to assess the source code does not contains bugs. 
+%
+Other reasons are instead related to technological constraints 
+(i.e. different platforms and libraries for deployment and simulation)
+which require a specific implementation of the system dedicated to simulation.
+%
+In both cases, 
+the result is a completely different implementation that is dedicated to run in the simulation environment, 
+which is a concern for reproducibility and verification of the code-base.
+
+Another issue about simulation is not only related to the code-base, 
+but also to the fidelity of the environment scenario,
+software engineers are forced to face a trade off%
+---either they pick a high fidelity three-dimensional simulation, 
+which hardly scales up the system, 
+or they focus more on scalability but loosing environment expressiveness.
+%
+In this scope, 
+we investigate how the aforementioned framework for defining \ac{CAS} 
+can be integrated with simulation engines to use the same code-base for both deployment and simulation,
+thus allowing for a more reproducible and verifiable behaviors.
+
+To define such framework,
+this thesis started looking for the previous research about \ac{BDI} agents, 
+with the objective to build the next generation of \ac{BDI} agents, 
+which can easily interoperate with libraries, software engineers, simulations, and LLMs.
+%
+Moreover, 
+observing that common principles can be found in \ac{BDI} and \mapek{}, 
+those can be used to define a more general \ac{BDI} framework engine for defining autonomous entities.
+%
+In this way,
+depending on the specific application domain,
+software engineers can pick the most appropriate abstraction level to define the internal information with which their autonomous entities reason.
+%
+\note{Connection between BDI+MAPE-K and AC. Come la infilo visto che l'abbiamo ipotizzata ma mai integrata?
+
+Questa tesi rappresenta un primo passo verso la definizione di un framework per la progettazione di sistemi complessi, il quale tenderà a unificare anche \ac{BDI} e \ac{AC}.
+}
+
+
+
+% Different abstraction levels provide complementary advantages and disadvantages.
+% %
+% On the one hand, 
+% adopting a global abstraction simplifies the representation of collective behaviors,
+% especially when the objective is to describe emergent phenomena arising
+% from the interaction of many entities. 
+% %
+% However, 
+% this simplification comes at the cost of reducing the ability to represent the heterogeneity of individual devices, 
+% whose internal characteristics and behaviors are intentionally abstracted away.
+% %
+% On the other hand, 
+% adopting a local abstraction allows richer expressiveness 
+% to the design of their internal state, capabilities, and heterogeneous behavior.
+% %
+% However, at the same time
+% it makes the specification of collective behaviors considerably more challenging, 
+% since interactions among entities must be explicitly designed and coordinated.
+
+% These two perspectives do not represent mutually exclusive alternatives.
+% %
+% Rather, 
+% the requirements of complex systems often demand that multiple abstraction levels coexist within the same model. 
+% %
+% For instance, 
+% a developer may wish to describe the collective behavior of a distributed system using a global perspective while simultaneously modeling sophisticated decision-making processes for selected devices based on information that remains local and invisible to the rest of the system.
+% \note{Too vague as an example, maybe a concrete one from the literature is better.}
+
+% Consequently, 
+% % the ability to combine multiple abstractions within a unified programming model has the potential to improve both the expressiveness and the modularity of complex systems.
+% %
+% The objective of this thesis
+% is to investigate existing and novel techniques for integrating complementary abstraction mechanisms, 
+% with the goal of reducing the software design burden placed on developers while increasing their expressiveness power.
+
+% From the perspective of collective behavior, 
+% \ac{AC} provides a high-level abstraction for programming distributed systems by treating a collection of devices as a computational aggregate rather than as independent interacting processes. 
+% %
+% This approach enables developers to specify global behaviors declaratively, 
+% allowing the desired collective behavior to emerge without explicitly programming every individual interaction.
+
+% Conversely, 
+% the modeling of intelligent behavior at the level of individual devices benefits from abstractions centered on autonomous agents. 
+% %
+% In particular, 
+% \acp{MAS} provide a well-established framework for representing autonomous entities capable of perceiving their environment, 
+% reasoning about their goals, and performing actions accordingly.
+
+% Within the agent paradigm, 
+% several architectures have been proposed to structure the control loop governing an agent's behavior. 
+% %
+% Examples include the \ac{PRS}, 
+% originating from the agent-oriented programming community, 
+% and the MAPE-K feedback loop, developed in the autonomic computing domain. Although these architectures were conceived in different research areas, they share the common objective of organizing perception, decision-making, and action into well-defined computational cycles.
+
+% This thesis explores how these complementary abstractions,
+% \ac{AC} for collective behavior and agent-oriented control loops for individual intelligence,
+% can be effectively combined into a coherent programming model, enabling developers to seamlessly move between global and local perspectives according to the modeling requirements of the system.
+
+\paragraph{Contributions of the Thesis}
+\note{MACRO: Next-Generation Multi-Paradigm Agents. Tutti gli altri sono di contorno.}
 
 \paragraph{Structure of the Thesis}
 
 \note{Racall to describe the structure of the paper}
 
-\part{First Part}
+\part{Background}
 
-\chapter{State of the art}
+\chapter{Complex Adaptive Systems}
+\section{Self-Organization}
+\section{Autonomic Computing}
+\section{Distributed Intelligence}
 
-I suggest referencing stuff as follows: \cref{fig:random-image} or \Cref{fig:random-image}
+\chapter{Designing Complex Systems' Software}
+\section{Agents and \aclp{MAS}}
+\section{BDI}
+\subsection{AgentSpeak}
+\subsection{AgentSpeak Frameworks}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.8\linewidth]{figures/random-image.pdf}
-    \caption{Some random image}
-    \label{fig:random-image}
-\end{figure}
+\section{\acl{AC}}
+\subsection{Macroprogramming}
+\subsection{\acl{AC}}
+\subsection{\acl{AC} Frameworks}
 
-\section{Some cool topic}
 
-\part{Second Part}
+\part{Combining Collective and Individual Intelligence} 
 
-\chapter{Contribution}
 
-You may also put some code snippet (which is NOT float by default), eg: \cref{lst:random-code}.
 
-\lstinputlisting[float,language=Java,label={lst:random-code}]{listings/HelloWorld.java}
-
-\section{Fancy formulas here}
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
 \backmatter
-
-\part*{}
 
 \nocite{*} % comment this to only show the referenced entries from the .bib file
 \bibliographystyle{alpha}
