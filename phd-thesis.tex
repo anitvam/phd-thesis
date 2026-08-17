@@ -38,21 +38,21 @@ Optional. Max 1 page.
 \label{chap:introduction}
 
 \section{Context}
-Software engineering is not anymore solely a matter of designing and implementing software, 
-because nowadays software is only a part of larger systems %
--- named complex systems -- 
-that are composed of many autonomous entities, 
-each one with its own sensors, actuators.
+Software engineering is no longer solely concerned with designing and implementing software:
+modern software typically forms only a part of larger systems %
+-- often referred to as complex systems -- 
+composed of many autonomous entities, each equipped with its own sensors and actuators.
 %
-These heterogeneous entities are situated in a dynamic and partially unknown environment,
-of which they can only perceive a limited portion through their sensors.
+These heterogeneous entities operate in dynamic, 
+partially unknown environments 
+and can perceive only a limited portion of their surroundings via sensors. 
 %
-Therefore,
-in order to optimally fulfill the goal they are designed for,
-these entities need to interact with each other and coordinate their behavior.
+To fulfil their intended objectives, 
+such entities must interact and coordinate their behaviour. 
 %
-Depending on the specific application domain,
-the interaction between these entities allows for better knowledge of the surrounding environment or for coordinating the execution of complex tasks.
+Depending on the application domain, 
+these interactions may improve situational awareness 
+or enable the coordinated execution of complex tasks.
 
 Examples of complex systems can be found in many application domains,
 such as maritime systems,
@@ -62,69 +62,99 @@ and robotic systems.
 
 % MARITIME
 %
-In the maritime domain,
-\acp{MASS} are progressively being deployed to minimize the risk of human error and to reduce operational costs.
+In the maritime domain, 
+\acp{MASS} are being introduced progressively 
+to minimise human error and reduce operational costs. 
 %
-The ambition is to have fully autonomous ships that can operate without human intervention.
+The long-term ambition is to deploy fully autonomous ships 
+capable of operating without human intervention. 
 %
-However,
-this goal is ambitious not only because of the technical challenges involved in designing autonomous ships,
-but also because the communication infrastructure cannot currently support the coordination of a fleet of autonomous ships.
+This objective is challenging not only for technical reasons associated with autonomy, 
+but also because current communication infrastructures are inadequate 
+to support the coordination of a fleet of autonomous vessels. 
 %
-This scenario highlights how the design of complex systems is not only a matter of designing the individual entities, but also involves the design of the communication and coordination mechanisms that allow these entities to work together effectively.
+This illustrates that the engineering of complex systems must address both 
+the design of individual entities 
+and the design of communication and coordination mechanisms 
+that enable effective collective operation.
 
 % VEHICULAR
 %
-Similarly, in the vehicular domain,
-there is a shift towards autonomous vehicles adoption.
+In the vehicular domain 
+there is a clear shift towards the adoption of autonomous vehicles. 
 %
-In this scenario, 
-the infrastructure in which autonomous entities operate is fundamentally different; 
-its rules ease the definition of autonomous vehicles' behavior (i.e. road lanes, traffic lights, traffic rules, etc.), and the communication infrastructure is more reliable and robust than in the maritime domain.
+Compared to the maritime settings, 
+here the operating infrastructure 
+(e.g. road lanes, traffic lights, traffic regulations) 
+often simplifies the specification of vehicle behaviour 
+and the communication infrastructure is generally more reliable. 
 %
-The challenge for designing such systems lies more in the highly dynamic nature of the environment,
-in fact there are many unpredictable events that can occur on the road, such as accidents and traffic jams,
-which are not likely to occur in the maritime domain.
-%  
-From this scenario emerges the need for complex systems to share knowledge to improve their perception of the environment, thus allowing them to avoid accidents and traffic jams and enforce safety rules for passengers and pedestrians.
+The principal challenge in vehicular scenarios stems from 
+the high dynamism of the environment: 
+unpredictable events such as collisions and congestion are very common. 
+%
+These scenarios emphasise the need for complex systems 
+to share knowledge so as to improve perception, 
+avoid accidents 
+and enforce safety for road users and pedestrians.
 
 % DRONES and ROBOT coordination
 %
-Another challenge for designing complex system can be found in the domain of drones and robots.
+Coordination challenges 
+are also central to domains involving drones and robots. 
 %
-Often, this kind of autonomous entities are employed to coordinate their behavior to achieve a common goal, such as in search and rescue operations, exploration of unknown environments, or warehouse logistics.
+These autonomous entities are commonly required to cooperate 
+and achieve a common goal in tasks such as 
+search and rescue, 
+exploration of unknown environments, 
+or warehouse logistics. 
 %
-In these scenarios, 
-the challenge is to design the coordination mechanisms that allow these entities to cooperate efficiently, 
-while also ensuring that they can adapt to changing conditions and unexpected events in the environment.
+In these applications, 
+coordination mechanisms must enable efficient cooperation 
+while maintaining adaptivity to changing conditions and unexpected events. 
 %
-Efficiency is a key requirement in these scenarios, as the entities often have limited resources (e.g., battery life, computational power) and, at the same time, need to achieve the desired shared outcome.
+Efficiency is a key requirement in these scenarios, 
+since agents have constrained resources 
+(for example, limited battery life or computational capacity) 
+and yet they must achieve shared objectives.
 
-All these scenarios highlight the complexity of designing software for complex systems,
-which does not only involve the definition of the behavior of individual entities,
-but also include mechanisms for communication, coordination, and adaptation to changing conditions in the environment.
+These scenarios underline the complexity of engineering software for complex systems: 
+it is not sufficient to specify the behaviour of individual entities, 
+but it is also necessary to provide mechanisms for 
+communication, 
+coordination 
+and adaptation to environmental changes. 
 %
-Software engineering has an approach to address this challenge: the choice of an appropriate level of abstraction.
+A common software-engineering strategy to manage this complexity 
+is to select an appropriate level of abstraction.
 %
-The level of abstraction represents a way to hide complex, low-level details behind a simpler, higher-level interface to focus on solving directly the problem at hand.
+The level of abstraction represents a way to hide complex, 
+low-level details behind a simpler, 
+higher-level interface to focus on solving directly the problem at hand.
 %
-However,
-the choice of an appropriate level of abstraction is not trivial,
-because different abstraction levels provide complementary advantages and disadvantages; 
-too many low-level details can hinder the ability to solve the problem at hand, while too much abstraction can limit the effectiveness of the solution.
+Choosing the appropriate abstraction level is non-trivial 
+because different levels trade off complementary advantages and disadvantages: 
+excessive low-level detail hinders comprehension and reuse, 
+whereas excessive abstraction may limit the effectiveness of the solution.
 
-There are many approaches to design complex systems,
-one instance is the agent-based model which allows to express the heterogeneity of the devices composing the system, 
-but the resulting software is difficult to use for building reusable libraries that describe emergent coordinated behaviors.
+Various design approaches exist for complex systems. 
 %
-% During the design process, 
-% software engineers must decide how to represent the entities composing the system, 
-% and this decision significantly affects both the expressiveness of the resulting model and the complexity of its implementation.
+Agent-based models, 
+for example, 
+enable the explicit representation of heterogeneity among devices, 
+but they can make it difficult to build reusable libraries that capture emergent, 
+coordinated behaviours. 
 %
-This is especially true for a family of approaches such as \ac{BDI}, 
-which push abstraction to the extreme, 
-allowing for a level of abstraction close to human reasoning, 
-but at the price of limited support for building reusable software modules.
+In contrast, 
+paradigms that expose collective behaviour 
+as a first-class abstraction simplify the specification 
+of emergent phenomena 
+but may sacrifice expressiveness with respect to individual heterogeneity.
+
+%
+This is true for a family of approaches such as \ac{BDI}, 
+which offers a high-level model of practical reasoning 
+that closely resembles human deliberation. 
 %
 The model was initially inspired by the work of the philosopher Michael Bratman,
 who described humans' practical reasoning via the ``beliefs, desires, intentions'' framework,
@@ -138,22 +168,27 @@ The expressiveness of \ac{BDI} is particularly useful in scenarios where the ent
 because it requires the software engineer to represent the internal state and decision-making processes of each entity composing the system.
 
 There exist other classes of systems in which the intelligence is not the one of the individual entities, 
-but rather the one that comes from the collective composed by many entities, 
-and in these cases \ac{BDI} falls short.
+but rather the one that arises at the collective level, 
+and using the \ac{BDI} approach can be less appropriate.
 %
 When the number of entities composing the system is large,
 interaction between entities can lead to emergent phenomena that cannot be predicted by analyzing the behavior of individual entities,
-and when this emergent behavior is intelligent, it is referred to as \emph{collective intelligence}.
+and when this emergent behavior is intelligent, 
+it is referred to as \emph{collective intelligence}.
 %
-An example of emergent phenomena is the flocking behavior of birds, 
-where the collective movement of the flock emerges from the local interactions between individual birds, without any centralized control or coordination.
+An example of emergent phenomena is bird flocking:  
+the collective movement of the flock emerges from 
+the local interactions between individual birds, 
+without any centralized control or coordination.
 %
-Approaches to design collective intelligence,
-often provide a higher-level abstraction that allows for the specification of collective behaviors, 
-but at the cost of losing the ability to express the heterogeneity of individual devices.
+Programming models for design collective intelligence
+often provide a higher-level abstraction that allows for specifying collective behaviors, 
+but at the price of losing expressiveness on the heterogeneity of individual devices.
 %
 This is the case of \ac{AC}, 
-which is a framework for programming distributed systems by treating a collection of devices as a computational aggregate rather than as independent interacting processes,
+which is a framework for programming distributed systems
+that treats collection of devices as a computational aggregate 
+rather than as independent interacting processes.
 % Mentnions the abdstraction from communication
 %Mention reusable libraries for collective behaviors
 
@@ -162,32 +197,33 @@ which is a framework for programming distributed systems by treating a collectio
 The context briefly described above
 outlines a fundamental gap in the current state of the art of software engineering for complex systems.
 %
-Either the software allows for expressing the heterogeneity of the entities composing the system,
-but at the cost of making it difficult to express a coordinated behavior,
-or the software is designed to express the latter,
-but losing the level of heterogeneity of the former.
+Existing solutions typically emphasise either individual heterogeneity 
+(making coordinated behaviour hard to express) 
+or collective behaviour 
+(reducing the ability to represent per-device heterogeneity). 
 %
-From a software engineering perspective instead,
-the two aspects can be seen as complementary, and the ability to combine them within a unified programming model has the potential to improve both the expressiveness and the modularity of software models for complex systems.
+From a software engineering perspective, 
+these aspects are complementary: 
+combining them within a unified programming model 
+could improve both expressiveness and modularity for complex-systems software.
 
-Over the last decades,
-this software engineering challenge has been addressed by different research fields, each one proposing its own solution.
+Over the last years,
+diverse research communities have proposed solutions 
+that address different facets of this challenge.
 %
-Even though these solutions were developed independently,
-they share common design principles and abstractions that were lately evolved in different ways.
-\note{
-    Aggiungere che queste comunità di ricerca limitrofe hanno trovato sistemi diversi per affrontare problemi simili perchè si sono focalizzati su aspetti diversi del sistema complesso. (Emerge dal testo ma c'è bisogno di stressarlo ancora di più)
-}
+Although these solutions were developed independently,
+they share common design principles and abstractions 
+that were lately evolved in different ways.
 %
 For instance, 
-the agent-oriented research field has focused on the design of software for heterogeneous intelligent entities,
+the agent-oriented community focused on software design for heterogeneous intelligent entities,
 initially proposing the \ac{BDI} framework,
 that was successively formalised by means of modal logics~\cite{CohenL90},
 and then turned into an abstract semantic for computational agents: \agentspeak~\cite{rao1991bdi}.
 %
-Implementations of \ac{BDI} agents,
+Implementations of \ac{BDI} agents
 are most commonly rooted on the \ac{PRS}~\cite{georgeff1987reactive},
-which is characterized by four main abstractions:
+and emphasise four core abstractionss:
 %
 \begin{itemize}
     \item \emph{Beliefs}: a set of facts and rules representing an agent's \emph{epistemic} memory,
@@ -201,181 +237,115 @@ which is characterized by four main abstractions:
     \item \emph{Plans}: a set of \emph{recipes} representing the agent's procedural memory,
     hence encoding the know-how about achieving a given intention under certain conditions.
 \end{itemize}
-%
-Self-* systems researchers instead,
-did not focus on the individual expressiveness of software entities, 
-but rather defined a feedback loop to structure the control of autonomous entities, 
-called \mapek{}, 
-which is a more general abstraction that can be applied to different types of systems.
-%
-Part of the research on self-* systems has instead focused on the design of software for collective behaviors,
-proposing a paradigm to define reusable software modules to express emergent phenomena arising from the interaction of many entities, 
-called \ac{AC}, 
-without the need to explicitly define the interaction between individual entities,
-thus reducing the heterogeneity expressiveness of the paradigm.
-%
 
-All these approaches share the principle of subdividing the system 
-into a set of autonomous entities that can perceive their environment, 
-reason about their goals, 
-and perform actions.
+Research in autonomic and self-* systems 
+has emphasised different abstractions, 
+such as the \mapek{} feedback loop,
+which structures control in terms of monitoring, analysis, planning and execution. 
 %
-At the same time, 
-these approaches differ in the level of abstraction they provide to express the internal reasoning of these entities and their interactions.
-%
-Each abstraction level has its own advantages and disadvantages,
-and we believe that combining them into a singular programming framework can provide a more expressive and modular approach to software engineering for complex systems.
-%
-While the \ac{BDI} paradigm naturally captures \emph{symbolic intelligence},
-its reasoning cycle is akin to the well-known \mapek{} loop~\cite{DBLP:journals/computer/KephartC03}:
-as such,
-it seems a good candidate for engineering agents in scenarios typical of autonomic and self-organizing computing,
-and especially in self-improving and -integrating systems,
-which need extended cognitive, reflective, and introspective capabilities.
-%
-By unifying these complementary abstractions,
-software engineers can pick the most appropriate level of abstraction for each part of the system,
-allowing them to express both the heterogeneity of individual entities and define (or reuse) collective behaviors that emerge from their interactions.
-%
-Indeed, in the past,
-multiple works published in self-* communities
-considered the \ac{BDI} model as viable for agents in autonomic systems
-(a few examples are~\cite{DBLP:conf/saso/Burkhardt18,DBLP:conf/saso/CasadeiV18}),
-although the actual adoption has been limited.
-%
-This thesis explores how these complementary abstractions
-can be effectively combined into a coherent programming framework,
-enabling developers to seamlessly move between global and local perspectives according to the modeling requirements of the system.
-%
-We investigate the reasons behind the limited adoption of \ac{BDI} in the self-* communities,
-and hypothesize that the lack of suitable tools is a major factor,
-rather than the shortcomings of the \ac{BDI} model per se.
-%
+Other lines of work focus on collective behaviour 
+and provide paradigms for expressing emergent phenomena 
+(for example, \ac{AC}), 
+thus reducing the need to specify low-level interactions among individuals.
 
+All these approaches share the idea of 
+decomposing a system into autonomous entities that can perceive an environment, 
+reason about goals 
+and perform actions. 
+%
+They differ, however, 
+in the abstraction they expose for internal reasoning and interaction. 
+%
+Each abstraction level offers specific benefits and limitations. 
+%
+We believe that combining these complementary abstractions into a single programming framework 
+would enable engineers to choose the most appropriate level of abstraction 
+for each part of a system, 
+thereby supporting both individual heterogeneity and reusable collective behaviours.
+%
+The \ac{BDI} paradigm naturally captures what may be called symbolic intelligence; 
+its reasoning cycle resembles the \mapek{} loop~\cite{DBLP:journals/computer/KephartC03} 
+and is therefore a promising candidate for engineering agents in autonomic and self-organising systems, 
+particularly in contexts that require cognitive, 
+reflective and introspective capabilities. 
+%
+Previous work from both agent-oriented and self-* communities considered \ac{BDI} 
+in such roles~\cite{DBLP:conf/saso/Burkhardt18,DBLP:conf/saso/CasadeiV18}, 
+though wider adoption has been limited. 
+%
+This thesis investigates how these complementary abstractions 
+might be combined into a coherent programming framework 
+that allows developers to move fluidly between global and local perspectives according to modelling needs. 
+%
+We further explore the hypothesis that limited adoption of \ac{BDI} in some communities is driven more by a lack of suitable tooling than by inherent shortcomings of the model itself.
 
-Along with software design, 
-software requires to be verified too.
+Alongside software design, 
+verification is essential to ensure that a complex system behaves as expected before deployment 
+and thus to minimise potential economic impact of failures. 
 %
-Software verification is essential to assess that the complex system being designed is behaving as expected, 
-especially before the deployment
-to minimize the economical impact of potential failures.
+Verification of multi-agent systems often relies on simplified models or specialised implementations 
+(for example, for model checking or simulation). 
 %
-Often, 
-the verification of multi-agent systems adopts a simplified implementation, 
-\note{Qui mi sto riferendo al model checking, si capisce?}
-which cannot really guarantee that the system converges to the desired behavior in all possible scenarios that can occur in a non-deterministic environment.
+Such simplifications are adopted for several reasons: 
+they make it easier for engineers to understand the sequence of actions leading to a failure,
+they simplify the expression of verification properties, 
+and they may be necessitated by technological constraints 
+(for instance, when simulation targets different platforms or libraries). 
 %
-This simplification is required for many reasons, 
-some being software engineers requirement to easily understand the action sequence that took to a failure, 
-or to express model checking rules
-\sidenote{Si scrivono così?}
-to assess the source code does not contains bugs. 
+The consequence is frequently the existence of an alternative implementation used only for simulation, 
+which raises reproducibility and verification concerns.
 %
-Other reasons are instead related to technological constraints 
-(i.e. different platforms and libraries for deployment and simulation)
-which require a specific implementation of the system dedicated to simulation.
+Another common trade-off concerns simulation fidelity: 
+high-fidelity three-dimensional simulations offer realistic environments but scale poorly,
+while lower-fidelity simulations scale better but sacrifice environmental expressiveness. 
 %
-In both cases, 
-the result is a completely different implementation that is dedicated to run in the simulation environment, 
-which is a concern for reproducibility and verification of the code-base.
+In this thesis we explore how a framework 
+that unifies complementary abstractions for \ac{CAS} 
+can be integrated with simulation engines so that the same code base can be used 
+for both deployment and simulation, 
+improving reproducibility and verifiability of behaviours.
 
-Another issue about simulation is not only related to the code-base, 
-but also to the fidelity of the environment scenario,
-software engineers are forced to face a trade off%
----either they pick a high fidelity three-dimensional simulation, 
-which hardly scales up the system, 
-or they focus more on scalability but loosing environment expressiveness.
+To this end, 
+the thesis begins with a review of prior work on \ac{BDI} agents with the objective of designing a next-generation \ac{BDI} framework that interoperates smoothly with existing libraries, 
+simulation infrastructures, 
+developer toolchains and, 
+where appropriate, 
+contemporary \ac{AI} technologies such as \acp{LLM}. 
 %
-In this scope, 
-we investigate how the aforementioned framework for defining \ac{CAS} 
-can be integrated with simulation engines to use the same code-base for both deployment and simulation,
-thus allowing for a more reproducible and verifiable behaviors.
-
-To define such framework,
-this thesis started looking for the previous research about \ac{BDI} agents, 
-with the objective to build the next generation of \ac{BDI} agents, 
-which can easily interoperate with libraries, software engineers, simulations, and LLMs.
-%
-Moreover, 
-observing that common principles can be found in \ac{BDI} and \mapek{}, 
-those can be used to define a more general \ac{BDI} framework engine for defining autonomous entities.
+Observing common principles between \ac{BDI} and \mapek{}, 
+we leverage these to outline a more general \ac{BDI} engine that allows engineers to select the most suitable abstraction level for different parts of the system.
 %
 In this way,
 depending on the specific application domain,
 software engineers can pick the most appropriate abstraction level to define the internal information with which their autonomous entities reason.
-%
-\note{Connection between BDI+MAPE-K and AC. Come la infilo visto che l'abbiamo ipotizzata ma mai integrata?
-
-Questa tesi rappresenta un primo passo verso la definizione di un framework per la progettazione di sistemi complessi, il quale tenderà a unificare anche \ac{BDI} e \ac{AC}.
-}
-
-
-
-% Different abstraction levels provide complementary advantages and disadvantages.
-% %
-% On the one hand, 
-% adopting a global abstraction simplifies the representation of collective behaviors,
-% especially when the objective is to describe emergent phenomena arising
-% from the interaction of many entities. 
-% %
-% However, 
-% this simplification comes at the cost of reducing the ability to represent the heterogeneity of individual devices, 
-% whose internal characteristics and behaviors are intentionally abstracted away.
-% %
-% On the other hand, 
-% adopting a local abstraction allows richer expressiveness 
-% to the design of their internal state, capabilities, and heterogeneous behavior.
-% %
-% However, at the same time
-% it makes the specification of collective behaviors considerably more challenging, 
-% since interactions among entities must be explicitly designed and coordinated.
-
-% These two perspectives do not represent mutually exclusive alternatives.
-% %
-% Rather, 
-% the requirements of complex systems often demand that multiple abstraction levels coexist within the same model. 
-% %
-% For instance, 
-% a developer may wish to describe the collective behavior of a distributed system using a global perspective while simultaneously modeling sophisticated decision-making processes for selected devices based on information that remains local and invisible to the rest of the system.
-% \note{Too vague as an example, maybe a concrete one from the literature is better.}
-
-% Consequently, 
-% % the ability to combine multiple abstractions within a unified programming model has the potential to improve both the expressiveness and the modularity of complex systems.
-% %
-% The objective of this thesis
-% is to investigate existing and novel techniques for integrating complementary abstraction mechanisms, 
-% with the goal of reducing the software design burden placed on developers while increasing their expressiveness power.
-
-% From the perspective of collective behavior, 
-% \ac{AC} provides a high-level abstraction for programming distributed systems by treating a collection of devices as a computational aggregate rather than as independent interacting processes. 
-% %
-% This approach enables developers to specify global behaviors declaratively, 
-% allowing the desired collective behavior to emerge without explicitly programming every individual interaction.
-
-% Conversely, 
-% the modeling of intelligent behavior at the level of individual devices benefits from abstractions centered on autonomous agents. 
-% %
-% In particular, 
-% \acp{MAS} provide a well-established framework for representing autonomous entities capable of perceiving their environment, 
-% reasoning about their goals, and performing actions accordingly.
-
-% Within the agent paradigm, 
-% several architectures have been proposed to structure the control loop governing an agent's behavior. 
-% %
-% Examples include the \ac{PRS}, 
-% originating from the agent-oriented programming community, 
-% and the MAPE-K feedback loop, developed in the autonomic computing domain. Although these architectures were conceived in different research areas, they share the common objective of organizing perception, decision-making, and action into well-defined computational cycles.
-
-% This thesis explores how these complementary abstractions,
-% \ac{AC} for collective behavior and agent-oriented control loops for individual intelligence,
-% can be effectively combined into a coherent programming model, enabling developers to seamlessly move between global and local perspectives according to the modeling requirements of the system.
 
 \paragraph{Contributions of the Thesis}
-\note{MACRO: Next-Generation Multi-Paradigm Agents. Tutti gli altri sono di contorno.}
+The main contribution of this thesis is the conception, 
+design and implementation of a next-generation framework 
+for multi-paradigm agents that unifies agent-oriented 
+(in particular \ac{BDI}) 
+and \ac{AC} abstractions.
+%
+This framework would enable seamless blending of
+agent-oriented programming with mainstream \ac{OOP} and \ac{FP}. 
+%
+Concretely, the thesis:
+\begin{itemize}
+    \item presents \jakta{}, an internal Kotlin DSL and accompanying \ac{BDI} interpreter that embed high-level cognitive abstractions in a statically typed host while preserving IDE tooling, library interoperability and type safety;
+    \item proposes a modular interpreter architecture with pluggable concurrency, environment and action abstractions to support simulation, deployment and alternative communication models;
+    \item demonstrates how multi-paradigm meta-programming and type-safe composition facilitate modularity, reuse and the generation of parametric agent behaviours;
+    \item investigates verification and reproducibility by integrating the framework with simulation engines so that the same code base can be used for both simulation and deployment;
+    \item explores integration with contemporary AI techniques (including \acp{LLM}) to assist automated plan generation and enrich agent reasoning; and
+    \item evaluates the developer experience and tooling benefits of the internal-DSL approach, highlighting practical trade-offs and directions for future optimisation.
+\end{itemize}
+
+Together, these contributions provide both conceptual foundations and practical tooling to lower the barrier for adopting agent-oriented approaches within autonomic and self-* systems.
+
+\note{Read this again after writing the rest of the thesis to check if it is consistent.}
 
 \paragraph{Structure of the Thesis}
 
-\note{Racall to describe the structure of the paper}
+\note{Recall to describe the structure of the paper}
 
 \part{Background}
 
@@ -865,7 +835,7 @@ have remained substantially unchanged since their original formulation,
 the framework continues to attract significant research interest. 
 %
 Rather than replacing its symbolic foundations, 
-recent work extends the language to address new \emph{software engineering} challenges, improve agent \emph{organization}, increase \emph{explainability}, and integrate modern \emph{artificial intelligence} techniques. 
+recent work extends the language to address new \emph{software engineering} challenges, improve agent \emph{organization}, and integrate modern \emph{artificial intelligence} techniques. 
 
 \paragraph{Software Engineering}
 \agentspeak{} initial definition offers limited support for developing large-scale and reusable software systems. 
@@ -979,30 +949,498 @@ they enrich the reasoning process with additional information that enables agent
 
 \note{Non è completo di tutta la letteratura, sono solo alcuni esempi, è il caso di fare uno stato dell'arte più completo? Non è un aspetto centrale della tesi, quindi forse non serve.}
 
-\paragraph{Explainability}
+\paragraph{Integration with generative artificial intelligence}
 
-The symbolic nature of AgentSpeak makes it particularly suitable for explainable artificial intelligence. Since the internal state of an agent is explicitly represented through beliefs, goals, intentions, and plans, the reasoning process can be inspected and reconstructed more easily than in purely subsymbolic approaches.
+The recent success of large language models has opened a new research direction for \agentspeak{-based} systems. Traditionally, an agent's plan library is statically defined by the developer before execution. 
+%
+Although this is beneficial for the agent's predictability and controllability,
+it limits the agent's flexibility and adaptability to unforeseen situations.
+%
+For this reason,
+the \ac{BDI} community has long been interested in the problem of \emph{automatic plan generation},
+incorporating techniques from \ac{AI} planning into the \ac{BDI} architecture.
+%
+The objective is to combine the adaptability and generative capabilities with the symbolic reasoning, 
+explicit knowledge representation, 
+and execution transparency offered by \agentspeak{}. 
 
-Recent work therefore investigates mechanisms for generating human-understandable explanations of agent behaviour. These include reconstructing execution traces, explaining why particular plans were selected or discarded, justifying decisions according to the current belief base, and supporting explanation-oriented communication among agents and human users. Such capabilities are becoming increasingly important in collaborative and human-centred applications, where transparency, accountability, and trust are fundamental system requirements.
+Several approaches explore combining \acp{BDI} principles with \acp{LLM},
+rather than focusing on the integration of generative capabilities
+into the well-established \agentspeak{}-based architecture
+%
+The work by \cite{IchidaM024} proposes NatBDI,
+a \ac{BDI} agent architecture designed for natural language environments.
+%
+It leverages \acp{LLM},
+specifically for \ac{NLI},
+within the \ac{BDI} reasoning cycle to determine the applicability of plans based on natural language beliefs and context descriptions,
+rather than generating the plans themselves.
+%
+Another direction, presented by \cite{JangYCO023},
+uses the \ac{BDI} structure itself to create structured prompts (``BDIPrompting'') for \acp{LLM}.
+%
+This guides the \ac{LLM} to generate more proactive and explainable task plans
+by framing the planning problem in terms of beliefs, desires, and intentions
+directly within the prompt given to the \ac{LLM}.
+%
+Another interesting approach is \cite{2025chatbdi},
+which involves \acp{LLM} to enhance conversation capabilities between \ac{BDI} agents and humans.
 
-Integration with generative artificial intelligence
+\paragraph{Open challenges}
 
-The recent success of large language models has opened a new research direction for AgentSpeak-based systems. Traditionally, an agent's plan library is statically defined by the developer before execution. More recently, researchers have investigated the possibility of employing generative models to synthesize plans dynamically whenever no existing plan is suitable for the current situation.
+Despite nearly three decades of research, several challenges remain open. 
+%
+Current \agentspeak{} technologies still exhibit limitations with respect to interoperability, modular software development, concurrency management, debugging support, and verification. 
+%
+Moreover, while recent advances in generative artificial intelligence significantly extend the applicability of the language, 
+integrating these capabilities without compromising the formal semantics of \agentspeak{} remains an active area of investigation.
 
-In these hybrid architectures, plans generated by a language model can be incorporated into the agent's plan library and subsequently executed according to the standard AgentSpeak operational semantics. The objective is to combine the adaptability and generative capabilities of foundation models with the symbolic reasoning, explicit knowledge representation, and execution transparency offered by the \ac{BDI} architecture. At the same time, this research direction raises several challenges, including the verification of generated plans, their consistency with the agent's belief base, and the preservation of the formal guarantees provided by symbolic reasoning.
-
-Open challenges
-
-Despite nearly three decades of research, several challenges remain open. Current AgentSpeak technologies still exhibit limitations with respect to interoperability, modular software development, concurrency management, debugging support, and static verification. Moreover, while recent advances in explainability and generative artificial intelligence significantly extend the applicability of the language, integrating these capabilities without compromising the formal semantics and predictability of the \ac{BDI} reasoning cycle remains an active area of investigation.
-
-Overall, recent research demonstrates that AgentSpeak(L) is far from being a mature and static language. Instead, it continues to evolve through extensions that preserve its original symbolic and declarative foundations while expanding its applicability to increasingly complex and heterogeneous software systems. These developments also motivate the emergence of new AgentSpeak-inspired technologies, which seek to combine the well-established cognitive model of the language with modern software engineering principles and contemporary artificial intelligence techniques.
+Overall, recent research demonstrates that \agentspeak{} continues to evolve through extensions that preserve its original symbolic and declarative foundations 
+while expanding its applicability to increasingly complex and heterogeneous software systems. 
 
 \subsection{\agentspeak{} Frameworks}
-Programming languages inspired by the \agentspeak{} philosophy, 
-preserve its original abstractions and operational semantics,
-but differ in some implementation details.
+Although \agentspeak{} provides a well-defined operational semantics for programming \ac{BDI} agents, 
+it does not prescribe a specific software implementation. 
+%
+Consequently, since its introduction, 
+the research community has proposed numerous programming languages and frameworks inspired by, 
+or directly implementing, 
+the \agentspeak{} semantics. 
+%
+While these technologies share the same cognitive foundations, 
+they differ considerably in terms of language design, 
+execution platforms, 
+interoperability mechanisms, 
+software engineering support, 
+and runtime characteristics.
 
-The following subsection reviews the main AgentSpeak-inspired technologies and compares them according to a number of software engineering characteristics relevant to the design and implementation of \acp{MAS}.
+Rather than providing a comprehensive survey of every \agentspeak{}-inspired technology proposed in the literature, 
+this section focuses on frameworks that satisfy two criteria. 
+%
+First, they provide an actively maintained implementation of the \agentspeak{} programming model. 
+%
+Second, they are intended for the development of general-purpose \ac{BDI} agents, 
+rather than targeting specific application domains.
+%
+Accordingly, 
+this comparison builds upon the survey by Calegari \textit{et al.}~\cite{lptech4mas-jaamas35}, 
+which reviews the state of the art of logic-based agent-oriented technologies. 
+%
+As far as \ac{BDI} agent programming languages are concerned,
+the comparison focuses on those languages that appear to have some running software implementation
+that is actively maintained and used by the community.
+%
+For completeness, 
+we also include \jakta{} in the comparison, 
+although its development postdates the analysis of the other frameworks. 
+%
+The rationale behind the design choices adopted in \jakta{} is discussed in Section~\ref{sec:jaktadsl}.
+\note{Tolgo jakta?}
+
+The comparison is not intended to establish a ranking among the considered technologies. 
+%
+Instead, its objective is to identify the design choices adopted by existing \agentspeak{} implementations, 
+highlighting both their strengths and their limitations from a software engineering perspective. 
+%
+% These observations motivate several of the architectural decisions underlying the design of \jakta{}.
+
+Table~\ref{tab:languages-comparison} summarizes the comparison, 
+while the remainder of this subsection discusses the considered dimensions in detail:
+\begin{itemize}
+    \item full \textbf{\agentspeak{} compliance};
+    %\item \textbf{logic programming} support, i.e. the capability to rely upon the mechanisms of unification and backtracking to represent and manipulate \ac{BDI} data structures;
+    \item \textbf{\ac{DSL} type} (internal or external);
+    \item \textbf{hosting syntax}, i.e., which syntax the \ac{DSL} is embedded in (for internal \acp{DSL}) or based upon (for external \acp{DSL});
+    \item \textbf{execution platform}, i.e., which runtime platform the language runs upon;
+    \item \textbf{interoperability}, i.e., whether and how other languages can be called from within the \ac{BDI} language (and, in that case, which ones);
+    \item \textbf{paradigm blending}, i.e., whether it is possible to mix, in the same source and scope, AOP and other abstractions;
+%        (for instance, creating objects inside plans and treating plans as objects);
+    \item \textbf{type safety}, i.e., the ability of the compiler/interpreter to intercept (most) type errors ahead-of-execution;
+    \item \textbf{reuse mechanisms}, i.e., whether and how it is possible to parameterise and reuse partial or entire \ac{MAS} specifications;
+    \item \textbf{concurrency model} i.e., whether the \ac{MAS} platform supports developers in switching between multiple ways to execute agents;
+    \item \textbf{explicit environment}, i.e., whether the language provides it as an explicit \emph{and} programmable abstraction;
+    \item \textbf{internal actions}, namely, whether the language provides mechanisms to implement agent introspection
+          (i.e., observing the agent's own state) and related reasoning;
+    \item \textbf{external actions}, akin to internal actions, but related to the perception of and actuation over the environment;
+    \item \textbf{message-passing mechanism}, i.e., how inter-communication among agents is actually supported;
+    and, finally,
+    \item \textbf{license}, which can impact severely on the adoption of a technology.
+\end{itemize}
+
+\input{tables/languages-comparison}
+
+\paragraph{Full \agentspeak{} compliance}
+
+We distinguish between fully compliant \ac{BDI} technologies 
+and the ones that are just inspired to \agentspeak{}.
+%
+Since such compliance,
+to the best of our knowledge,
+has not yet been formally defined,
+for the scope of this paper we rely on the following set of necessary features:
+%
+\begin{enumerate}
+    \item explicit representation of beliefs, goals, plans, and events in the language syntax;
+    \item explicit representation of belief bases, events, plan libraries, and intentions in the engine;
+    \item all the aforementioned representations are based on logic terms and clauses,
+    thus including:
+    %
+    \begin{enumerate}
+        \item arbitrarily structured, possibly nested and non-ground, logic terms and clauses;
+        \item logic unification and resolution (cf. \cite{KornerLBCDHMWDA22})
+        to manipulate the aforementioned data structures;
+    \end{enumerate}
+    \item event-based architecture for the execution of the reasoning cycle;
+    \item explicit support for (at least) achievement and test goals.
+\end{enumerate}
+
+Our analysis identified that both \jason{} and \spadebdi{} are fully compliant to the \agentspeak{} definition,
+in fact, they both can describe agents by the means of \kotlinInline{.asl} files,
+which are structured to represent beliefs, goals, plans, and events following the abstract semantics of \agentspeak{}.
+%
+Furthermore, \phidias{} adheres to our definition of \agentspeak{} compliance as well,
+even though it does not support the \agentspeak{} syntax directly,
+as they come with an internal domain-specific language.
+%
+\goal{} supports logic representation,
+but is missing intentions and test goals,
+hence we classify it as not fully compliant.
+%
+Similarly, even though \astra{} supports all the \agentspeak{} features,
+it does not fully support logic programming to represent beliefs, goals, plans, and events.
+%
+\jadex{} does not provide any unification mechanism.
+%
+Finally,
+although \jack{} explicitly models beliefs and plans,
+it does not represent them using logic terms;
+rather, its \textit{beliefs sets} work as in-memory relational databases.
+%
+Thus, we classify \jack{} as not \agentspeak{}-compliant.
+
+\paragraph{\ac{DSL} type and hosting syntax}
+
+The former feature categorizes \ac{BDI} languages as either \emph{external} or \emph{internal} \ac{DSL}, or possibly both of them.
+%
+Conversely, the latter feature provides further details about the \ac{DSL} syntax.
+%
+The two features are strictly related, as they both refer to the syntax of the language.
+%
+In fact, for internal \acp{DSL},
+one may be interested in understanding which syntax the \ac{DSL} is embedded in,
+whereas, for external \acp{DSL}, we further describe the derivation of the syntax.
+%
+Accordingly, regarding internal \acp{DSL},
+both \spadebdi{} and \phidias{} are hosted by Python.
+%
+Conversely, the syntax of external \acp{DSL} is built as an extension or refinement of a \ac{GPL}.
+%
+For instance, while \jadex{} relies on XML,
+\goal{} extends Prolog~\cite{KornerLBCDHMWDA22}, and \jason{} extends \agentspeak{}; whereas \astra{} and \jack{} extend Java.
+
+\paragraph{Execution platform}
+
+The execution platform is the runtime environment which is required for running a given \ac{BDI} language---as well as the \ac{MAS} described through it.
+%
+It is worth highlighting that several programming languages may be executed on the same platform.
+%
+This is the case,
+for instance,
+in Kotlin, Java, and Scala which are all executed on the \ac{JVM} platform.
+%
+The execution platform is a relevant feature, as it may affect the portability of the \ac{MAS},
+as well as its interoperability with other systems and languages.
+%
+Considering the languages under comparison,
+\spadebdi{} and \phidias{} target Python,
+while all the other ones target the \ac{JVM}.
+
+\paragraph{Interoperability}
+%
+This feature concerns the ability of the agent programming language to interact with the host language constructs.
+%
+Interaction can be achieved in three different ways:
+\begin{enumerate}
+    \item \emph{native}: the \ac{AOP} language is capable of directly calling the \ac{GPL} language constructs;
+    \item \emph{\ac{FFI}}: the \ac{AOP} language features a dedicated \ac{API} allowing streamlined interaction;
+    \item \emph{indirect}: communication is possible, but it requires manually concocted workarounds
+        (e.g., communication via sockets or files).
+\end{enumerate}
+%
+We consider in this discussion only the two former types of interoperability.
+%
+Internal \acp{DSL} such as \phidias{} and \spadebdi{} are capable of native interoperability by constructions
+(they are valid fragments in the host \ac{GPL}),
+while external \acp{DSL} require, typically, the use of a \ac{FFI}.
+%Specifically, this feature is about which other languages the \ac{BDI} language at hand can directly call, exploiting the hosting language interoperability mechanisms.
+%
+All the languages targeting the \ac{JVM} we considered can interoperate with Java constructs,
+but in many cases this interaction must be carefully crafted, adapting to an existing API,
+which may require the creation of glue code.
+%
+For instance,
+in Jason the programmer must adhere to pre-defined Java interfaces provided by the framework,
+producing pure Java code that can then get called from Jason.
+%
+Once Java interoperability is established,
+it is often possible to call also other \ac{JVM} languages
+(Scala, Kotlin, Groovy, etc.),
+limited to the fragments that produce bytecode overlapping Java's\footnote{
+    Producing fully-Java-interoperable bytecode from languages targeting the JVM other than Java is often possible,
+    but it requires special care.
+    %
+    For instance,
+    Kotlin recommends using annotations to explicitly define how Kotlin constructs should be translated into Java ones,
+    see the Kotlin's documentation on ``Calling Kotlin from Java''
+    archived at \url{https://archive.is/HqEIG}.
+    %
+    Scala features many mechanisms that are not directly translatable into Java,
+    such as implicits, higher-kinded types, mixins, and multiple argument lists.
+    %
+    The official compatibility guide provides only general information on cross-compatibility
+    (see the archived documentation about ``Interacting with Java'' at \url{https://archive.is/KX49E});
+    however,
+    compatibility guides are available from third parties such as Databricks,
+    which recommends not using several Scala features in order to make the code compatible
+    (see the ``Java interoperability'' section of the guide archived at \url{https://archive.ph/Qc9Gd}).
+    %
+    For even more conceptually distant languages such as Clojure,
+    the operation may be borderline impossible:
+    according to the official documentation archived at \url{https://archive.is/AeNcE},
+    Interoperability requires the use of a dedicated Clojure \ac{FFI} library.
+    %
+    The take-away message is that native or \ac{FFI}-based interoperability with Java
+    does not automatically imply interoperability with other \ac{JVM} languages.
+}.
+%
+However,
+notice that the presence of a \ac{FFI} does not tell the entire story about \emph{ease} of interoperability.
+%
+For instance,
+although implemented in Java,
+\jadex{} requires the \ac{MAS} specification to be written in XML,
+making interoperability with Java code cumbersome
+compared to other \ac{JVM}-based \ac{AOP} languages.
+
+\paragraph{Paradigm blending}
+%
+We call paradigm blending the \emph{syntactical} language capability to mix,
+in the same code fragment,
+\ac{AOP} constructs and \ac{GPL}-native constructs implementing a different paradigm's abstractions,
+such as object creation and manipulation (for \ac{OOP} languages)
+or higher-order functions definition and invocation (for \ac{FP} languages).
+
+Notice that whether blending is beneficial or detrimental depends on the goal of the language.
+%
+As a rule of thumb,
+blending tends to be beneficial when building complex applications,
+of which different parts may be better expressed in different paradigms.
+%
+On the other hand,
+it may be a double-edged sword when \emph{learning} a new paradigm,
+as the inexperienced may be tempted to work around problems more easily tackled with \ac{AOP} using other paradigms they feel more comfortable with.
+%
+Notice, in fact,
+that some languages purposely enforce a clear separation among high-level AOP constructs
+(e.g., belief, goals, plans)
+and the hosting language ones (e.g. classes, functions, etc.),
+purposely allowing interoperation only through carefully-crafted \acp{FFI}~\cite{DBLP:conf/eumas/BergentiMP23}.
+%
+The strong separation is typical of
+\jason{} and \jadex{}.
+%
+There, in the former case, \acp{MAS} are composed by scripts describing agent specifications
+supporting solely \agentspeak{}-compliant constructs,
+and, in the latter, by actions/environment written in ordinary Java.
+
+Interestingly,
+languages whose syntax is blended with the hosting language may be further categorized into two sub-sorts,
+depending on whether they
+%
+\begin{inlinelist}
+    \item\label{case:aop-into-oop}
+    limit the use of the \ac{GPL}'s abstractions into agents/plans specifications, or
+    \item\label{case:oop-into-aop} allow the \ac{GPL}'s constructs to appear into \ac{AOP} programs directly.
+\end{inlinelist}
+%
+Case~\ref{case:aop-into-oop}, for instance,
+characterizes Python-based \ac{BDI} languages such as \spadebdi{} and \phidias{},
+where AOP specifications consist of Python classes and methods.
+%
+Conversely, \astra{}, \jack{}, and \goal{} adopt strategy~\ref{case:oop-into-aop},
+as their syntaxes permit writing Java or Prolog constructs and libraries, respectively.
+
+\paragraph{Type safety}
+%
+This feature refers to the presence of a strict compile-time type checker for the \ac{BDI} language at hand,
+which may proof check agents specifications before execution.
+
+Solutions featuring tight interoperability with Java,
+such as \astra{}, \jack{}, and \jadex,
+come with this feature;
+whereas the other languages in this comparison do not.
+%
+Those (\jason{}, \spadebdi{}, \phidias{}, and \goal{})
+favour a flexible syntax over type safety,
+as they rely on weakly-typed hosting languages such as Prolog or Python.
+
+\paragraph{Reuse mechanisms}
+%
+This feature refers the presence of abstraction mechanisms supporting the reuse of partial \ac{MAS} specifications.
+As far as this feature is concerned, we observe great variety among the surveyed languages.
+%
+Some rely on bare file inclusion mechanisms.
+%
+This is the case, for instance,
+of \jason{},
+supporting the inclusion of ASL files into other ASL files;
+and \jadex{},
+which, in addition to Java inheritance between agent classes,
+supports referencing XML or Java files into other XML files for more flexible reuse of agents' capabilities.
+
+Furthermore, virtually all surveyed solutions support the abstraction and reuse mechanisms of the hosting language, if any.
+%
+For instance,
+internal actions in \jason{} are defined as
+pure Java classes,
+thus they can be reused across multiple projects.
+%
+This implies,
+for instance,
+that solutions based on a \ac{OOP} host \ac{GPL} may take advantage of its \ac{OOP} abstraction mechanisms,
+such as sub-typing and inheritance,
+for the \ac{OOP}-written portions of their \ac{MAS} specifications.
+
+Some solutions may also expose high-level, agent-oriented notions -- such as agents or plans -- as first-class syntactical constructs.
+%
+In other words, they may provide ad-hoc syntax for writing agents or plans.
+%
+This is the case, for instance, of \astra{}, \jack{}, and \goal{}.
+%
+When this is the case,
+first-class abstraction can be reused along the \ac{MAS} specification.
+%
+For example,
+\astra{} supports writing agents' specifications extending other agents' specifications,
+whereas \jack{} bases its modularity on the concept of capabilities~\cite{busetta1999structuring} wrapping beliefs and plans.
+
+\paragraph{Concurrency model}
+
+%\sbnote{Visto che l'altro paper ha rivelato che la situazione è un po' più articolata di così sta sezione va cambiata o rimossa. Potremmo cambiarla con "supporta nativamente lo switch tra modelli di concorrenza diversi", che forse è più safe}
+%
+This feature is about how the surveyed solutions deal with agents' \emph{concurrent execution},
+and whether developers can select among multiple execution models
+without resorting to changes in the execution platform's code.
+%
+Despite agents having their own \emph{logical} control flow -- as required by their computational autonomy --,
+how such control flow is mapped in practice over processes, threads, and other platform- and operating system-specific concurrency facilities may vary wildly.
+%
+The mapping between logical and physical control flows may affect several runtime properties of a \ac{MAS}:
+performance and scalability are the most obvious one,
+but also determinism and
+reproducibility
+(hence, testability) are deeply affected.
+
+Admissible choices in this case are manifold.
+%
+The most common ones are:
+%
+\begin{description}
+    \item[\ac{1A1T}] where each agent is mapped over a single thread;
+    \item[\ac{AA1T}] where all agents in the system share the same thread;
+    \item[\ac{AA1E}] where all agents in the system share the same executor service;
+    \item[\ac{1A1P}] where each agent is mapped over a single process.
+\end{description}
+
+\jason{}, \astra{}, \jadex{} and \goal{} provide mechanisms that allow developers to customise execution strategies for their \ac{MAS}.
+%
+They provide support for multiple strategies out of the box
+(of which one,  \acs{AA1E} is set as default),
+and they provide \acp{API} to regulate the amount of threads in the executor.
+
+\phidias{},
+instead, is hard-coded to \acs{1A1T}.
+%
+\spadebdi{},
+relying on Python coroutines that are single-threaded by default\footnotemark,
+implicitly adopt the \acs{AA1T} model.
+\footnotetext{Developing with \texttt{asyncio}, Concurrency and Multithreading, Python 3 docs. Archived at \url{https://archive.is/YWQw5}}
+%
+In the case of \jack{},
+the documentation does not discuss the available concurrency abstractions,
+nor it explains how to select them or provide a custom one.
+
+
+\paragraph{Explicit environment}
+%
+The design of environments
+is essential for multi-agent systems that rely on stigmergy~\cite{WeynsOO07}.
+%
+We analyse whether the \ac{BDI} languages under scrutiny feature an explicit and \emph{programmable} notion of environment.
+%
+To the best of our knowledge,
+the environment is modelled as a first-class programmable construct in \jason{}, \astra{}, \goal{}.
+
+\paragraph{Internal/External actions support}
+%
+This feature is about whether \ac{BDI} languages come with some means to enrich agents' or environments' specifications
+with custom functionalities written via the host language.
+%
+Using \jason{}'s nomenclature, we call these functionalities ``external (resp. internal) actions'',
+if they extend the agents' capability to perceive/affect the environment (resp. their own internal state).
+%
+From a programming language perspective, actions are the technical bridge between the agent- and the object-oriented portions of a \ac{MAS} specification.
+
+The support for internal or external actions is heterogeneous among \ac{BDI} languages (cf. \Cref{tab:languages-comparison}),
+and we identified that \jason{}, \astra{}, and \goal{} support both of them.
+%
+For those languages for which we did not identify an explicit notion of environment,
+we assumed that the mechanism of external actions is not supported as well.
+%
+Neither \jack{} nor \jadex{} provide first-level abstractions for actions,
+instead, both provide customisation mechanisms,
+the first one through the concept of ``capability''~\cite{busetta1999structuring},
+while the second leveraging Java inheritance.
+
+\paragraph{Message passing mechanism}
+%
+Despite most \ac{BDI} languages coming with primitives enabling agent interaction via message-passing,
+they may differ in the way they support message exchange in practice.
+%
+This feature is about \emph{how} \ac{BDI} languages support message exchange.
+%
+Options involve:
+%
+\begin{inlinelist}
+   \item\label{case:in-process} in-process communication,
+   enabling communication only among agents sharing the same runtime;
+   \item\label{case:distributed} distributed communication,
+   possibly involving data exchanges over networked machines;
+   and
+   \item\label{case:pluggable} customisable communication,
+   in which, both the previous cases can be supported, depending on the configuration.
+\end{inlinelist}
+
+Case~\ref{case:in-process} is native in \goal{}~\cite{Hindriks2009}.
+%
+Conversely,
+\spadebdi{}, \astra{}, \phidias{} and \jadex{} are characterized by case~\ref{case:distributed},
+as they rely upon the XMPP, UDP, TCP sockets or HTTP, and TCP/SSL protocols respectively.
+%
+\jason{} and \jack{}~\cite{Winikoff2005} fall into Case~\ref{case:pluggable}.
+
+\paragraph{License}
+%
+This feature is about which license \ac{BDI} solutions are distributed with,
+which is crucial for the adoption of the technology.
+%
+Mainly,
+solutions can require a fee for their usage,
+being free of charge but not open source,
+or being open source
+(hence, inspectable and extendable).
+%
+All solutions but \jack{} (which is proprietary, commercial, and closed-source) adopt a \ac{FOSS} license.
 
 \section{\acl{AC}}
 \subsection{Macroprogramming}
@@ -1013,6 +1451,7 @@ The following subsection reviews the main AgentSpeak-inspired technologies and c
 \part{Next-Generation Multi-Paradigm Agents} 
 
 \chapter{Multi-Paradigm Integration for the \acs{BDI} Resurgence}
+
 At the beginning of the millennium,
 scenarios typical of autonomic and self-* systems
 seemed to be better tackled with techniques designed for \ac{MAS},
@@ -1141,6 +1580,7 @@ we intend to experiment \jakta{} integration with other tools,
 trying to shape its evolution based on practical use cases.
 
 \chapter{Blending BDI Agents with Object-Oriented and Functional Programming with \jakta{}}
+
 Many modern mainstream programming languages natively support multiple programming paradigms,
 thus allowing programmers to use the most appropriate abstractions for the job at hand
 without the need to adapt their mind to a syntax and tooling different to the one they are acquainted with.
@@ -1433,626 +1873,12 @@ Kotlin-based \acp{DSL} inherit all the host language's features and libraries.
 %
 % This is for instance the case of our \ac{DSL} proposed in \cref{sec:contribution}.
 
-\subsection{Multi-agent systems, BDI, and their technologies}
-\label{subsec:bdi-languages}
-
-The philosopher Michael Bratman described humans' practical reasoning via the ``beliefs, desires, intentions'' framework,
-as a way to explain future-directed decision-making~\cite{bratman1987intention}.
-%
-Successively, the framework was formalised by means of modal logics~\cite{CohenL90},
-and then turned into an abstract semantic for computational agents: \agentspeak~\cite{rao1991bdi}.
-
-Computational agents are \emph{autonomous} entities~\cite{OmiciniRV08}
-situated into an \emph{environment} they can perceive and affect;
-they interact either directly or through the environment~\cite{cartago-jaamas23} by means of stigmergy.
-%
-The classical implementation of \ac{BDI} agents,
-based on the Procedural Reasoning System (PRS)~\cite{georgeff1987reactive},
-is characterized by four main abstractions, namely:
-%
-\begin{description}
-    \item[Beliefs:] a set of facts and rules representing an agent's \emph{epistemic} memory,
-    possibly describing its knowledge about the world, itself, and other agents;
-
-    \item[Desires:] a set of goals, representing (possibly partial) descriptions of desirable states of the world
-    the agent is willing to achieve, test, or maintain;
-
-    \item[Intentions:] a set of tasks the agent is currently committed to, in order to satisfy some of its desires;
-
-    \item[Plans:] a set of \emph{recipes} representing the agent's procedural memory,
-    hence encoding the know-how about achieving a given intention under certain conditions.
-\end{description}
-
-Any instance of the aforementioned abstractions in a \ac{BDI} agent may vary during its lifetime.
-%
-For instance,
-novel beliefs appear in the agents' minds whenever they receive novel perceptions from their sensors,
-while stale beliefs simultaneously disappear.
-%
-Similarly,
-novel beliefs may arise while agents interact with each other
--- or with humans --
-or as they choose to memorize some information they have deducted via reasoning.
-%
-The occurrence of relevant events may induce an update in the set of desires
-(i.e., acquiring new goals to be achieved/tested/maintained and/or discarding some goals).
-%
-Agents' desires eventually lead to dropping existing or adopting novel intentions
-(activities to achieve/test/maintain goals the agent is committed to).
-
-While carrying on an intention,
-agents may select one or more plans among those supporting the corresponding intention's accomplishment.
-%
-Plans may involve the execution of one or more actions
--- possibly affecting the environment via actuators --
-or the accomplishment of further sub-goals,
-which may, in turn,
-require the execution of further plans as part of the same intention.
-%
-Finally,
-agents could even learn entirely new plans,
-either through reasoning or through information sharing with other agents.
-
-\paragraph{Interaction}
-
-Widening the scope to \emph{multi}-agent systems,
-in which \ac{BDI} agents are able to exchange information among each other,
-the focus shifts from the single agent to the interplay among multiple agents.
-%
-Communication can happen directly
-through explicit agent-to-agent communication
-or indirectly through a change in the environment.
-%
-The latter is also called
-stigmergic communication~\cite{ch30-castelfranchifestschrift2012,HadeliVKB04}:
-the actions of one agent may alter the environment,
-and this alteration may be perceived by other agents,
-which in turn adapt their behaviour.
-%
-To support this capability in software systems,
-\ac{MAS} technologies come with explicit and malleable environment abstractions~\cite{WeynsOO07}
-which \ac{MAS} developers can customise to accommodate the application's needs.
-%
-In practice, the environment contains both agents \emph{and} information
-that agents can access and modify;
-thus, specific abstractions are provided to perform such operations,
-typically ad-hoc actions or artefacts~\cite{OmiciniRVCT04}.
-
-\paragraph{Communication}
-
-Communication is a more explicit form of interaction where agents exchange messages among each others.
-%
-Message exchanges may, in turn, be structured in conversations, matching well-recognised patterns,
-also known as interaction protocols\footnotemark.
-%
-\footnotetext{FIPA Interaction Protocols, archived at \url{https://archive.is/phy6v}}
-
-In interaction protocols, each interacting agent plays a specific role,
-and it is supposed to send messages only in specific moments, to specific agents, and with specific contents.
-
-At the technical level, \ac{MAS} technologies must provide some low-level message-passing mechanism between agents.
-%
-Solutions in this case range from plain method calls
--- limiting interactions to agents sharing the same process --
-to distributed solutions, possibly involving network protocols and infrastructural components%
----such as message queues, brokers, or other middlewares,
-which let agents interact across different machines.
-
-At the semantic level,
-interaction protocols require \acp{ACL}.
-%
-\acp{ACL} are high-level message formats,
-purposefully designed to include meta-data that lets agents interpret the meaning of messages~\cite{Chaib-draaD02}.
-%
-One notable example is the \ac{KQML}~\cite{finin1994KQML},
-which has a dual nature of message format and \ac{ACL},
-with a focus on how knowledge is shared among agents.
-%
-Among the many meta-data prescribed by \ac{KQML},
-the message \emph{performative},
-defining the \emph{purpose} of a message with respect to the protocol and the sender's role,
-is likely the most relevant one.
-%
-Admissible \ac{KQML} performatives derived from speech-act theory~\cite{traum1999speech} are many,
-thus modern \ac{BDI} technologies such as \jason{} commonly rely on a subset of
--- there referred to as ``illocutionary forces''~\cite{BordiniHW2007} --,
-which cover scenarios such as
-transferring beliefs (\texttt{tell}),
-transferring achievement (\texttt{achieve}) or test (\texttt{askOne}, \texttt{askAll}) goals,
-or transferring plans (\texttt{askHow}, \texttt{tellHow}).
-
-\subsubsection{BDI technologies Comparison}
-\label{subsubsec:bdi-languages-comparison}
-
-Since its introduction,
-the community produced many programming languages for \ac{BDI} agents.
-%
-Most of them are either based on or inspired by the \agentspeak{} semantics.
-%
-In this section,
-we compare several major \ac{BDI} agent programming languages from a software engineering perspective.
-%
-Details about the comparison are reported in \Cref{tab:languages-comparison}.
-%
-There, columns represent \ac{BDI} languages, while rows represent features that those languages may (or may not) have.
-%
-For the sake of completeness,
-we included the current status of \jakta{} in the comparison,
-even though its realisation is successive to the analysis of the other languages that we discuss in this section.
-%
-Details on the choices we made for \jakta{} are discussed in \Cref{sec:jaktadsl}.
-
-As far as \ac{BDI} agent programming languages are concerned,
-our comparison focuses on those languages that appear to have some running software implementation
-that is actively maintained and used by the community.
-%
-Hence,
-we build upon the recent work by Calegari \textit{et al.}~\cite{lptech4mas-jaamas35},
-which surveys the state-of-the-art of logic-based agent-oriented technologies,
-and we select the ones aimed to support general-purpose \ac{BDI} agents programming.
-%
-We remark that this comparison is not meant to be exhaustive,
-as providing a complete overview of all the \ac{BDI} agent programming languages available in the literature
-is beyond the scope of this paper;
-rather,
-we show a panorama of the technologies we have been inspired by when designing \jakta{}.
-%
-In this sense,
-our comparison aims to identify both desirable features and potential limitations of the sampled technologies,
-in order to take them into account when designing a novel \ac{BDI} technology.
-
-As far as features are concerned, in the remainder of this section we discuss the ones we believe are most relevant:
-%
-\begin{itemize}
-    \item full \textbf{\agentspeak{} compliance};
-    %\item \textbf{logic programming} support, i.e. the capability to rely upon the mechanisms of unification and backtracking to represent and manipulate \ac{BDI} data structures;
-    \item \textbf{\ac{DSL} type} (internal or external);
-    \item \textbf{hosting syntax}, i.e., which syntax the \ac{DSL} is embedded in (for internal \acp{DSL}) or based upon (for external \acp{DSL});
-    \item \textbf{execution platform}, i.e., which runtime platform the language runs upon;
-    \item \textbf{interoperability}, i.e., whether and how other languages can be called from within the \ac{BDI} language (and, in that case, which ones);
-    \item \textbf{paradigm blending}, i.e., whether it is possible to mix, in the same source and scope, AOP and other abstractions;
-%        (for instance, creating objects inside plans and treating plans as objects);
-    \item \textbf{type safety}, i.e., the ability of the compiler/interpreter to intercept (most) type errors ahead-of-execution;
-    \item \textbf{reuse mechanisms}, i.e., whether and how it is possible to parameterise and reuse partial or entire \ac{MAS} specifications;
-    \item \textbf{concurrency model} i.e., whether the \ac{MAS} platform supports developers in switching between multiple ways to execute agents;
-    \item \textbf{explicit environment}, i.e., whether the language provides it as an explicit \emph{and} programmable abstraction;
-    \item \textbf{internal actions}, namely, whether the language provides mechanisms to implement agent introspection
-          (i.e., observing the agent's own state) and related reasoning;
-    \item \textbf{external actions}, akin to internal actions, but related to the perception of and actuation over the environment;
-    \item \textbf{message-passing mechanism}, i.e., how inter-communication among agents is actually supported;
-    and, finally,
-    \item \textbf{license}, which can impact severely on the adoption of a technology.
-\end{itemize}
-
-\input{tables/languages-comparison}
-
-\paragraph{Full \agentspeak{} compliance}
-
-We distinguish between fully compliant \ac{BDI} technologies and the ones that are just inspired to \agentspeak{}.
-%
-Since such compliance,
-to the best of our knowledge,
-has not yet been formally defined,
-for the scope of this paper we rely on the following set of necessary features:
-%
-\begin{enumerate}
-    \item explicit representation of beliefs, goals, plans, and events in the language syntax;
-    \item explicit representation of belief bases, events, plan libraries, and intentions in the engine;
-    \item all the aforementioned representations are based on logic terms and clauses,
-    thus including:
-    %
-    \begin{enumerate}
-        \item arbitrarily structured, possibly nested and non-ground, logic terms and clauses;
-        \item logic unification and resolution (cf. \cite{KornerLBCDHMWDA22})
-        to manipulate the aforementioned data structures;
-    \end{enumerate}
-    \item event-based architecture for the execution of the reasoning cycle;
-    \item explicit support for (at least) achievement and test goals.
-\end{enumerate}
-
-Our analysis identified that both \jason{} and \spadebdi{} are fully compliant to the \agentspeak{} definition,
-in fact, they both can describe agents by the means of \kotlinInline{.asl} files,
-which are structured to represent beliefs, goals, plans, and events following the abstract semantics of \agentspeak{}.
-%
-Furthermore, \phidias{} adheres to our definition of \agentspeak{} compliance as well,
-even though it does not support the \agentspeak{} syntax directly,
-as they come with an internal domain-specific language.
-%
-\goal{} supports logic representation,
-but is missing intentions and test goals,
-hence we classify it as not fully compliant.
-%
-Similarly, even though \astra{} supports all the \agentspeak{} features,
-it does not fully support logic programming to represent beliefs, goals, plans, and events.
-%
-\jadex{} does not provide any unification mechanism.
-%
-Finally,
-although \jack{} explicitly models beliefs and plans,
-it does not represent them using logic terms;
-rather, its \textit{beliefs sets} work as in-memory relational databases.
-%
-Thus, we classify \jack{} as not \agentspeak{}-compliant.
-% \sbsidenote{Avendo rimosso "logic programming" a questo punto direi che ha senso almeno menzionare che GOAL è comunque basato su logica}
-
-\paragraph{\ac{DSL} type and hosting syntax}
-% \mbsidenote{Qui non mi e' chiaro perche' in tabella mettiamo in alcuni linguaggi la VM di riferimento mentre in altri (Jakta) solamente il linguaggio di programmazione.
-% Inoltre, per essere coerenti servirebbe un paragrafo anche per questa distinzione ma non so cosa dover dire oltre al fatto che usano quel linguaggio.}
-% \sbsidenote{Il razionale credo sia: dDove è un \ac{DSL} interno metto l'host language dove non lo è metto la piattaforma di esecuzione, nel paragrafo si può scrivere questo...}
-% \gcsidenote{Avete ragione entrambi infatti ho modificato tabella e questo paragrafo e il successivo. Ditemi se è chiaro e, nel caso, commentate/togliete queste note.}
-%
-The former feature categorizes \ac{BDI} languages as either \emph{external} or \emph{internal} \ac{DSL}, or possibly both of them.
-%
-Conversely, the latter feature provides further details about the \ac{DSL} syntax.
-%
-The two features are strictly related, as they both refer to the syntax of the language.
-%
-In fact, for internal \acp{DSL},
-one may be interested in understanding which syntax the \ac{DSL} is embedded in,
-whereas, for external \acp{DSL}, we further describe the derivation of the syntax.
-%
-Accordingly, regarding internal \acp{DSL},
-both \spadebdi{} and \phidias{} are hosted by Python.
-%
-Conversely, the syntax of external \acp{DSL} is built as an extension or refinement of a \ac{GPL}.
-%
-For instance, while \jadex{} relies on XML,
-\goal{} extends Prolog~\cite{KornerLBCDHMWDA22}, and \jason{} extends \agentspeak{}; whereas \astra{} and \jack{} extend Java.
-
-\paragraph{Execution platform}
-
-The execution platform is the runtime environment which is required for running a given \ac{BDI} language---as well as the \ac{MAS} described through it.
-%
-It is worth highlighting that several programming languages may be executed on the same platform.
-%
-This is the case,
-for instance,
-in Kotlin, Java, and Scala which are all executed on the \ac{JVM} platform.
-%
-The execution platform is a relevant feature, as it may affect the portability of the \ac{MAS},
-as well as its interoperability with other systems and languages.
-%
-Considering the languages under comparison,
-\spadebdi{} and \phidias{} target Python,
-while all the other ones target the \ac{JVM}.
-
-\paragraph{Interoperability}
-%
-This feature concerns the ability of the agent programming language to interact with the host language constructs.
-%
-Interaction can be achieved in three different ways:
-\begin{enumerate}
-    \item \emph{native}: the \ac{AOP} language is capable of directly calling the \ac{GPL} language constructs;
-    \item \emph{\ac{FFI}}: the \ac{AOP} language features a dedicated \ac{API} allowing streamlined interaction;
-    \item \emph{indirect}: communication is possible, but it requires manually concocted workarounds
-        (e.g., communication via sockets or files).
-\end{enumerate}
-%
-We consider in this discussion only the two former types of interoperability.
-%
-Internal \acp{DSL} such as \phidias{} and \spadebdi{} are capable of native interoperability by constructions
-(they are valid fragments in the host \ac{GPL}),
-while external \acp{DSL} require, typically, the use of a \ac{FFI}.
-%Specifically, this feature is about which other languages the \ac{BDI} language at hand can directly call, exploiting the hosting language interoperability mechanisms.
-%
-All the languages targeting the \ac{JVM} we considered can interoperate with Java constructs,
-but in many cases this interaction must be carefully crafted, adapting to an existing API,
-which may require the creation of glue code.
-%
-For instance,
-in Jason the programmer must adhere to pre-defined Java interfaces provided by the framework,
-producing pure Java code that can then get called from Jason.
-%
-Once Java interoperability is established,
-it is often possible to call also other \ac{JVM} languages
-(Scala, Kotlin, Groovy, etc.),
-limited to the fragments that produce bytecode overlapping Java's\footnote{
-    Producing fully-Java-interoperable bytecode from languages targeting the JVM other than Java is often possible,
-    but it requires special care.
-    %
-    For instance,
-    Kotlin recommends using annotations to explicitly define how Kotlin constructs should be translated into Java ones,
-    see the Kotlin's documentation on ``Calling Kotlin from Java''
-    archived at \url{https://archive.is/HqEIG}.
-    %
-    Scala features many mechanisms that are not directly translatable into Java,
-    such as implicits, higher-kinded types, mixins, and multiple argument lists.
-    %
-    The official compatibility guide provides only general information on cross-compatibility
-    (see the archived documentation about ``Interacting with Java'' at \url{https://archive.is/KX49E});
-    however,
-    compatibility guides are available from third parties such as Databricks,
-    which recommends not using several Scala features in order to make the code compatible
-    (see the ``Java interoperability'' section of the guide archived at \url{https://archive.ph/Qc9Gd}).
-    %
-    For even more conceptually distant languages such as Clojure,
-    the operation may be borderline impossible:
-    according to the official documentation archived at \url{https://archive.is/AeNcE},
-    Interoperability requires the use of a dedicated Clojure \ac{FFI} library.
-    %
-    The take-away message is that native or \ac{FFI}-based interoperability with Java
-    does not automatically imply interoperability with other \ac{JVM} languages.
-}.
-%
-However,
-notice that the presence of a \ac{FFI} does not tell the entire story about \emph{ease} of interoperability.
-%
-For instance,
-although implemented in Java,
-\jadex{} requires the \ac{MAS} specification to be written in XML,
-making interoperability with Java code cumbersome
-compared to other \ac{JVM}-based \ac{AOP} languages.
-
-\paragraph{Paradigm blending}
-%
-We call paradigm blending the \emph{syntactical} language capability to mix,
-in the same code fragment,
-\ac{AOP} constructs and \ac{GPL}-native constructs implementing a different paradigm's abstractions,
-such as object creation and manipulation (for \ac{OOP} languages)
-or higher-order functions definition and invocation (for \ac{FP} languages).
-
-Notice that whether blending is beneficial or detrimental depends on the goal of the language.
-%
-As a rule of thumb,
-blending tends to be beneficial when building complex applications,
-of which different parts may be better expressed in different paradigms.
-%
-On the other hand,
-it may be a double-edged sword when \emph{learning} a new paradigm,
-as the inexperienced may be tempted to work around problems more easily tackled with \ac{AOP} using other paradigms they feel more comfortable with.
-%
-Notice, in fact,
-that some languages purposely enforce a clear separation among high-level AOP constructs
-(e.g., belief, goals, plans)
-and the hosting language ones (e.g. classes, functions, etc.),
-purposely allowing interoperation only through carefully-crafted \acp{FFI}~\cite{DBLP:conf/eumas/BergentiMP23}.
-%
-The strong separation is typical of
-\jason{} and \jadex{}.
-%
-There, in the former case, \acp{MAS} are composed by scripts describing agent specifications
-supporting solely \agentspeak{}-compliant constructs,
-and, in the latter, by actions/environment written in ordinary Java.
-
-Interestingly,
-languages whose syntax is blended with the hosting language may be further categorized into two sub-sorts,
-depending on whether they
-%
-\begin{inlinelist}
-    \item\label{case:aop-into-oop}
-    limit the use of the \ac{GPL}'s abstractions into agents/plans specifications, or
-    \item\label{case:oop-into-aop} allow the \ac{GPL}'s constructs to appear into \ac{AOP} programs directly.
-\end{inlinelist}
-%
-Case~\ref{case:aop-into-oop}, for instance,
-characterizes Python-based \ac{BDI} languages such as \spadebdi{} and \phidias{},
-where AOP specifications consist of Python classes and methods.
-%
-Conversely, \astra{}, \jack{}, and \goal{} adopt strategy~\ref{case:oop-into-aop},
-as their syntaxes permit writing Java or Prolog constructs and libraries, respectively.
-
-\paragraph{Type safety}
-%
-This feature refers to the presence of a strict compile-time type checker for the \ac{BDI} language at hand,
-which may proof check agents specifications before execution.
-
-Solutions featuring tight interoperability with Java,
-such as \astra{}, \jack{}, and \jadex,
-come with this feature;
-whereas the other languages in this comparison do not.
-%
-Those (\jason{}, \spadebdi{}, \phidias{}, and \goal{})
-favour a flexible syntax over type safety,
-as they rely on weakly-typed hosting languages such as Prolog or Python.
-
-\paragraph{Reuse mechanisms}
-%
-This feature refers the presence of abstraction mechanisms supporting the reuse of partial \ac{MAS} specifications.
-As far as this feature is concerned, we observe great variety among the surveyed languages.
-%
-Some rely on bare file inclusion mechanisms.
-%
-This is the case, for instance,
-of \jason{},
-supporting the inclusion of ASL files into other ASL files;
-and \jadex{},
-which, in addition to Java inheritance between agent classes,
-supports referencing XML or Java files into other XML files for more flexible reuse of agents' capabilities.
-
-Furthermore, virtually all surveyed solutions support the abstraction and reuse mechanisms of the hosting language, if any.
-%
-For instance,
-internal actions in \jason{} are defined as
-pure Java classes,
-thus they can be reused across multiple projects.
-%
-This implies,
-for instance,
-that solutions based on a \ac{OOP} host \ac{GPL} may take advantage of its \ac{OOP} abstraction mechanisms,
-such as sub-typing and inheritance,
-for the \ac{OOP}-written portions of their \ac{MAS} specifications.
-
-Some solutions may also expose high-level, agent-oriented notions -- such as agents or plans -- as first-class syntactical constructs.
-%
-In other words, they may provide ad-hoc syntax for writing agents or plans.
-%
-This is the case, for instance, of \astra{}, \jack{}, and \goal{}.
-%
-When this is the case,
-first-class abstraction can be reused along the \ac{MAS} specification.
-%
-For example,
-\astra{} supports writing agents' specifications extending other agents' specifications,
-whereas \jack{} bases its modularity on the concept of capabilities~\cite{busetta1999structuring} wrapping beliefs and plans.
-
-\paragraph{Concurrency model}
-
-%\sbnote{Visto che l'altro paper ha rivelato che la situazione è un po' più articolata di così sta sezione va cambiata o rimossa. Potremmo cambiarla con "supporta nativamente lo switch tra modelli di concorrenza diversi", che forse è più safe}
-%
-This feature is about how the surveyed solutions deal with agents' \emph{concurrent execution},
-and whether developers can select among multiple execution models
-without resorting to changes in the execution platform's code.
-%
-Despite agents having their own \emph{logical} control flow -- as required by their computational autonomy --,
-how such control flow is mapped in practice over processes, threads, and other platform- and operating system-specific concurrency facilities may vary wildly.
-%
-The mapping between logical and physical control flows may affect several runtime properties of a \ac{MAS}:
-performance and scalability are the most obvious one,
-but also determinism and
-reproducibility
-(hence, testability) are deeply affected.
-
-Admissible choices in this case are manifold.
-%
-The most common ones are:
-%
-\begin{description}
-    \item[\ac{1A1T}] where each agent is mapped over a single thread;
-    \item[\ac{AA1T}] where all agents in the system share the same thread;
-    \item[\ac{AA1E}] where all agents in the system share the same executor service;
-    \item[\ac{1A1P}] where each agent is mapped over a single process.
-\end{description}
-
-\jason{}, \astra{}, \jadex{} and \goal{} provide mechanisms that allow developers to customise execution strategies for their \ac{MAS}.
-%
-They provide support for multiple strategies out of the box
-(of which one,  \acs{AA1E} is set as default),
-and they provide \acp{API} to regulate the amount of threads in the executor.
-%
-% \dpnote{
-%     questo è troppo generico IMHO.
-%     Andrebbe scritto qual è la "default one" per ognuno,
-%     e quali sono ragionevoli scelte.
-% }
-
-%
-\phidias{},
-instead, is hard-coded to \acs{1A1T}.
-%
-% Similarly,
-% in \jadex{} the execution is strictly bound to their own execution engine implementation,
-% \dpnote{
-% okay ma qual è la "own execution engine implementation"? One agent one thread? Non si capisce...
-% }
-% and we failed to identify any way to change it into a custom one.
-% \dpnote{
-%     sì ma perché? È una frase da Ruslan messa così,
-%     o si può, o non si può, piuttosto scriviamo che non si può.
-% }
-% GC: che io ricordi, Jadex permette di pluggare seppure l'API sia una merda,
-% e di default usa una roba che è in pratica un complesso executor service
-%
-\spadebdi{},
-relying on Python coroutines that are single-threaded by default\footnotemark,
-implicitly adopt the \acs{AA1T} model.
-\footnotetext{Developing with \texttt{asyncio}, Concurrency and Multithreading, Python 3 docs. Archived at \url{https://archive.is/YWQw5}}
-%
-In the case of \jack{},
-the documentation does not discuss the available concurrency abstractions,
-nor it explains how to select them or provide a custom one.
-
-% Some solutions, such as \jason{} and \phidias{}, adopt the ``one thread per agent'' concurrency model, where each agent has its own thread of control---and only that.
-% %
-% Other solutions, such as \astra{}, adopt the ``one thread per intention'' concurrency model, where each agent may involve multiple threads.
-% %
-% There exists also one more concurrency model, that we call ``one thread per MAS'', where all agents share the same thread of control.
-% %
-% This is implicitly adopted by, for instance, \spadebdi{}, which relies on Python coroutines---which are single threaded by default\footnotemark.
-% %
-% \footnotetext{cf. \url{https://docs.python.org/3/library/asyncio-dev.html\#asyncio-multithreading}}
-% %
-% While we were not able to infer the concurrency models of \jack{}, \astra{}, and \goal{}; we designed \jakta{} to support concurrency model \emph{pluggability}.
-% %
-% In other words, \jakta{} natively supports switching among different concurrency models without affecting a \ac{MAS} specification at all.
-
-
-\paragraph{Explicit environment}
-%
-As introduced in \Cref{subsec:bdi-languages} the design of environments
-is essential for multi-agent systems that rely on stigmergy~\cite{WeynsOO07}.
-%
-In this paragraph, we analyse whether the \ac{BDI} languages under scrutiny feature an explicit and \emph{programmable} notion of environment.
-%
-To the best of our knowledge,
-the environment is modelled as a first-class programmable construct in \jason{}, \astra{}, \goal{}.
-
-\paragraph{Internal/External actions support}
-%
-This feature is about whether \ac{BDI} languages come with some means to enrich agents' or environments' specifications
-with custom functionalities written via the host language.
-%
-Using \jason{}'s nomenclature, we call these functionalities ``external (resp. internal) actions'',
-if they extend the agents' capability to perceive/affect the environment (resp. their own internal state).
-%
-From a programming language perspective, actions are the technical bridge between the agent- and the object-oriented portions of a \ac{MAS} specification.
-
-The support for internal or external actions is heterogeneous among \ac{BDI} languages (cf. \Cref{tab:languages-comparison}),
-and we identified that \jason{}, \astra{}, and \goal{} support both of them.
-%
-For those languages for which we did not identify an explicit notion of environment,
-we assumed that the mechanism of external actions is not supported as well.
-%
-Neither \jack{} nor \jadex{} provide first-level abstractions for actions,
-instead, both provide customisation mechanisms,
-the first one through the concept of ``capability''~\cite{busetta1999structuring},
-while the second leveraging Java inheritance.
-%\mbnote{Rifrasato e corretto il concetto, dimmi se ora ti è più chiaro}
-% sì, ottimo.
-
-\paragraph{Message passing mechanism}
-%
-Despite most \ac{BDI} languages coming with primitives enabling agent interaction via message-passing,
-they may differ in the way they support message exchange in practice.
-%
-This feature is about \emph{how} \ac{BDI} languages support message exchange.
-%
-Options involve:
-%
-\begin{inlinelist}
-   \item\label{case:in-process} in-process communication,
-   enabling communication only among agents sharing the same runtime;
-   \item\label{case:distributed} distributed communication,
-   possibly involving data exchanges over networked machines;
-   and
-   \item\label{case:pluggable} customisable communication,
-   in which, both the previous cases can be supported, depending on the configuration.
-\end{inlinelist}
-
-Case~\ref{case:in-process} is native in \goal{}~\cite{Hindriks2009}.
-%
-Conversely,
-\spadebdi{}, \astra{}, \phidias{} and \jadex{} are characterized by case~\ref{case:distributed},
-as they rely upon the XMPP, UDP, TCP sockets or HTTP, and TCP/SSL protocols respectively.
-%
-\jason{} and \jack{}~\cite{Winikoff2005} fall into Case~\ref{case:pluggable}.
-%
-%The former two
-%default to in-process communication,
-%while the latter defaults to inter-process communication based on object serialization.
-%%
-%Regardless of the default, in all cases different message-passing mechanisms
-%(including custom and distributed ones)
-%can be \emph{plugged-in}.
-%\mbnote{The former two CHI ???????}
-%\dpnote{secco via tutto. Va bene così IMHO}
-
-\paragraph{License}
-%
-This feature is about which license \ac{BDI} solutions are distributed with,
-which is crucial for the adoption of the technology.
-%
-Mainly,
-solutions can require a fee for their usage,
-being free of charge but not open source,
-or being open source
-(hence, inspectable and extendable).
-%
-All solutions but \jack{} (which is proprietary, commercial, and closed-source) adopt a \ac{FOSS} license.
+%%HERE
 
 \section{A Kotlin \ac{DSL} for BDI Agents}
 \label{sec:jaktadsl}
 
-From \Cref{subsec:bdi-languages}, we identify the core features that we need into an
+We identify the core features that we need into an
 implementation of a \ac{DSL} for \ac{BDI} agents familiar to \ac{BDI} experts
 and idiomatic to the community of mainstream developers.
 %
@@ -2063,43 +1889,6 @@ based on a mainstream language, hence, an \emph{internal} \ac{DSL}.
 
 Then, the language should be statically and strongly typed,
 possibly featuring type inference to reduce ceremonial code.
-%
-%It should also support modularity and reusability at various levels, there including:
-%%
-%\begin{inlinelist}
-%    \item agent specifications,
-%    \item plan libraries and/or individual plans,
-%    \item belief bases or goal sets,
-%    and
-%    \item internal and external actions.
-%\end{inlinelist}
-%
-%The \ac{DSL} should support an explicit notion of \emph{environment},
-%which in turn supports the definition of custom \emph{external} actions
-%-- i.e., custom functionalities that agents may invoke to support perception and actuation --
-%as well as pluggable custom message passing mechanisms%
-%---hence virtually supporting distributed communication among agents.
-%
-%As far as extensibility is concerned,
-%\acp{MAS} written in \jakta{} should also support custom \emph{internal actions} on individual agents
-%-- i.e., custom functionalities supporting the inspection/modification of agents' internals.
-%%
-%We find fine-grained control over the concurrent execution of a \ac{MAS}
-%to be one of the most prominent features,
-%and \jakta{} should be designed in such a way that the
-%concurrency model can be \emph{plugged-in}.
-%%
-%In other words,
-%\jakta{} must natively support switching among different concurrency models
-%through a dedicated \ac{API} entirely orthogonal to the \ac{MAS} specification:
-%changing execution model
-%(switching, e.g., from one thread per agent to a single-threaded predictable execution for the whole MAS)
-%can be done with no change to the \ac{MAS} code.
-%
-%Concerning the representation and manipulation of \ac{BDI} data structures,
-%the \ac{DSL} should support full-fledged logic programming syntax and semantics.
-%
-%A more nuanced pick is the selection of the target host language.
 %
 Among the other features,
 we considered the target platform and its portability across multiple platforms
@@ -2131,67 +1920,7 @@ for merely practical reasons:
 
     \item Kotlin has better support for multi-targeting
     (\ac{JVM}, JavaScript, and native code including Apple-specific platforms).
-%    \item There are emerging libraries in Kotlin that are meant for data science, e.g.:
-%        \emph{KotlinGrad}\footnote{\url{https://github.com/breandan/kotlingrad}},
-%        \emph{KMath}~\cite{kmath-kotlin},
-%        \emph{KotlinDL}\footnote{\url{https://github.com/Kotlin/kotlindl}}, and
-%        \emph{Kotlin Dataframe}\footnote{\url{https://github.com/Kotlin/dataframe}}
 \end{enumerate}
-
-%\jakta{}, inheriting from Kotlin,
-%is strongly typed.
-%%
-%With respect to the other languages featuring tight interoperability with Java,
-%\jakta{} can also leverage Kotlin-specific features such as
-%type aliases\footnote{
-%    Type Aliases, Kotlin documentation, archived at \url{https://archive.is/zt6Wj}
-%},
-%nullable types\footnote{
-%    Null safety, Kotlin documentation, archived at \url{https://archive.is/iV0yQ}
-%},
-%and declaration-site variance\footnote{
-%    Generics: in, out, where, Kotlin documentation, archived at \url{https://archive.is/k9OnR}
-%},
-%which are not natively available in Java.
-%%
-%Although strongly- and statically- typed,
-%\jakta{} enjoys the Kotlin's type inference mechanism,
-%which in many cases frees the syntax from the need of explicitly declaring types,
-%thus reducing ceremonial code.
-%
-%Concerning reuse of abstractions,
-%both \ac{AOP} and \ac{OOP}/\ac{FP} abstractions are first-class citizens
-%in \jakta{};
-%hence, \ac{MAS} specification may re-use any environments,
-%agents, goals, beliefs, and plans -- or class, interface, function -- defined elsewhere.
-%%
-%Also, being \jakta{} code legitimate Kotlin code,
-%components of a \ac{MAS} can be packed into libraries and imported as such,
-%favouring reuse also across projects (different code bases).
-%
-%About interoperability,
-%being a Kotlin internal \ac{DSL}, \jakta{} features native support for all Kotlin constructs.
-%%
-%Also, since every \jakta{} fragment is a valid Kotlin fragment,
-%it inherits the same interoperability capabilities of Kotlin;
-%namely:
-%\begin{itemize}
-%    \item native interoperability with Java;
-%    \item \ac{FFI}-based (Java-mediated) interoperability with other \ac{JVM} languages;
-%    \item access to Java's \ac{FFI} towards native code (\ac{JNI} and \ac{JNA}~\cite{jni});
-%    \item potentially (not yet implemented), generation of Javascript and native code for several platforms through Kotlin-Multiplatform.
-%\end{itemize}
-
-% \mbsidenote{Quelli di Kotlingrad, KotlinDL e Kotlin data frame non hanno fatto paperz, posso mettere il link gh?}
-%
-%Combined with a Kotlin-based solution for \ac{MAS}, these tools may hopefully pave the way towards the combination of \ac{MAS} and machine learning.
-%
-% \sbnote{Data science mi sembra generico, non è forse meglio dire machine learning?, altrimenti sembra che vogliamo analizzare dati con i MAS}
-
-% In addition to them, several libraries that support data science are available in Java language, that are directly exploitable from Kotlin.
-% \sbsidenote{Ha senso dire questo dopo aver citato le lib lato Kotlin? Anche perché immagino che se si usano le librerie lato java si perde il multi-platform giusto?}
-% \gcsidenote{Concordo, infatti glisserei}
-
 
 The framework has been released under a permissive \ac{FOSS} license.
 %
@@ -2293,7 +2022,6 @@ we fetch the athletes' names from a public web page indexing Olympic athletes,
 we extract ten names through a regular expression,
 and then we create one agent for each athlete:
 \lstinputlisting[
-    basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
 ]{listings/jakta-examples/blending.kt}
