@@ -386,9 +386,623 @@ Questa tesi rappresenta un primo passo verso la definizione di un framework per 
 
 \chapter{Designing Complex Systems' Software}
 \section{Agents and \aclp{MAS}}
+
+As software grows in complexity, 
+traditional centralized architectures often become difficult 
+to maintain, extend, and scale. 
+%
+Modern software systems are therefore characterized by autonomous and distributed components 
+that cooperate to achieve common objectives. 
+%
+One way to design such components is to model them as \emph{computational agents}~\cite{WooldridgeJ99}. 
+
+Computational agents are autonomous entities~\cite{OmiciniRV08}
+situated in an environment that they can perceive and affect.
+%
+Unlike passive software components, 
+agents exhibit autonomous behavior,
+continuously perceiving their surroundings, 
+reasoning about the current state of the system, 
+and selecting appropriate actions to achieve their objectives.
+
+A \ac{MAS} consists of multiple agents interacting within a shared environment.
+%
+While each agent pursues its own goals autonomously, 
+they interact with one another to 
+coordinate their actions fostering the achievement of shared goals.
+
+Interaction among agents can occur either \emph{directly} or \emph{indirectly}.
+%
+Direct interaction relies on explicit communication between agents through message exchanges.
+%
+Indirect interaction, instead, takes place through modifications of the shared environment..
+%
+The latter mechanism is commonly referred to as \emph{stigmergy}~\cite{ch30-castelfranchifestschrift2012,HadeliVKB04}:
+the actions performed by one agent alter the environment, and such alterations can subsequently be perceived by other agents, which adapt their behavior accordingly.
+
+To support stigmergic coordination in software systems,
+some \ac{MAS} technologies provide explicit and programmable abstractions for the environment~\cite{WeynsOO07}.
+%
+In such cases,
+the environment is not merely the execution context in which agents operate, 
+but becomes an active component of the software system, 
+containing shared information that agents can perceive and modify.
+%
+In this direction, 
+some \ac{MAS} platforms provide dedicated abstractions, 
+such as actions or artefacts, 
+to support this kind of interactions~\cite{OmiciniRVCT04}.
+
+Communication represents the most explicit form of interaction among agents, 
+where information is exchanged by means of messages.
+%
+Message exchanges may be organised into structured conversations following well-established interaction patterns, 
+commonly known as interaction protocols\footnotemark.
+%
+\footnotetext{FIPA Interaction Protocols, archived at
+\url{https://archive.is/phy6v}}
+%
+Within an interaction protocol, 
+each participating agent plays a specific role 
+and is expected to exchange messages only at predefined stages 
+of the conversation and according to the rules prescribed by the protocol.
+%
+% From a technological perspective,
+% \ac{MAS} platforms must provide suitable message-passing mechanisms.
+% Solutions range from simple in-process method invocations,
+% limiting communication to agents executing within the same process,
+% to distributed infrastructures relying on network protocols and middleware services such as brokers, message queues, or dedicated communication services, allowing agents executing on different machines to interact seamlessly.
+%
+In order to effectively communicate,
+agents also require a common semantic interpretation of exchanged messages.
+%
+One way to do so,
+is to rely on \acp{ACL},
+namely high-level message formats enriched with metadata describing the intended meaning of each message~\cite{Chaib-draaD02}.
+%
+One of the best-known examples is \ac{KQML}~\cite{finin1994KQML},
+which combines the role of message format and \ac{ACL},
+with particular emphasis on knowledge exchange among agents.
+%
+Among its metadata,
+the \emph{performative} specifies the communicative intention of the sender,
+thus defining the semantic purpose of the message within the interaction protocol.
+%
+Derived from speech-act theory~\cite{traum1999speech},
+performatives include actions such as informing another agent
+(\texttt{tell}),
+requesting the achievement of a goal
+(\texttt{achieve}),
+asking for information
+(\texttt{askOne}, \texttt{askAll}),
+or exchanging procedural knowledge
+(\texttt{askHow}, \texttt{tellHow}).
+
 \section{BDI}
+\label{sec:bdi}
+
+Among the several approaches for designing autonomous agents,
+the \ac{BDI} definition is one interesting approach~\cite{RaoG95}.
+%
+Rather than describing agents exclusively in terms of inputs and outputs,
+the \ac{BDI} architecture defines their behavior through explicit mental attitudes,
+providing an abstraction of practical reasoning that closely resembles human decision making.
+%
+This abstraction was inspired by the work of the philosopher Michael Bratman,
+which introduced the notions of
+\emph{beliefs},
+\emph{desires},
+and
+\emph{intentions}
+to explain humans' practical reasoning~\cite{bratman1987intention}.
+%
+Later,
+these ideas were formalized through modal logics~\cite{CohenL90}
+and eventually inspired computational models for autonomous software agents.
+
+\ac{BDI} characterizes agents in four fundamental abstractions~\cite{rao1991bdi}: 
+\emph{beliefs}, \emph{desires}, \emph{intentions}, and \emph{plans}.
+
+\paragraph{Beliefs}
+Agents maintain a personal representation of the environment's state,
+which is perceived by them during their execution.
+%
+Practically,
+agents hold a set of beliefs,
+also defined as a \emph{belief base},
+which represents the agent's
+\emph{epistemic} memory,
+describing its knowledge about itself,
+the environment,
+and possibly other agents.
+%
+Beliefs represent the \emph{mental state} of the agent, 
+which changes with the environment state over time.
+%
+In particular,
+the mental state is made up of belief states, 
+which represent an instance of the belief base held by the agent at a given time~\cite{KinnyGR96}.
+
+
+\paragraph{Desires}
+Each agent has a set of goals representing desirable states of the world that the agent
+attempts to achieve,
+test,
+or maintain.
+%
+Desires are considered as the \emph{motivational} state of the agent.
+
+\paragraph{Intentions}
+Each agent hasa set of tasks to which it is currently committed,
+namely the activities that it has decided to pursue.
+%
+Intentions serve to keep track of the progress towards the achievement of the agent's goals,
+which happens by means of the execution of the corresponding intentions.
+
+\paragraph{Plans}
+Procedural descriptions that encode how intentions can be achieved under
+specific circumstances,
+thereby representing the agent's procedural knowledge.
+%
+Plans are selected for execution based on the agent's current beliefs and desires,
+and, in order to be achieved,
+they may require the execution of other plans.
+
+These abstractions are not static,
+but continuously evolve during the execution of the agent.
+%
+New perceptions obtained from the environment may introduce new beliefs,
+invalidate obsolete ones,
+or enrich the agent's knowledge.
+%
+Similarly,
+agents may acquire beliefs through communication with other agents
+or through the conclusions produced by their own reasoning process.
+%
+Changes in the environment may also affect the set of desires,
+introducing new objectives or making existing ones no longer relevant.
+%
+Accordingly,
+the agent continuously revises its intentions,
+committing to new activities,
+dropping obsolete ones,
+or reconsidering previous commitments.
+
+Committing to an intention means selecting one or more plans
+capable of achieving the desired objective,
+and executing them during the agent's lifecycle iterations.
+%
+Plans may involve the execution of actions affecting the environment,
+the exchange of information with other agents,
+or the generation of additional sub-goals,
+whose accomplishment recursively activates further plans.
+
+Finally,
+agents may enrich their own procedural knowledge by acquiring new plans,
+either as the result of internal reasoning
+or through interactions with other agents.
+
+One of the earliest and most influential implementations of the \ac{BDI}
+architecture is \agentspeak{}~\cite{rao1996maamaw}, a programming language based on the Procedural Reasoning System (PRS)~\cite{georgeff1987reactive}.
+%
+The abstractions introduced \agentspeak{} provide the conceptual model
+underlying many agent programming languages.
+
 \subsection{AgentSpeak}
-\subsection{AgentSpeak Frameworks}
+\label{subsec:agentspeak}
+
+While the \ac{BDI} architecture provides a conceptual model for describing autonomous agents, 
+it does not prescribe how such abstractions should be represented or executed in software. 
+%
+\agentspeak{} bridges this gap, 
+proposing an agent-oriented programming language grounded in the \ac{BDI} model 
+and equipped with an operational semantics for autonomous agents~\cite{rao1996maamaw}.
+
+Rather than introducing new abstractions, 
+\agentspeak{} provides an executable representation of the concepts discussed in \Cref{sec:bdi}. 
+%
+Beliefs, goals, and plans become first-class language constructs, 
+enabling developers to describe both an agent's knowledge and its behavior declaratively.
+%
+In addition,
+the execution model of \agentspeak{} is event-driven. 
+%
+Changes in the agent's mental state, 
+such as the acquisition of new beliefs or the adoption of new goals, 
+generate events that are then processed by the agent's reasoning cycle.
+%
+During each reasoning step, 
+the agent selects an applicable plan for the current event, 
+evaluates its context against the current belief base through logic unification and resolution, 
+and commits to the execution of the corresponding intention.
+
+A distinguishing characteristic of \agentspeak{} is its logic-based representation of knowledge. 
+%
+Beliefs, goals, events, and plans are represented as logic terms and rules, 
+allowing the reasoning engine to exploit unification and logical inference to manipulate the agent's mental state. 
+%
+This representation naturally supports structured and non-ground terms,
+facilitating expressive knowledge modelling while preserving a compact and declarative syntax.
+
+\agentspeak{} operational semantics describes how 
+an agent evolves over time by repeatedly executing its reasoning cycle. 
+%
+At any point during its execution, 
+the state of an agent can be represented by the tuple in \Cref{eq:agentspeak-tuple}.
+
+\begin{equation}\label{eq:agentspeak-tuple}
+\langle E, B, P, I, A, S_E, S_O, S_I \rangle
+\end{equation}
+
+In the tuple,
+$E$ denotes the set of pending events, 
+$B$ the belief base, 
+$P$ the plan library, 
+$I$ the set of active intentions, 
+and $A$ the set of actions available to the agent. 
+%
+The remaining elements are selection functions: 
+$S_E$ selects the next event to process, 
+$S_O$ chooses one plan among the applicable ones, 
+and $S_I$ selects the intention that will progress during the current reasoning cycle.
+
+Events may originate from changes in the environment, 
+from messages received from other agents, 
+or from the execution of the agent itself. 
+%
+Accordingly, 
+\agentspeak{} distinguishes between \emph{external events}, 
+generated by the environment or other agents, 
+and \emph{internal events}, 
+generated during the execution of an intention, 
+for instance when the achievement of a sub-goal is requested.
+
+During each reasoning cycle, 
+the agent first selects an event from the event set $E$ 
+through the selection function $S_E$. 
+%
+The selected event is then matched against the triggering events 
+of all plans contained in the plan library $P$. 
+%
+Plans whose triggering event unifies with the selected event 
+are called \emph{relevant plans}. 
+%
+For each relevant plan, 
+the corresponding unifier is applied to its context, 
+which is subsequently evaluated against the current belief base. 
+%
+If the instantiated context is a logical consequence of the agent's beliefs, 
+the plan is considered \emph{applicable}.
+
+Since multiple applicable plans may exist for the same event, 
+the selection function $S_O$ is responsible for choosing which one should be adopted. 
+%
+Once selected, 
+the plan becomes part of an intention. 
+%
+Intentions are execution stacks containing partially instantiated plans that represent the agent's current commitments. 
+%
+If the selected event is external, 
+the chosen plan starts a new intention. 
+%
+Conversely, 
+if the event is internal, 
+the selected plan is pushed onto the top of the intention that generated that event, 
+thereby allowing the execution of hierarchical plans and sub-goals.
+
+Finally, 
+the selection function $S_I$ chooses one intention among the active ones.
+% 
+Rather than executing an entire plan atomically,
+\agentspeak{} progresses intentions incrementally: 
+during each reasoning cycle, 
+only the next action or goal at the top of the selected intention is executed.
+%
+The execution of a goal may in turn generate new internal events, 
+while actions affecting the environment may produce external events. 
+%
+These newly generated events are inserted into the event set, 
+and the reasoning cycle repeats until the agent terminates.
+
+The execution flow described by the AgentSpeak operational semantics is illustrated in \Cref{fig:agentspeak}. The figure provides a graphical representation of the agent's reasoning cycle, highlighting how events are processed, how plans are selected and adopted as intentions, and how intentions are progressively executed over successive reasoning cycles. Starting from the set of pending events, the agent identifies the relevant and applicable plans, selects one according to the adopted selection function, and associates it with an intention. The selected intention is then advanced by executing its next action or goal, whose execution may in turn generate new internal or external events. These events are added to the event set, closing the loop and allowing the reasoning cycle to continue throughout the agent's lifetime.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/AgentSpeakL}
+    \caption{AgentSpeak reasoning cycle. The figure illustrates the flow of the agent's reasoning process, from event selection to plan adoption and intention execution.}
+    \label{fig:agentspeak}
+\end{figure}
+
+\paragraph{Beliefs}
+Beliefs are represented as sets of ground terms and rules.
+%
+Rules are used to derive new knowledge from existing one,
+where the predicate functor in the head of a rule defines the name of the belief.
+
+\begin{lstlisting}[
+    label=lst:belief,
+    caption={
+        \agentspeak{} belief representation as a logic rule. 
+        %
+        The rule states that X is the grandmother of Z if X is the mother of Y and Y is the parent of Z.
+    },
+    style=Prolog-cool
+]
+grandmother(X, Z) :- mother(X, Y), parent(Y, Z).
+\end{lstlisting}
+
+\Cref{lst:belief} is a representation of a belief in \agentspeak{}, 
+where X, Y and Z are variables that can be instantiated with any value.
+%
+Predicates mother and parent assert whether a specific relationship holds between two entities, 
+which can be true or false.
+%
+Following the example, 
+grandmother belief is true only if X is the mother of some
+Y and the same Y is the parent of Z.
+
+
+\paragraph{Goals}
+\agentspeak{} supports two types of goals that an agent can manage: \emph{achievement goals} and \emph{test goals}. 
+%
+Achievement goals represent a desired state of the world that the agent wants to achieve, 
+which will eventually be reflected in its belief base. 
+%
+Test goals state that the agent wants to know whether a certain belief is acknowledged,
+which will hold if the belief is present in the belief base.
+
+\paragraph{Events}
+All changes in the agent's mental state are represented as events,
+whether they are triggered by the environment or by the agent's own reasoning process.
+%
+\agentspeak{} distinguishes between six types of events:
+\begin{inlinelist}
+    \item belief addition,
+    \item belief removal,
+    \item addition of an achievement goal,
+    \item failure of an achievement goal,
+    \item addition of a test goal,
+    and
+    \item failure of a test goal.
+\end{inlinelist}
+
+In AgentSpeak, events are represented using the notation $\langle op \rangle t$, 
+where $op$ denotes the operation associated with the event 
+and $t$ is the affected mental attitude, 
+typically a belief or a goal. 
+%
+Conventionally, the operation is represented by the symbols $+$ and $-$,
+which slightly change their meaning depending on whether they are applied to beliefs or goals.
+%
+In the case of beliefs,
+the symbols $+$ and $-$ indicate the addition and deletion of a belief,
+while in the case of goals,
+they indicate the adoption and failure of a goal, respectively.
+
+For example, the event $+b$ denotes the addition of the belief $b$ to the belief base, 
+while $-b$ represents its removal. 
+%
+Similarly, $+!g$ denotes the adoption of an achievement goal $g$, 
+whereas $+?g$ represents the request to verify whether the goal $g$ can be satisfied from the current belief base. 
+%
+These events are subsequently matched against the triggering events of plans, 
+allowing the reasoning engine to identify the plans that are relevant to the current execution context.
+
+\paragraph{Actions}
+Primitive operations available to an agent
+that can be used in plans to achieve its goals.
+%
+Examples of actions include sending messages to other agents,
+performing operations on the environment,
+or executing internal computations.
+%
+Actions are conceived as operations that are executed in a single lifecycle step,
+and provide a mechanism for injecting the underlying language procedures and libraries into an agent's plans.
+
+\paragraph{Plans}
+Plans in \agentspeak{} consist of two main components: 
+a \emph{head} and a \emph{body}. 
+%
+The head is composed of a \emph{triggering event} and a \emph{context},
+whereas the body contains a sequence of actions and goals to be executed.
+%
+The triggering event specifies the condition under which the plan becomes relevant, 
+while the context defines the beliefs that must hold in the agent's belief base for the plan to be considered applicable. 
+%
+Once both the triggering event and the context are satisfied, 
+the plan can be selected for execution.
+
+If selected, 
+the agent adopts a new intention associated with that plan 
+and schedules the execution of its body over the subsequent reasoning cycles. 
+%
+The actions and sub-goals composing the plan are then executed incrementally until the intention is either successfully completed, 
+suspended while waiting for the achievement of sub-goals, 
+or discarded.
+% 
+
+\begin{lstlisting}[
+    label=lst:plan,
+    caption={
+        \agentspeak{} definition for plans.
+        %
+        The plan is triggered by the addition of a belief about the presence of waste at a given location in the environment.
+        %
+        The plan is applicable only if the robot is already located at that position, and whether the robot knows the position of the bin.
+        %
+        If selected, the plan executes a sequence of actions: the robot first picks up the waste, then triggers the plan that moves the agent to the location of the waste bin, and finally deposits the collected waste into the bin.
+    },
+    style=Prolog-cool
+]
++location(waste, X) : location(robot, X) & location(bin, Y)
+                    <- pick(waste);
+                       !location(robot, Y);
+                       drop(waste).
+\end{lstlisting}
+
+An example of an AgentSpeak plan is reported in \Cref{lst:plan}, 
+describing the behaviour of a robot responsible for waste collection. 
+%
+The highlighted plan is triggered when waste is detected at a given location \prologInline{X} in the environment. 
+%
+The plan is applicable only if the robot is already located at that position, 
+and if the robot knows the position of the waste bin \prologInline{Y}. 
+%
+When selected, 
+the plan executes a sequence of actions: 
+the robot first picks up the waste, 
+then triggers the achievement goal that moves the robot to the location of the waste bin, 
+and finally deposits the collected waste into the bin. 
+%
+Naturally, 
+the robot must also possess additional plans enabling it to navigate to the required locations, 
+so that the sub-goal invoked by the plan can be successfully accomplished.
+
+\subsection{Recent Extensions of \agentspeak{}}
+
+Although \agentspeak{} core abstractions 
+have remained substantially unchanged since their original formulation,
+the framework continues to attract significant research interest. 
+%
+Rather than replacing its symbolic foundations, 
+recent work extends the language to address new \emph{software engineering} challenges, improve agent \emph{organization}, increase \emph{explainability}, and integrate modern \emph{artificial intelligence} techniques. 
+
+\paragraph{Software Engineering}
+\agentspeak{} initial definition offers limited support for developing large-scale and reusable software systems. 
+%
+Consequently, 
+some extensions introduced programming abstractions aimed at improving modularity, 
+encapsulation, 
+and code reuse.
+%
+An effort towards modularity is presented in~\cite{agentspeak-extension-modularity}, 
+where plan libraries can be imported from external source files, 
+allowing plans to be shared across multiple agents and applications. 
+%
+This mechanism promotes software reuse 
+while preserving the original \agentspeak{} syntax.
+%
+Further improvements have been proposed in AgentSpeak(ER)~\cite{ricci2018atal}, 
+which extends the language with mechanisms for structuring reactive behaviour. 
+%
+In particular, 
+reactive plans can be defined within the body of other plans, 
+enabling developers to organise complex behaviours hierarchically and to encapsulate reactive functionalities within higher-level plans.
+%
+\ac{OOP} principles inspired some \agentspeak{} extensions. 
+%
+For instance, 
+\cite{croatti2016agere} introduces scoped beliefs in addition to reactive plans, 
+allowing beliefs to be encapsulated within a specific plan or agent. 
+%
+This improves information hiding and facilitates the development of modular agent specifications. 
+%
+Similarly, 
+\cite{agentspeak-extension-collier} propose an inheritance mechanism for \agentspeak{} agents, 
+enabling developers to define reusable agent specifications that can be extended and specialized to implement new agent types. 
+%
+Collectively, 
+these works demonstrate a common effort towards enriching \agentspeak{} with software engineering abstractions while preserving its original cognitive and declarative foundations.
+
+
+\paragraph{Organizational and social reasoning}
+Many real-world multi-agent systems 
+require agents to operate within organizations, 
+where their behaviour is regulated by 
+roles, 
+norms, 
+obligations, 
+permissions, 
+and institutional rules. 
+%
+However, 
+the original \agentspeak{} language 
+provides no native abstractions 
+for representing or reasoning about such organizational concepts.
+%
+To address these requirements, 
+some extensions extensions enrich 
+the \agentspeak{} reasoning process 
+with organizational and normative concepts.
+%
+AgentSpeak(RT)~\cite{agentspeak-rt}, 
+for instance, 
+extends intentions with \emph{deadlines}, 
+specifying the time by which an agent should respond to an event, 
+and \emph{priorities}, 
+defining the relative importance of responding to competing events. 
+%
+These additions enable the reasoning cycle 
+to take temporal constraints and event priorities into account 
+during deliberation.
+%
+Building upon these ideas, 
+N-Jason~\cite{N-Jason} extends AgentSpeak(RT) 
+with explicit normative abstractions, including 
+obligations, 
+permissions, 
+prohibitions, 
+deadlines, 
+priorities, 
+and durations. 
+%
+In addition to extending the language syntax, 
+N-Jason modifies the operational semantics by introducing norm-aware deliberation into the reasoning cycle. 
+%
+In particular, it adds two additional stages: 
+\emph{event reconsideration}, 
+in which the agent analyses the objectives associated with the applicable norms, 
+and \emph{option reconsideration}, 
+where the agent evaluates the available plans to determine the most appropriate response while taking normative constraints into account.
+
+More recently, 
+research has explored the introduction of organizational roles 
+as first-class language abstractions. 
+%
+In~\cite{dynamic-roles-agentspeak}, 
+roles can be dynamically acquired, 
+relinquished, 
+or transferred during execution, 
+allowing agents to adapt their behaviour according to the organizational context in which they operate. 
+%
+Unlike the original \agentspeak{} semantics, 
+where plan applicability depends exclusively on triggering events and belief contexts, 
+role-aware extensions incorporate the agent's role into 
+the deliberation process, 
+enabling more flexible coordination and dynamic reorganization within multi-agent systems.
+
+Collectively, 
+these proposals extend the original cognitive model of \agentspeak{} with explicit representations of social and organizational concepts. 
+%
+Rather than modifying the fundamental \ac{BDI} abstractions, 
+they enrich the reasoning process with additional information that enables agents to reason not only about the organizational context in which they operate.
+
+\note{Non è completo di tutta la letteratura, sono solo alcuni esempi, è il caso di fare uno stato dell'arte più completo? Non è un aspetto centrale della tesi, quindi forse non serve.}
+
+\paragraph{Explainability}
+
+The symbolic nature of AgentSpeak makes it particularly suitable for explainable artificial intelligence. Since the internal state of an agent is explicitly represented through beliefs, goals, intentions, and plans, the reasoning process can be inspected and reconstructed more easily than in purely subsymbolic approaches.
+
+Recent work therefore investigates mechanisms for generating human-understandable explanations of agent behaviour. These include reconstructing execution traces, explaining why particular plans were selected or discarded, justifying decisions according to the current belief base, and supporting explanation-oriented communication among agents and human users. Such capabilities are becoming increasingly important in collaborative and human-centred applications, where transparency, accountability, and trust are fundamental system requirements.
+
+Integration with generative artificial intelligence
+
+The recent success of large language models has opened a new research direction for AgentSpeak-based systems. Traditionally, an agent's plan library is statically defined by the developer before execution. More recently, researchers have investigated the possibility of employing generative models to synthesize plans dynamically whenever no existing plan is suitable for the current situation.
+
+In these hybrid architectures, plans generated by a language model can be incorporated into the agent's plan library and subsequently executed according to the standard AgentSpeak operational semantics. The objective is to combine the adaptability and generative capabilities of foundation models with the symbolic reasoning, explicit knowledge representation, and execution transparency offered by the \ac{BDI} architecture. At the same time, this research direction raises several challenges, including the verification of generated plans, their consistency with the agent's belief base, and the preservation of the formal guarantees provided by symbolic reasoning.
+
+Open challenges
+
+Despite nearly three decades of research, several challenges remain open. Current AgentSpeak technologies still exhibit limitations with respect to interoperability, modular software development, concurrency management, debugging support, and static verification. Moreover, while recent advances in explainability and generative artificial intelligence significantly extend the applicability of the language, integrating these capabilities without compromising the formal semantics and predictability of the \ac{BDI} reasoning cycle remains an active area of investigation.
+
+Overall, recent research demonstrates that AgentSpeak(L) is far from being a mature and static language. Instead, it continues to evolve through extensions that preserve its original symbolic and declarative foundations while expanding its applicability to increasingly complex and heterogeneous software systems. These developments also motivate the emergence of new AgentSpeak-inspired technologies, which seek to combine the well-established cognitive model of the language with modern software engineering principles and contemporary artificial intelligence techniques.
+
+\subsection{\agentspeak{} Frameworks}
+Programming languages inspired by the \agentspeak{} philosophy, 
+preserve its original abstractions and operational semantics,
+but differ in some implementation details.
+
+The following subsection reviews the main AgentSpeak-inspired technologies and compares them according to a number of software engineering characteristics relevant to the design and implementation of \acp{MAS}.
 
 \section{\acl{AC}}
 \subsection{Macroprogramming}
@@ -581,7 +1195,9 @@ an ecosystem of tools
 (e.g., debugger, syntax coloring, linter, \acp{IDE}, etc.).
 
 To the best of our knowledge,
-no mainstream programming language currently \emph{natively} supports the \ac{AOP} paradigm,
+no mainstream programming language currently 
+\sidenote{Ha senso utilizzare currently qui?}
+\emph{natively} supports the \ac{AOP} paradigm,
 especially the \ac{BDI} model.
 %
 The current state of the art includes several stand-alone programming languages
