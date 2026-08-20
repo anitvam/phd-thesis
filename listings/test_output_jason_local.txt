@@ -1,0 +1,8 @@
+[pinger] Intention 1 is executed on thread: pinger
+[pinger] Intention 1 is executed on thread: pinger
+[ponger] Intention 5 is executed on thread: ponger
+[pinger] Intention 2 is executed on thread: pinger
+[ponger] Intention 5 is executed on thread: ponger
+[pinger] Intention 3 is executed on thread: pinger
+[ponger] Intention 6 is executed on thread: ponger
+[pinger] Intention 4 is executed on thread: pinger

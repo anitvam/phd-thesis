@@ -40,8 +40,8 @@ Optional. Max 1 page.
 \section{Context}
 Software engineering is no longer solely concerned with designing and implementing software:
 modern software typically forms only a part of larger systems %
--- often referred to as complex systems -- 
-composed of many autonomous entities, each equipped with its own sensors and actuators.
+-- often referred to as collective autonomic systems~\cite{belzner2016fomac} -- 
+composed of many autonomous entities, each equipped with its own sensors and actuators~\cite{6114583}.
 %
 These heterogeneous entities operate in dynamic, 
 partially unknown environments 
@@ -139,10 +139,14 @@ whereas excessive abstraction may limit the effectiveness of the solution.
 
 Various design approaches exist for complex systems. 
 %
-Agent-based models, 
+The \ac{AOP}~\cite{DBLP:journals/ai/Shoham93} paradigm was introduced almost thirty years ago~\cite{DBLP:journals/ai/Shoham93},
 for example, 
-enable the explicit representation of heterogeneity among devices, 
-but they can make it difficult to build reusable libraries that capture emergent, 
+as a way to model software in terms of autonomous computational entities
+capable of carrying on several courses of action \emph{simultaneously}---there including,
+interacting with their environment and among each other.
+%
+This paradigm enables the explicit representation of heterogeneity among devices, 
+but makes it difficult to build reusable libraries that capture emergent, 
 coordinated behaviours. 
 %
 In contrast, 
@@ -168,7 +172,7 @@ The expressiveness of \ac{BDI} is particularly useful in scenarios where the ent
 because it requires the software engineer to represent the internal state and decision-making processes of each entity composing the system.
 
 There exist other classes of systems in which the intelligence is not the one of the individual entities, 
-but rather the one that arises at the collective level~\cite{casadei2018saso}, 
+but rather the one that arises at the collective level~\cite{DBLP:conf/saso/CasadeiV18}, 
 and using the \ac{BDI} approach can be less appropriate.
 %
 When the number of entities composing the system is large,
@@ -216,8 +220,12 @@ they share common design principles and abstractions
 that were lately evolved in different ways.
 %
 For instance, 
-the agent-oriented community focused on software design for heterogeneous intelligent entities,
-initially proposing the \ac{BDI} framework,
+\ac{AOP} is strictly linked with the \emph{strong} notion of agency~\cite{wooldridge1995intelligent-agents},
+where agents are assumed to be aware of their own goals and able to reason about if,
+when, and how to pursue them---not necessarily in a predefined order.
+%
+Along this line, \ac{AOP} frameworks evolved to embrace the \acf{BDI} model~\cite{bratman1988bdi},
+where agents are modelled and implemented by means of abstractions mimicking typically human-level notions,
 that was successively formalised by means of modal logics~\cite{CohenL90},
 and then turned into an abstract semantic for computational agents: \agentspeak~\cite{rao1991bdi}.
 %

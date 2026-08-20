@@ -13,7 +13,12 @@ to maintain, extend, and scale.
 Modern software systems are therefore characterized by autonomous and distributed components 
 that cooperate to achieve common objectives. 
 %
-One way to design such components is to model them as \emph{computational agents}~\cite{WooldridgeJ99}. 
+One way to design such components is to model them as \emph{computational agents}~\cite{WooldridgeJ99}.
+
+As computational entities, agents are autonomous as they encapsulate their own \emph{control flow}~\cite{objag-jot1}.
+%
+Control-flow encapsulation is commonly referred to as \emph{computational} autonomy~\cite{artifacts-jaamas17},
+and it is considered a necessary -- yet not sufficient -- pre-requisite for autonomy in software agents.
 
 Computational agents are autonomous entities~\cite{OmiciniRV08}
 situated in an environment that they can perceive and affect.
@@ -648,6 +653,8 @@ Overall, recent research demonstrates that \agentspeak{} continues to evolve thr
 while expanding its applicability to increasingly complex and heterogeneous software systems. 
 
 \subsection{\agentspeak{} Frameworks}
+\label{subsec:agentspeak-frameworks}
+
 Although \agentspeak{} provides a well-defined operational semantics for programming \ac{BDI} agents, 
 it does not prescribe a specific software implementation. 
 %
