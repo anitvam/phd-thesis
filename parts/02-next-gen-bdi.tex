@@ -3099,59 +3099,50 @@ would be paramount.
 
 \chapter{The Gap Between BDI Agents and Semantic Hypermedia and What We Can Do About It}
 
-Integrating intelligent agents with the Web is a long-standing goal
-in both the \ac{MAS}~\cite{DBLP:conf/edoc/ShafiqDF06}
-and Semantic Web~\cite{lassila2001semantic} communities, but,
-despite such common interest,
-the famous question
-``Where are all the intelligent agents?''~\cite{hendlerb2007expert},
-remains relevant today.
+Integrating intelligent agents with the Web has long been an objective
+for both the \ac{MAS}~\cite{DBLP:conf/edoc/ShafiqDF06}
+and Semantic Web~\cite{lassila2001semantic} communities.
 %
-Although McBurney and Luck responded by arguing that
-agents were not a ``killer application'' and that,
-once dynamic and open systems become the norm,
-companies would adopt agent technologies as a fundamental part of their infrastructure~\cite{mcburney2007expert},
-more than fifteen years later
-the Web has transitioned towards a more dynamic and open environment,
+More than fifteen years later
+the Web has evolved into a more dynamic and open environment,
 yet it is still dominated by traditional clients, servers,
 and (most recently) bots and scrapers%
 ---which can hardly be considered full agents.
 %
-However,
+Ultimately,
 with the widespread adoption of the \ac{REST} architectural style~\cite{DBLP:journals/toit/FieldingT02}
-and Web interoperability standards like \ac{WoT}~\cite{wotarch},
-the integration of \ac{MAS} and the Web has gained renewed momentum.
+and Web interoperability standards such as \ac{WoT}~\cite{wotarch},
+the integration of \ac{MAS} and the Web has regained momentum.
 
 Along this line,
 the \ac{W3C} Autonomous Agents on the Web community group\footnote{\url{https://www.w3.org/community/webagents/}}
-has been founded to connect researchers and practitioners
-and a new perspective has been proposed: \ac{hMAS}~\cite{DBLP:conf/atal/CiorteaMGBRZ19}
-envision the (Semantic) Web as an open environment in which
+has been established to connect researchers and practitioners,
+and a new perspective has emerged: \ac{hMAS}~\cite{DBLP:conf/atal/CiorteaMGBRZ19}.
+This vision treats the (Semantic) Web as an open environment in which
 agents can interact by consuming and manipulating hypermedia resources.
 
 Even more recently,
-with the advent of \ac{LLM}-based \emph{Agentic AI}~\cite{acharya2025access}
-the creation of \ac{LLM}-driven agents that interact with Web APIs~\cite{10.5555/3692070.3692540}
-(or directly with Websites~\cite{10.5555/3692070.3694608})
-has gained significant attention.
+with the rise of \ac{LLM}-based \emph{Agentic AI}~\cite{acharya2025access},
+the development of \ac{LLM}-driven agents that interact with Web APIs~\cite{10.5555/3692070.3692540}
+(or directly with websites~\cite{10.5555/3692070.3694608})
+has attracted significant attention.
 %
 However,
-despite being promising,
-these approaches
-do not make structured knowledge representation obsolete~\cite{pan2024tkde},
-and often trade the controllability offered by traditional agent-programming paradigms
-for more guarantees in terms of correctness, and completeness.
+although these approaches are promising,
+they do not make structured knowledge representation obsolete~\cite{pan2024tkde},
+and they often trade the controllability offered by traditional agent-programming paradigms
+for stronger guarantees in terms of correctness and completeness.
 
 Arguably,
 Web-integrated agents developed with cognitive architectures,
 such as \ac{BDI} agents~\cite{DBLP:conf/kr/RaoG91},
 would retain controllability and predictability:
 they could directly exploit hypermedia to discover new resources and actions,
-and use Semantic Web technologies like \ac{RDF}~\cite{RDF_Concepts_W3C:14} and \ac{OWL}~\cite{OWL_Syntax_W3C:12}
+and use Semantic Web technologies such as \ac{RDF}~\cite{RDF_Concepts_W3C:14} and \ac{OWL}~\cite{OWL_Syntax_W3C:12}
 to act intelligently without compromising on quality.
 %
-However,
-we believe
+Nevertheless,
+we believe that
 the integration of \ac{BDI} agents with the Web
 is hindered by a conceptual and technological gap,
 which limits developers in creating agents that need to interact with (Semantic) hypermedia.
@@ -3160,32 +3151,32 @@ More precisely:
 \begin{enumerate}[label=\textbf{(G\arabic*)}]
     \item\label{gap:logic}
     \ac{BDI} agents are historically tied to \ac{LP}
-    (from the \agentspeak{} semantic~\cite{DBLP:conf/maamaw/Rao96})
-    whereas the Semantic Web is grounded on \ac{DL},
-    and although the two paradigms are theoretically compatible,
+    (as exemplified by the \agentspeak{} semantics~\cite{DBLP:conf/maamaw/Rao96}),
+    whereas the Semantic Web is grounded on \ac{DL}.
+    Although the two paradigms are theoretically compatible,
     their practical implementations interoperate poorly,
-    increasing integration cost significantly;
-    % 
+    increasing the cost of integration significantly.
+    %
     Although \ac{BDI} programming languages and frameworks with little or no reliance on \ac{LP} mechanisms exist
     (e.g., \cite{map2005sp,kampik2019emas,howden2001jack}),
-    they come with their own semantics and representation for beliefs, goals, and actions
-    which still leave an abstraction gap to be covered with respect to Semantic Web technologies.
+    they still come with their own semantics and representations for beliefs, goals, and actions,
+    which leaves an abstraction gap with respect to Semantic Web technologies.
 
     \item\label{gap:open-world}
-    \ac{BDI} agents are typically based on the \ac{PRS} architecture~\cite{georgeff1986pieee}
+    \ac{BDI} agents are typically based on the \ac{PRS} architecture~\cite{georgeff1986pieee},
     which relies on pre-defined plans and does not natively support discovering new actions at runtime,
-    a necessary feature to interact proficiently with hypermedia environments.
+    a necessary feature for interacting proficiently with hypermedia environments.
 \end{enumerate}
 
-In the remainder of this chapter 
-we will refer to \ac{BDI} agents implicitly assuming \agentspeak{(L)}-like agents.
+In the remainder of this chapter,
+we will refer to \ac{BDI} agents implicitly assuming \agentspeak{}-like agents.
 
 In this chapter,
 we provide a brief overview of the hypermedia nature of the (Semantic) Web
 and the main principles of \ac{hMAS} in \Cref{sec:background}.
 %
 We then analyse the gap between \ac{BDI} agents and hypermedia
-and identify the integration requirements in \Cref{sec:gap-analysis}.
+and identify the integration requirements discussed in \Cref{sec:gap-analysis}.
 %
 Next,
 in \Cref{sec:related-works},
@@ -3198,7 +3189,7 @@ we present our proposal
 for reducing the abstraction gap for developers
 by introducing a generalised \ac{BDI} engine
 that can directly leverage Semantic Web technologies for belief representation and deliberation,
-and we discuss the open challenges and opportunities of this approach.
+and we discuss the main open challenges and opportunities of this approach.
 
 %==========================================================
 \section{Background}
