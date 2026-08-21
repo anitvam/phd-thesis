@@ -1947,7 +1947,7 @@ we systematically examine a representative set of \ac{BDI} frameworks to underst
 
 Our analysis produces a taxonomy of external concurrency models, 
 a classification of notable \ac{BDI} implementations against this taxonomy, 
-and a set of practical enginnering recommendations for the development of \ac{BDI} technologies, suggesting to make concurrency choices visible and controllable.
+and a set of practical engineering recommendations for the development of \ac{BDI} technologies, suggesting to make concurrency choices visible and controllable.
 
 We start this chapter describing the terminology we rely on (Section~\ref{sec:background}) and then present the taxonomy of external concurrency models (Section~\ref{sec:taxonomy}). Section~\ref{sec:comparison} applies the taxonomy to a set of real frameworks and discusses practical trade-offs; Section~\ref{sec:discussion} draws lessons and recommendations for framework design and use.
 %
@@ -3677,12 +3677,12 @@ and be adapted to work directly with e.g., \ac{RDF} triples, to JSON, YAML, and 
 %
 Such a design fulfills the first requirement \ref{req:direct}.
 
-\begin{wrapfigure}{R}{.35\linewidth}
+\begin{figure}
     \centering
-    \caption{\small{Generalized Architecture.}}
+    \caption{Generalized \ac{BDI} engine architecture. The generalized \ac{BDI} reasoning layer is agnostic to the knowledge representation technology used in the concrete specification layer, which can be tailored to support different formats (e.g., \ac{RDF}, JSON, YAML, etc.).}
     \label{fig:generalized-bdi-architecture}
-    \includegraphics[width=\linewidth]{figures/hyperagents25/architecture}
-\end{wrapfigure}
+    \includegraphics[width=0.5\linewidth]{figures/hyperagents25/architecture}
+\end{figure}
 
 However,
 separating the reasoning cycle of \ac{BDI} agents from knowledge representation is complex,
