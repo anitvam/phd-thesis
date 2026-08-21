@@ -26,7 +26,7 @@ rather, it is a sign of the inadequacy of the tools and frameworks available for
 
 Since their very inception,
 \ac{BDI} agents have been considered as
-a promising tool for modeling autonomous or intelligent entities
+a promising tool for modelling autonomous or intelligent entities
 via high-level \emph{cognitive} abstractions.
 %
 Thus,
@@ -327,7 +327,7 @@ the success of a language is also determined by the availability of a rich ecosy
 (syntax highlighting, code completion, live error detection, assisted refactoring, debuggers, linters, profilers, etc.),
 lowering the learning curve and supporting advanced practical uses.
 %
-Here lies a key motivation for favoring internal \acp{DSL} over external ones:
+Here lies a key motivation for favouring internal \acp{DSL} over external ones:
 most (often, all) of the pre-existing tooling for the host language can be reused for the new internal \ac{DSL},
 reducing \emph{both} maintenance costs and learning curve.
 %
@@ -403,7 +403,7 @@ and the specific language features that could be leveraged for the construction 
 
 We considered several languages, including Java, Scala, Kotlin, Python, Ruby, C\#, and Typescript.
 %
-From the point of view of syntactic flexibility we favored Scala, Kotlin, and Ruby,
+From the point of view of syntactic flexibility we favoured Scala, Kotlin, and Ruby,
 as they provide machinery specifically meant to allow the construction of \acp{DSL}.
 %
 We then discarded Ruby, as we wanted a statically typed language.
@@ -426,7 +426,7 @@ for merely practical reasons:
     (\ac{JVM}, JavaScript, and native code including Apple-specific platforms).
 \end{enumerate}
 
-The framework has been released under a permissive \ac{FOSS} license.
+The framework has been released under a permissive \ac{FOSS} licence.
 %
 It is available on GitHub\footnote{
     \url{https://github.com/jakta-bdi/jakta}
@@ -697,7 +697,7 @@ it is common for developers to share them across multiple agents,
 or even across agents of different projects,
 building libraries of actions.
 %
-Although Kotlin provides multiple means that favor reuse,
+Although Kotlin provides multiple means that favour reuse,
 the way we recommend as \jakta{} developers is to create a Kotlin \kotlinInline{object}
 (a singleton object under the \ac{OOP} abstraction)
 implementing the \kotlinInline{InternalAction} \kotlinInline{interface}
@@ -1616,7 +1616,7 @@ The differences are partly deliberate and partly
 consequential to the syntactic boundaries imposed by
 the host language.
 %
-For instance, only a small subset of symbols representing operators in Kotlin can be customized:
+For instance, only a small subset of symbols representing operators in Kotlin can be customised:
 as an example,
 while the symbol \kotlinInline{!} is an overridable operator,
 the symbol \kotlinInline{?} cannot be used nor defined.
@@ -1800,7 +1800,7 @@ that preserve the abstractions of the agent program.
 
 \paragraph{Concurrency management}
 
-Concerning runtime behavior,
+Concerning runtime behaviour,
 \jakta{}'s architecture has been designed to separate the concurrency model
 from the agent specification.
 
@@ -1850,7 +1850,7 @@ our goal mid-term is to support the same set of performatives supported by \jaso
 In the long run,
 we may also modularise the \ac{ACL} supported by \jakta{},
 paving the way towards the possibility of supporting multiple \ac{ACL}.
-% This would make customization of the message-passing mechanism
+% This would make customisation of the message-passing mechanism
 % even easier from the developers' point of view.
 
 % \sbnote{Over promising?}
@@ -1882,7 +1882,7 @@ including those in the form of libraries,
 and we plan to collect and promote projects affiliated with and extending \jakta{},
 hence encouraging the creation of an active community.
 
-\paragraph{Performance evaluation and optimization}
+\paragraph{Performance evaluation and optimisation}
 In this chapter, our focus is on a software engineering perspective,
 discussing the application of internal \acp{DSL} to \ac{BDI} agent programming,
 demonstrating feasibility, design challenges, and benefits of the approach.
@@ -1896,10 +1896,10 @@ which purposedly trades performance for thread-safety by leveraging on copy-on-w
 ---in order guarantee the agents' interpreter works correctly regardless of the concurrency model of choice.
 %
 We believe that performance can still be heavily improved,
-thus, we are delaying performance measurement until a reasonably optimized version of the tool is ready.
+thus, we are delaying performance measurement until a reasonably optimised version of the tool is ready.
 %
 In future work,
-we will first analyze in details and tackle the performance bottlenecks of \jakta{},
+we will first analyse in detail and tackle the performance bottlenecks of \jakta{},
 then run benchmarks to compare the performance of \jakta{} with other \ac{BDI} tools,
 primarily \jason{}.
 
@@ -3107,13 +3107,13 @@ the famous question
 ``Where are all the intelligent agents?''~\cite{hendlerb2007expert},
 remains relevant today.
 %
-Although McBurney and Luck responded by arguing that 
-agents were not a "killer application" and that
-``once dynamic and open systems become the norm''
-companies would adopt agent technologies as a fundamental~\cite{mcburney2007expert}.
-More than fifteen years later
-the Web has transitioned towards a more dynamic and open environment, 
-but it is still dominated by traditional clients, servers,
+Although McBurney and Luck responded by arguing that
+agents were not a ``killer application'' and that,
+once dynamic and open systems become the norm,
+companies would adopt agent technologies as a fundamental part of their infrastructure~\cite{mcburney2007expert},
+more than fifteen years later
+the Web has transitioned towards a more dynamic and open environment,
+yet it is still dominated by traditional clients, servers,
 and (most recently) bots and scrapers%
 ---which can hardly be considered full agents.
 %
@@ -3157,99 +3157,53 @@ is hindered by a conceptual and technological gap,
 which limits developers in creating agents that need to interact with (Semantic) hypermedia.
 %
 More precisely:
-\begin{enumerate*}[label=\textbf{(G\arabic*)}]
-  \item\label{gap:logic}
-  \ac{BDI} agents are historically tied to \ac{LP}
-  %-- e.g., with the popular \agentspeak{} semantic~\cite{DBLP:conf/maamaw/Rao96} --
-  whereas the Semantic Web is grounded on \ac{DL},
-  and although the two paradigms are theoretically compatible,
-  their practical implementations interoperate poorly,
-  increasing integration cost significantly;
-  % The different technological choices used to concretely implement them add cognitive load to developers working on the integration of the two worlds (e.g., converting \ac{OWL} and \ac{RDF} triples in Prolog-like formulas);
+\begin{enumerate}[label=\textbf{(G\arabic*)}]
+    \item\label{gap:logic}
+    \ac{BDI} agents are historically tied to \ac{LP}
+    (from the \agentspeak{} semantic~\cite{DBLP:conf/maamaw/Rao96})
+    whereas the Semantic Web is grounded on \ac{DL},
+    and although the two paradigms are theoretically compatible,
+    their practical implementations interoperate poorly,
+    increasing integration cost significantly;
+    % 
+    Although \ac{BDI} programming languages and frameworks with little or no reliance on \ac{LP} mechanisms exist
+    (e.g., \cite{map2005sp,kampik2019emas,howden2001jack}),
+    they come with their own semantics and representation for beliefs, goals, and actions
+    which still leave an abstraction gap to be covered with respect to Semantic Web technologies.
 
-  \item\label{gap:open-world}
-  \ac{BDI} agents are typically based on the \ac{PRS} architecture~\cite{georgeff1986pieee}
-  which relies on pre-defined plans and does not natively support discovering new actions at runtime,
-  a necessary feature to interact proficiently with hypermedia environments.
-\end{enumerate*}
+    \item\label{gap:open-world}
+    \ac{BDI} agents are typically based on the \ac{PRS} architecture~\cite{georgeff1986pieee}
+    which relies on pre-defined plans and does not natively support discovering new actions at runtime,
+    a necessary feature to interact proficiently with hypermedia environments.
+\end{enumerate}
 
-In this paper,
-we reflect on these gaps,
-their technical implications, % on the overall development experience of creating \ac{BDI} agents that interact with Web resources
-explore how this gap is currently being addressed in the \ac{hMAS} community,
-and
-propose a mitigation strategy based on abstracting the design of agent-oriented programming languages and frameworks.
-% %
-% We start by providing a brief overview of the \ac{BDI} model,
-% the hypermedia nature of the (Semantic) Web,
-% and
-% the fundamental principles of \ac{hMAS} in \Cref{sec:background}.
-% %
-% We then analyze the gap between \ac{BDI} agents and hypermedia,
-% and identify ideal integration requirements in \Cref{sec:gap-analysis}
-% %
-% Then,
-% in \Cref{sec:related-works},
-% we test those requirements against prior contributions
-% which already attempted to bridge the gap between \ac{BDI} agents and semantic hypermedia.
-% %
-% Finally,
-% in \Cref{sec:generalized-bdi-engine},
-% We present our research direction
-% aimed at %tightening the integration of \ac{BDI} agents and hypermedia
-% reducing the abstraction gap for developers
-% by introducing a generalized \ac{BDI} engine
-% that can directly leverage Semantic Web technologies for belief representation and deliberation;
-% and we discuss open challenges and opportunities of our approach.
+In the remainder of this chapter 
+we will refer to \ac{BDI} agents implicitly assuming \agentspeak{(L)}-like agents.
+
+In this chapter,
+we provide a brief overview of the hypermedia nature of the (Semantic) Web
+and the main principles of \ac{hMAS} in \Cref{sec:background}.
+%
+We then analyse the gap between \ac{BDI} agents and hypermedia
+and identify the integration requirements in \Cref{sec:gap-analysis}.
+%
+Next,
+in \Cref{sec:related-works},
+we assess these requirements against prior contributions
+that have attempted to bridge the gap between \ac{BDI} agents and semantic hypermedia.
+%
+Finally,
+in \Cref{sec:generalised-bdi-engine},
+we present our proposal
+for reducing the abstraction gap for developers
+by introducing a generalised \ac{BDI} engine
+that can directly leverage Semantic Web technologies for belief representation and deliberation,
+and we discuss the open challenges and opportunities of this approach.
 
 %==========================================================
 \section{Background}
 \label{sec:background}
 %==========================================================
-
-\subsection{BDI Agents}
-
-The \ac{BDI} model~\cite{DBLP:conf/kr/RaoG91}
-is a well-established cognitive architecture for the development of intelligent agents.
-%
-\ac{BDI} agents follow a continuous cycle of
-\begin{inlinelist}
-  \item \emph{perception} of external stimuli and gather new \emph{beliefs},
-  \item \emph{deliberation} to update beliefs, goals and choose \emph{intentions} to pursue selecting \emph{plan} to achieve goals,
-  and
-  \item \emph{action} advancing one intention by executing a step of the associated plan.
-\end{inlinelist}
-%
-Practically, most \ac{BDI} agents implementations follow the \ac{PRS} architecture~\cite{georgeff1986pieee},
-which is based on the ability for agents to select plans from a predefined set
-and execute them to achieve their goals.
-%
-The focus on \ac{BDI} agents, 
-as opposed to other reasoning-loop cognitive architectures, 
-is motivated by their direct mapping between high-level mental attitudes 
-(beliefs, desires, intentions) and practical agent programming constructs (plans and actions). 
-%
-This makes \ac{BDI} agents particularly suitable for engineering controllable, 
-predictable, 
-and explainable 
-agent behaviors.
-These properties, might be desirable in Web environments,
-where agents need to reliably interact with humans and other systems.
-
-To declaratively define the agent's behavior the \ac{AOP} community has developed several \ac{BDI} programming languages and frameworks~\cite{DBLP:conf/woa/MascardiDA05}.
-%
-Arguably, 
-the most popular language is \agentspeak{(L)}~\cite{DBLP:conf/maamaw/Rao96}
-with its \jason{}~\cite{bordini2007programming} implementation, 
-which uses a formal syntax and semantics derived from \ac{LP} for representing beliefs, goals, and actions as logic predicates.
-
-%
-Although \ac{BDI} programming languages and frameworks with little or no reliance on \ac{LP} mechanisms exist
-(e.g., \cite{map2005sp,kampik2019emas,howden2001jack}),
-they come with their own semantics and representation for beliefs, goals, and actions
-which still leave an abstraction gap to be covered with respect to Semantic Web technologies.
-%
-In the remainder of this work we will refer to \ac{BDI} agents implicitly assuming \agentspeak{(L)}-like agents.
 
 \subsection{The Web, Semantics and Hypermedia}
 
@@ -3309,7 +3263,7 @@ heterogeneous agents should be able to operate within it.
 However, the agent dimension also deservers further investigation to improve how agents can effectively exploit the hypermedia environment (e.g., for action discovery at runtime~\cite{vachtsevanou2024atal}).
 %
 Thus, 
-in this paper, 
+in this chapter, 
 we focus on the agent dimension of \ac{hMAS}, and
 specifically on \ac{BDI} agents and how to support deeper integration with semantic hypermedia.
 
@@ -3650,15 +3604,16 @@ A less structured approach is proposed in \cite{10.1145/3603163.3609077,schmid20
 where agents (albeit not \ac{BDI}) are able to select actions in a hypermedia environment by using a \ac{LLM} oracle.
 
 %==========================================================
-\section{Levelling the Gap with a Generalized \ac{BDI} Engine}
-\label{sec:generalized-bdi-engine}
+\section{Levelling the Gap with a Generalised \ac{BDI} Engine}
+\label{sec:generalised-bdi-engine}
 %==========================================================
 
 To bridge the gap between \ac{BDI} agents and semantic hypermedia,
-we propose a \emph{generalized} \ac{BDI} engine,
+we propose a \emph{generalised} \ac{BDI} engine,
 addressing the requirements in \Cref{sec:integrating-bdi-hypermedia}.
 %
-This approach primarily tackles gap~\ref{gap:logic}, while leaving the exploration of gap~\ref{gap:open-world} (benefitting from the modularity of the engine) to future works.
+This approach primarily tackles gap~\ref{gap:logic}, while leaving the exploration of gap~\ref{gap:open-world}
+(benefitting from the modularity of the engine) to future work.
 %
 A similar approach has been proposed in~\cite{novak2006atal}, 
 in which authors discuss the idea of a modular \ac{BDI} architecture,
@@ -3673,14 +3628,14 @@ This would allow for tailoring the reasoning mechanisms to application-specific 
 In this way,
 beliefs
 can flexibly support different formats depending on the domain at hand
-and be adapted to work directly with e.g., \ac{RDF} triples, to JSON, YAML, and other Web standards.
+and be adapted to work directly with, e.g., \ac{RDF} triples, JSON, YAML, and other Web standards.
 %
 Such a design fulfills the first requirement \ref{req:direct}.
 
 \begin{figure}
     \centering
-    \caption{Generalized \ac{BDI} engine architecture. The generalized \ac{BDI} reasoning layer is agnostic to the knowledge representation technology used in the concrete specification layer, which can be tailored to support different formats (e.g., \ac{RDF}, JSON, YAML, etc.).}
-    \label{fig:generalized-bdi-architecture}
+    \caption{Generalised \ac{BDI} engine architecture. The generalised \ac{BDI} reasoning layer is agnostic to the knowledge representation technology used in the concrete specification layer, which can be tailored to support different formats (e.g., \ac{RDF}, JSON, YAML, etc.).}
+    \label{fig:generalised-bdi-architecture}
     \includegraphics[width=0.5\linewidth]{figures/hyperagents25/architecture}
 \end{figure}
 
@@ -3708,7 +3663,7 @@ Consider for instance these fundamental operations:
 %
 In \ac{LP}-based frameworks,
 these would simply rely on logic unification and resolution,
-whereas in a generalized \ac{BDI} engine,
+whereas in a generalised \ac{BDI} engine,
 each operation may rely on different matching strategies.
 %
 For instance,
@@ -3726,10 +3681,10 @@ and \ac{SWRL} for plan selection and ontological inference%
 % can be performed with a layered architecture of the framework.
 % %
 % The layered architecture proposed is composed of:
-The generalized \ac{BDI} engine can be realized with a layered architecture (see \Cref{fig:generalized-bdi-architecture}) comprising three layers.
+The generalised \ac{BDI} engine can be realised with a layered architecture (see \Cref{fig:generalised-bdi-architecture}) comprising three layers.
 %
 \begin{enumerate*}[label={\emph{Layer \arabic*}:}]
-  \item \textbf{generalized \ac{BDI} reasoning layer},
+  \item \textbf{generalised \ac{BDI} reasoning layer},
   where the agent's deliberation process is implemented as a reasoning cycle,
   yet agnostic to how beliefs are represented and manipulated.
   %
@@ -3745,7 +3700,7 @@ The generalized \ac{BDI} engine can be realized with a layered architecture (see
   \item \textbf{concrete specification layer},
   where the aforementioned \acs{API} is implemented to provide concrete operations on the belief base.
   %
-  This layer acts as an adapter between the generalized \ac{BDI} reasoner
+  This layer acts as an adapter between the generalised \ac{BDI} reasoner
   and the specific knowledge representation technologies of choice.
   %
   Lastly,
@@ -3765,13 +3720,14 @@ to facilitate their agents to discover new actions at runtime in the hypermedia 
 \label{sec:conclusion}
 %==========================================================
 
-In this paper, we present a gap analysis between \ac{BDI} agents and semantic hypermedia,
+In this chapter, 
+we present a gap analysis between \ac{BDI} agents and semantic hypermedia,
 showing how they are difficult to integrate due to the different technologies and paradigms they rely on.
 %
 We identify a set of ideal requirements, finding that none of the surveyed related works fully satisfy them
-and propose to implement them through a generalized \ac{BDI} engine that can be tailored to use \ac{RDF} and \ac{OWL} as knowledge representation technologies.
+and propose to implement them through a generalised \ac{BDI} engine that can be tailored to use \ac{RDF} and \ac{OWL} as knowledge representation technologies.
 
-Future work will focus on implementing the architecture proposed in \Cref{sec:generalized-bdi-engine}
+Future work will focus on implementing the architecture proposed in \Cref{sec:generalised-bdi-engine}
 and explore how to support \ac{hMAS} developers with syntax extensions
 and tools to ease the development of \ac{BDI} agents in hypermedia environments
 within our \ac{BDI} programming framework \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24}.
