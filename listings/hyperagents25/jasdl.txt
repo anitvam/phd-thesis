@@ -1,0 +1,9 @@
+hotel(hilton)[o(travel)].                           // hilton is a hotel
+hasRating(hilton, threeStarRating)[o(travel)].      // hilton has three-star rating
+city(london)[o(travel)].                            // london is a city
+hasAccomodation(london, hilton)[o(travel)].         // hilton is in london
+country(england)[o(travel)].                        // england is a country
+urbanArea(wembley)[o(travel)].                      // wembley is an urban area
+isPartOf(wembley, london)[o(travel)].               // wembley is a part of london
+isPartOf(london, england)[o(travel)].               // london is a part of england
+hasPricePerNight(hilton, 22.0)[o(travel)].          // hilton costs 22 at night

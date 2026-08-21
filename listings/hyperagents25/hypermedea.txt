@@ -1,0 +1,7 @@
+// plain RDF form
+targetEquipment(Machine) :-
+  rdf("https://territoire.emse.fr/kg/emse/fayol", "https://w3id.org/bot#containsElement", Machine) &
+  rdf(Machine, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://www.productontology.org/id/Filler_(packaging)") .
+
+// equivalent short form based on OntologyArtifact properties
+targetEquipment(Machine) :- containsElement(fayol, Machine) & 'Filler_(packaging)'(Machine).

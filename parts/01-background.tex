@@ -45,7 +45,7 @@ The latter mechanism is commonly referred to as \emph{stigmergy}~\cite{ch30-cast
 the actions performed by one agent alter the environment, and such alterations can subsequently be perceived by other agents, which adapt their behavior accordingly.
 
 To support stigmergic coordination in software systems,
-some \ac{MAS} technologies provide explicit and programmable abstractions for the environment~\cite{WeynsOO07}.
+some \ac{MAS} technologies provide explicit and programmable abstractions for the environment~\cite{weyns2007aamas}.
 %
 In such cases,
 the environment is not merely the execution context in which agents operate, 
@@ -601,7 +601,6 @@ these proposals extend the original cognitive model of \agentspeak{} with explic
 Rather than modifying the fundamental \ac{BDI} abstractions, 
 they enrich the reasoning process with additional information that enables agents to reason not only about the organizational context in which they operate.
 
-\note{Non è completo di tutta la letteratura, sono solo alcuni esempi, è il caso di fare uno stato dell'arte più completo? Non è un aspetto centrale della tesi, quindi forse non serve.}
 
 \paragraph{Integration with generative artificial intelligence}
 
@@ -691,7 +690,6 @@ we also include \jakta{} in the comparison,
 although its development postdates the analysis of the other frameworks. 
 %
 The rationale behind the design choices adopted in \jakta{} is discussed in Section~\ref{sec:jaktadsl}.
-\note{Tolgo jakta?}
 
 The comparison is not intended to establish a ranking among the considered technologies. 
 %
@@ -733,7 +731,7 @@ and the ones that are just inspired to \agentspeak{}.
 Since such compliance,
 to the best of our knowledge,
 has not yet been formally defined,
-for the scope of this paper we rely on the following set of necessary features:
+for the scope of this section we rely on the following set of necessary features:
 %
 \begin{enumerate}
     \item explicit representation of beliefs, goals, plans, and events in the language syntax;
@@ -982,8 +980,6 @@ whereas \jack{} bases its modularity on the concept of capabilities~\cite{busett
 
 \paragraph{Concurrency model}
 
-%\sbnote{Visto che l'altro paper ha rivelato che la situazione è un po' più articolata di così sta sezione va cambiata o rimossa. Potremmo cambiarla con "supporta nativamente lo switch tra modelli di concorrenza diversi", che forse è più safe}
-%
 This feature is about how the surveyed solutions deal with agents' \emph{concurrent execution},
 and whether developers can select among multiple execution models
 without resorting to changes in the execution platform's code.
@@ -1030,7 +1026,7 @@ nor it explains how to select them or provide a custom one.
 \paragraph{Explicit environment}
 %
 The design of environments
-is essential for multi-agent systems that rely on stigmergy~\cite{WeynsOO07}.
+is essential for multi-agent systems that rely on stigmergy~\cite{weyns2007aamas}.
 %
 We analyse whether the \ac{BDI} languages under scrutiny feature an explicit and \emph{programmable} notion of environment.
 %

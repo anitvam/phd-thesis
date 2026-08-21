@@ -1,0 +1,4 @@
+rdf("http://example.org/alice", "http://www.w3.org/1999/02/22-rdf-syntax-ns\#type", "http://example.org/Person") [ rdf_type_map(uri, uri, uri) ] .
+rdf("http://example.org/alice", "http://example.org/name", "Alice") [ rdf_type_map(uri, uri, literal) ] .
+rdf("http://example.org/alice", "http://example.org/age", 42) [ rdf_type_map(uri, uri, literal) ] .
+rdf("http://example.org/alice", "http://example.org/knows", someone) [ rdf_type_map(uri, uri, bnode) ] .

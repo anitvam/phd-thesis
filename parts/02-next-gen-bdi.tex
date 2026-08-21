@@ -91,7 +91,6 @@ JS-son~\cite{DBLP:conf/emas/KampikN19},
 an agent programming library for JavaScript.
 %
 In this work,
-\sidenote{Come gestisco le ref dirette al contributo del paper + introduzione di Jakta?}
 we introduce the community to \jakta{}~\cite{BaiardiBCP23},
 a further step forward in this direction,
 leveraging a recent, quickly-growing, multi-paradigm language:
@@ -178,8 +177,7 @@ an ecosystem of tools
 (e.g., debugger, syntax coloring, linter, \acp{IDE}, etc.).
 
 To the best of our knowledge,
-no mainstream programming language currently 
-\sidenote{Ha senso utilizzare currently qui?}
+no mainstream programming language prior to this work 
 \emph{natively} supports the \ac{AOP} paradigm,
 especially the \ac{BDI} model.
 %
@@ -352,7 +350,7 @@ In the particular case of Kotlin as the hosting \ac{GPL},
 internal \ac{DSL} design leverages primarily the following set of features%
 \footnote{
     A comprehensive review of Kotlin's features that can be exploited for building \acp{DSL}
-    is beyond the scope of this paper,
+    is beyond the scope of this chapter,
     but we refer the interested reader to the Kotlin documentation about the so-called ``type-safe builders'',
     archived at \url{https://archive.is/El3fE}.
 }~\cite{kotlindsi4prolog-woa2020}:
@@ -465,7 +463,7 @@ inside whose scope all the elements composing a \ac{BDI} \ac{MAS} can be defined
     basicstyle=\footnotesize\ttfamily,
     linewidth=\linewidth,
     language=Kotlin,
-]{listings/jakta-examples/mas_dsl.kt}
+]{listings/sncs24/jakta-examples/mas_dsl.kt}
 %
 Commonly, users configure the environment, and provide initial agents' specifications within this block.
 %
@@ -530,7 +528,7 @@ and then we create one agent for each athlete:
 \lstinputlisting[
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/blending.kt}
+]{listings/sncs24/jakta-examples/blending.kt}
 %
 In this example, we exploit \jakta{} for the \ac{MAS} definition,
 the \ac{OOP} paradigm to deal with the regular expression match and data extraction from the group,
@@ -553,7 +551,7 @@ by means of logic facts, as well as logic rules for computing whether some locat
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/beliefs_dsl.kt}
+]{listings/sncs24/jakta-examples/beliefs_dsl.kt}
 
 Under the assumption that the graph represents some sort of map from the real world,
 the above belief base can be exploited by the agent to reason about reachability among
@@ -578,7 +576,7 @@ by means of the \kotlinInline{goals} block:
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/goals_dsl.kt}
+]{listings/sncs24/jakta-examples/goals_dsl.kt}
 %
 %As discussed in the next paragraph, the syntax of goals in plans' heads is exactly the same.
 
@@ -618,7 +616,7 @@ or invocations of external or internal actions (see next paragraphs).
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/plans.kt}
+]{listings/sncs24/jakta-examples/plans.kt}
 %
 
 \paragraph{Internal Actions}
@@ -673,7 +671,7 @@ We will use such syntax also in other snippets that follow this one.
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/internal_action_dsl.kt}
+]{listings/sncs24/jakta-examples/internal_action_dsl.kt}
 %
 More precisely,
 internal actions provide primitives that can change the overall agent's state, not limited to its belief base, by:
@@ -691,7 +689,7 @@ Conversely, in the following snippet we exemplify the general syntax for invokin
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/internal_action_dsl_inv.kt}
+]{listings/sncs24/jakta-examples/internal_action_dsl_inv.kt}
 
 Internal actions in \jakta{} are used frequently,
 thus,
@@ -715,7 +713,7 @@ For instance, the \kotlinInline{Print} internal action, shown below, lets agents
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/print.kt}
+]{listings/sncs24/jakta-examples/print.kt}
 %
 Internal actions defined in this way can be imported in one agent's \kotlinInline{actions} block,
 similarly to actions defined on the fly, and invoked
@@ -735,7 +733,7 @@ by means of the corresponding Kotlin object's name:
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/print-usage2.kt}
+]{listings/sncs24/jakta-examples/print-usage2.kt}
 
 To support the most common use cases,
 \jakta{} comes with several ready-to-use internal actions out of the box.
@@ -776,7 +774,7 @@ The following snippet exemplifies the environment configuration.
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/env.kt}
+]{listings/sncs24/jakta-examples/env.kt}
 %
 Custom implementations of \kotlinInline{Environment} may be used if passed to the
 \kotlinInline{from} function.
@@ -818,7 +816,7 @@ as shown in the following snippet:
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/external_action_dsl.kt}
+]{listings/sncs24/jakta-examples/external_action_dsl.kt}
 %
 As for internal actions,
 external actions can be defined in Kotlin by implementing the \kotlinInline{ExternalAction} interface,
@@ -831,7 +829,7 @@ For instance, the \kotlinInline{Send} external action, shown below, sends messag
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/send.kt}
+]{listings/sncs24/jakta-examples/send.kt}
 %
 External actions defined in this way can be imported in environments' \kotlinInline{actions} blocks,
 similarly to actions defined on the fly, and invoked as any other action by agents:
@@ -840,7 +838,7 @@ similarly to actions defined on the fly, and invoked as any other action by agen
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/send-usage.kt}
+]{listings/sncs24/jakta-examples/send-usage.kt}
 %
 %However, to simplify the notation on the invocation side, \jakta{} also supports
 %executing external actions too by means of the corresponding Kotlin object's name.
@@ -888,12 +886,12 @@ The syntax is exemplified in the following example:
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/message_action_dsl.kt}
+]{listings/sncs24/jakta-examples/message_action_dsl.kt}
 %
 Once delivered to the recipients' message box,
 the message will be processed by the agent's reasoning cycle in compliance with the value of the ILF tag.
 %
-\jakta{} currently supports the following ILF values:
+\jakta{} supports the following ILF values:
 \prologInline{tell} and \prologInline{achieve},
 which -- according to the KQML~\cite{finin1994KQML} specification --
 aim to share beliefs and delegating goals among agents, respectively.
@@ -920,7 +918,7 @@ is tagged with a logic structure denoting the source of the message%
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/ping-pong.kt}
+]{listings/sncs24/jakta-examples/ping-pong.kt}
 %
 Notably, beliefs' source tags can be specified through the
 \kotlinInline{.source()},
@@ -944,7 +942,7 @@ in a way completely transparent to the caller.
     basicstyle=\footnotesize\ttfamily,
     linewidth=\textwidth,
     language=Kotlin,
-]{listings/jakta-examples/collatz.kt}
+]{listings/sncs24/jakta-examples/collatz.kt}
 %
 This sample serves as an example of how \jakta{} can be used to implement
 even small portions of large systems using \ac{AOP}, if convenient.
@@ -980,7 +978,7 @@ decouple agent specifications and their execution.
 %
 \begin{figure}%[b]
     \centering
-    \includegraphics[width=\textwidth]{figures/jakta_modules.pdf}
+    \includegraphics[width=\textwidth]{figures/sncs24/jakta_modules.pdf}
     \caption{\jakta{} modules and their relations. Arrowheads indicate dependencies (depends-on relationship).}
     \label{fig:framework-modules}
 \end{figure}
@@ -1209,7 +1207,7 @@ Thus, actions are the means by which agents can declaratively invoke functional,
 
 \begin{figure}
     \centering
-    \includegraphics[width=.7\textwidth]{figures/action_interface.pdf}
+    \includegraphics[width=.7\textwidth]{figures/sncs24/action_interface.pdf}
     \caption{\jakta{} Action interface hierarchy.}
     \label{fig:action-hierarchy}
 \end{figure}
@@ -1331,7 +1329,7 @@ The agent's play strategy is the following:
 There are four alignment directions, so the agent's belief base can host:
 \\
 \begin{minipage}[c]{\textwidth}
-    \prologImport[linerange={1-4},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-directions-meta.asl}
+    \prologImport[linerange={1-4},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-directions-meta.asl}
 \end{minipage}
 %
 The critical part of the scenario, however, is dealing with a grid of \emph{unknown size}.
@@ -1339,7 +1337,7 @@ The critical part of the scenario, however, is dealing with a grid of \emph{unkn
 For a simple $3 \times 3$ case, the problem can be dealt with via four couples of rules in the form:
 \\
 \begin{minipage}[c]{\textwidth}
-    \prologImport[linerange={5-8},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-directions-meta.asl}
+    \prologImport[linerange={5-8},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-directions-meta.asl}
 \end{minipage}
 %
 where meta-variable \meta{alignment} can be:
@@ -1354,13 +1352,13 @@ Under these premises, for a $3 \times 3$ simplified scenario,
 the plans dealing with victory, loss, and random choice may be written in \jason{} as:
 \\
 \begin{minipage}[c]{\textwidth}
-    \prologImport[linerange={1-3},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-plans.asl}
+    \prologImport[linerange={1-3},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-plans.asl}
 \end{minipage}
 %
 whereas plans making the final move can be written as:
 \\
 \begin{minipage}[c]{\textwidth}
-    \prologImport[linerange={5-7},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-plans.asl}
+    \prologImport[linerange={5-7},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-plans.asl}
 \end{minipage}
 %
 Plans impeding the victory of the opponent would be very similar.
@@ -1378,7 +1376,7 @@ The same application in \jakta{} could be created by defining a
 \emph{parametric} \ac{MAS} via an ordinary Kotlin function with a parameter:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={1-9},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={1-9},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 The function declares a \ac{MAS} whose environment of type \kotlinInline{GridEnvironment}
@@ -1388,7 +1386,7 @@ The \kotlinInline{Put} action is defined as a Kotlin object, in another file,
 and extends the \kotlinInline{AbstractExternalAction} provided by the framework:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={62-70},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={62-70},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 The action takes three arguments, which are the position where to insert the mark and the mark itself.
@@ -1399,7 +1397,7 @@ The two players are agents returned by the \kotlinInline{player} extension funct
 %
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={11-29},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={11-29},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 Notably, the function exploits multiple paradigms to construct agent specifications via AOP meta-programming.
@@ -1411,7 +1409,7 @@ by calling the \kotlinInline{alignment} function,
 which parametrically builds rules to compute alignments along the four major directions:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={31-43},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={31-43},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 With no paradigm blending,
@@ -1425,17 +1423,17 @@ For instance,
 victory and defeat detection are implemented with functions parametric in the symbol of the player and size of the grid:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={45-48},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
-    % \kotlinImport[linerange={33-38}]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={45-48},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
+    % \kotlinImport[linerange={33-38}]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 % \\
 % \begin{minipage}[c]{\textwidth}
-%     \kotlinImport[linerange={35-36}]{listings/tictactoe-mas.kt}
+%     \kotlinImport[linerange={35-36}]{listings/sncs24/tictactoe-mas.kt}
 % \end{minipage}
 and both rely on a generic \kotlinInline{detect} function implementing a \emph{template plan}:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={49-50},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={49-50},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 %====================================
@@ -1450,7 +1448,7 @@ we show how \emph{plan generation} can be realised in \jakta{}
 by showing the implementation of \kotlinInline{makeWinningMove}:
 \\
 \begin{minipage}[c]{\textwidth}
-    \kotlinImport[linerange={52-55},basicstyle=\footnotesize\ttfamily]{listings/tictactoe-mas.kt}
+    \kotlinImport[linerange={52-55},basicstyle=\footnotesize\ttfamily]{listings/sncs24/tictactoe-mas.kt}
 \end{minipage}
 %
 There, \kotlinInline{gridSize} plan statements are generated,
@@ -1503,22 +1501,22 @@ and consistency is verified at compile time by the Kotlin compiler.
     }
     \label{fig:ca}
     \subfloat[\jason{} on Visual Studio Code]{
-        \includegraphics[width=.48\linewidth]{figures/code-jason.png}
+        \includegraphics[width=.48\linewidth]{figures/sncs24/code-jason.png}
         \label{fig:code-jason}
     }
     % \hfill
     \subfloat[\jakta{} on Visual Studio Code]{
-        \includegraphics[width=.48\linewidth]{figures/code-jakta.png}
+        \includegraphics[width=.48\linewidth]{figures/sncs24/code-jakta.png}
         \label{fig:code-jakta}
     }
     \\
     \subfloat[\jason{} on IntelliJ Idea]{
-        \includegraphics[width=.48\linewidth]{figures/idea-jason.png}
+        \includegraphics[width=.48\linewidth]{figures/sncs24/idea-jason.png}
         \label{fig:idea-jason}
     }
     % \hfill
     \subfloat[\jakta{} on IntelliJ Idea]{
-        \includegraphics[width=.48\linewidth]{figures/idea-jakta.png}
+        \includegraphics[width=.48\linewidth]{figures/sncs24/idea-jakta.png}
         \label{fig:idea-jakta}
     }
 \end{figure}
@@ -1562,7 +1560,7 @@ at the cost of a single line in the projects' Gradle build file.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/tictactoe-android.png}
+    \includegraphics[width=0.5\linewidth]{figures/sncs24/tictactoe-android.png}
     \caption{The TicTacToe \ac{MAS} running on Android.}
     \label{fig:tictactoe-android}
 \end{figure}
@@ -1570,7 +1568,7 @@ at the cost of a single line in the projects' Gradle build file.
 
 \section{Conclusion, limitations, and future work}\label{sec:conclusion}
 
-In this paper,
+In this chapter,
 we introduced \jakta{}:
 an internal Kotlin \ac{DSL} for \ac{BDI} agent programming that strives to achieve
 true paradigm blending of \ac{AOP}, \ac{OOP}, and \ac{FP}
@@ -1885,7 +1883,7 @@ and we plan to collect and promote projects affiliated with and extending \jakta
 hence encouraging the creation of an active community.
 
 \paragraph{Performance evaluation and optimization}
-In this paper, our focus is on a software engineering perspective,
+In this chapter, our focus is on a software engineering perspective,
 discussing the application of internal \acp{DSL} to \ac{BDI} agent programming,
 demonstrating feasibility, design challenges, and benefits of the approach.
 %
@@ -1966,14 +1964,14 @@ well-separated from the agent's behaviour specification.
 
 \section{Background}\label{sec:background}
 
-In this section
+In this section,
 we first recall basic notions frame the concepts of \emph{internal} and \emph{external} concurrency,
 then
 look at the existing work specifically addressing concurrency in the context of \ac{BDI} \ac{AOP},
 thus framing our contribution with respect to the state of the art.
 %
 Then
-we discuss the lower-level concurrency abstractions required to understand the remainder of the paper.
+we discuss the lower-level concurrency abstractions required to understand the remainder of the chapter.
 
 \subsection{Internal vs.\ External Concurrency}
 
@@ -2059,7 +2057,7 @@ each cycle of the control-loop executes a single action from a single intention.
 Conversely, a system modelled as in \Cref{eq:parallelIC} would support \emph{true} parallelism%
 ---so, in principle, two or more action could be executed in the same moment.
 
-\subsubsection{External Concurrency,} conversely, is what we focus on in this paper---i.e., the way the control loops of multiple agents are mapped onto the underlying concurrency abstractions
+\subsubsection{External Concurrency,} conversely, is what we focus on in this chapter---i.e., the way the control loops of multiple agents are mapped onto the underlying concurrency abstractions
 (\Cref{sec:concurrency_abstractions}).
 %
 In other words, we are interested in understanding how \Cref{eq:external_concurrency} can be -- and commonly is -- implemented in practice.
@@ -2222,7 +2220,7 @@ the event loop is hidden under the hood,
 and developers are not required to interact with it directly,
 but rather by means of the aforementioned features.
 %
-As far as this paper is concerned, 
+As far as this chapter is concerned, 
 we stick to the low-level abstraction of the event loop,
 as our goal is to make concurrency controllable for \ac{AOP} developers%
 ---rather than hiding it via syntactic sugar.
@@ -2294,7 +2292,7 @@ Since the introduction of the \acl{BDI} framework~\cite{bratman1988bdi},
 the community produced many technologies for programming \ac{BDI} agents,
 most of which are based on (or inspired by) the \agentspeak{} semantics~\cite{rao1996maamaw}.
 %
-In the remainder of this paper,
+In the remainder of this chapter,
 we compare several major \ac{BDI} technologies from a concurrency perspective.
 %
 We focus on those technologies that appear to have some running software implementation
@@ -2343,17 +2341,44 @@ or 3APL~\cite{HindriksBHM99}.
 \section{A Taxonomy of Concurrency Patterns for \ac{MAS} Execution}
 \label{sec:taxonomy}
 
-In this section we identify the most relevant \emph{external} concurrency models for \acp{MAS}---namely, how the atomic parts of the agent' control loop get mapped onto the underlying abstractions
-described in \Cref{sec:concurrency_abstractions}.
+Building on the background and terminology introduced in \Cref{subsec:agentspeak-frameworks}, 
+and on the taxonomy we use to classify the \ac{BDI} frameworks,
+we refine and extend this classification 
+to capture how the atomic parts of an agent's control loop 
+are mapped onto the underlying \ac{BDI} abstractions described in \Cref{sec:concurrency_abstractions}.
 %
 Different \emph{internal} concurrency models dictate different levels of granularity of the atomic components of the control loop,
 thus influencing the \emph{external} concurrency model.
 %
-Consequently, 
-we focus on the mapping of the largest possible autonomous unit in \ac{AOP}, the entire agent,
-discussing the potential external concurrency models for a \ac{MAS}.
+Consequently,
+we focus on the mapping of the largest possible autonomous unit in \ac{AOP}, namely the entire agent,
+discussing the main external concurrency patterns that can be adopted in a \ac{MAS}.
 
-\paragraph{\ac{1A1T}.}
+\paragraph{\ac{1A1P}}
+
+Each agent is mapped onto a dedicated process, 
+which owns its own memory space and executes its own control loop.
+%
+Hence, 
+the \ac{MAS} consists of multiple operating-system processes, 
+each one potentially hosting additional internal concurrency mechanisms 
+such as threads, executors, or event loops.
+%
+Compared to \ac{1A1T}, 
+this model provides stronger isolation between agents:
+state, failures, and memory are confined to a single process, 
+and interactions among agents must be performed explicitly 
+through inter-process communication mechanisms 
+such as sockets, pipes, or message brokers.
+%
+This makes \ac{1A1P} particularly attractive in distributed, fault-tolerant settings,
+where process boundaries can be exploited to isolate agents 
+and to run them across different machines or containers.
+%
+At the same time, 
+the model sacrifices the simplicity and low-overhead coordination of shared-memory execution.
+
+\paragraph{\ac{1A1T}}
 
 Each agent is mapped onto a single thread, which executes its whole control loop.
 %
@@ -2366,7 +2391,7 @@ for the same reason, determinism is minimal.
 Additionally, with \ac{1A1T} the active thread count of the \ac{MAS} is unbound,
 and when such count largely exceeds the logical processors performance degrades~\cite{DBLP:journals/sigops/LingML00}.
 
-\paragraph{\ac{AA1T}.}
+\paragraph{\ac{AA1T}}
 
 The whole \ac{MAS} is executed on a single thread which internally schedules all agents' execution in a custom way,
 following some (usually cooperative) scheduling policy---e.g., round-robin.
@@ -2396,25 +2421,9 @@ because of the cooperative nature of the scheduling,
 sensing, deliberation, and actuation operations should terminate as quickly as possible,
 to avoid blocking the whole \ac{MAS}.
 
-\paragraph{\ac{AA1EL}.}
-
-The whole \ac{MAS} is executed on a single event loop,
-which internally schedules all agents' execution with a FIFO queue of tasks,
-ensuring fairness by design if all new tasks in the event loop are inserted by other tasks of the event loop.
-%
-At the conceptual level,
-this is equivalent to a fair \ac{AA1T};
-as such,
-controllability and performance are akin to \ac{AA1T}.
-%
-In practice, however,
-\ac{AA1EL} requires explicitly modelling the agent's control loops activities as tasks on the event loop,
-thus, despite the conceptual equivalence,
-technical implementations of \ac{AA1T} and \ac{AA1EL} may be fairly different.
-
-\paragraph{\ac{AA1E}.}
-Similarly to \ac{AA1EL},
-each atomic operation is mapped onto a task to be enqueued on a shared executor.
+\paragraph{\ac{AA1E}}
+% Similarly to \ac{AA1EL},
+Each atomic operation is mapped onto a task to be enqueued on a shared executor.
 %
 This model enables the parallel execution of multiple agents, and,
 if the internal concurrency model supports it,
@@ -2449,7 +2458,7 @@ hence making the interleaving more coarse-grained%
 where $\T{step}$ represents one single execution of all stages, from sensing to acting.
 
 Two further specialisations of this model are possible, 
-depending on whether the executor is fixed- or variable-size.
+depending on whether the executor is \textbf{fixed}- or \textbf{variable}-sized.
 %
 In the former case, 
 there is an upper bound on the amount of threads the \ac{MAS} can leverage.
@@ -2462,16 +2471,36 @@ when there are $M$ agents and $N<M$ threads,
 if $N$ agents are performing blocking operations,
 then the other $M-N$ agents must wait.
 %
-Of course,
-the fixed-sized executor with $N = 1$ is equivalent to \ac{AA1EL}.
-%
-If the executor is variable-sized,
-then the number of threads is adjusted dynamically,
-upon need---i.e., by trying to match the count of active threads and logical processors.
+% Of course,
+% the fixed-sized executor with $N = 1$ is equivalent to \ac{AA1EL}.
+% %
+% If the executor is variable-sized,
+% then the number of threads is adjusted dynamically,
+% upon need---i.e., by trying to match the count of active threads and logical processors.
 %
 \ac{AA1E} is generally
 preferable over \ac{1A1T},
 as the total thread count is controllable.
+
+\paragraph{\ac{AA1EL}}
+
+It is conceptually a generalisation of \ac{AA1E}, 
+where the executor is a fixed-sized executor with $N = 1$.
+%
+The whole \ac{MAS} is executed on a single event loop,
+which internally schedules all agents' execution with a FIFO queue of tasks,
+ensuring fairness by design if all new tasks in the event loop are inserted by other tasks of the event loop.
+%
+At the conceptual level,
+this is equivalent to a fair \ac{AA1T};
+as such,
+controllability and performance are akin to \ac{AA1T}.
+%
+In practice, however,
+\ac{AA1EL} requires explicitly modelling the agent's control loops activities as tasks on the event loop,
+thus, despite the conceptual equivalence,
+technical implementations of \ac{AA1T} and \ac{AA1EL} may be fairly different.
+
 
 
 \subsection{Concurrency at different levels of granularity}
@@ -2511,7 +2540,7 @@ as in principle any \ac{AOP} abstraction can be mapped on any lower-level concur
 ---thus allowing uncommon combinations such as One-Agent-One-Container or One-Intent-One-Process.
 %
 For the sake of simplicity,
-in this paper we focus on the cases listed in \Cref{sec:taxonomy},
+in this chapter we focus on the cases listed in \Cref{sec:taxonomy},
 which we show suffice to capture the behaviour of all the selected \ac{BDI} technologies.
 However,
 we discuss the implications of more nuanced concurrency models briefly in \Cref{sec:discussion}.
@@ -2576,14 +2605,14 @@ we force agents to pursue different intentions simultaneously
   linewidth=\linewidth,
   label={lst:pinger_example},
   caption={ASL description for \emph{pinger} agent.}
-]{listings/generic_test_ag1.asl}
+]{listings/emas24/generic_test_ag1.asl}
 %
 \lstinputlisting[
   float,
   linewidth=\linewidth,
   label={lst:ponger_example},
   caption={ASL description for \emph{ponger} agent.}
-]{listings/generic_test_ag2.asl}
+]{listings/emas24/generic_test_ag2.asl}
 %
 We then analyse the trace obtained
 by multiple executions of the benchmark,
@@ -2602,7 +2631,7 @@ showing the benchmark output when executed in \jason{}%
  linewidth=\linewidth,
  label={lst:test_output_jason},
  caption={An example of execution on which each agent executes its steps on its thread.}
-]{listings/test_output_jason_local.txt}
+]{listings/emas24/test_output_jason_local.txt}
 %
 There, logs suggest that \jason{} may implement \ac{1A1T} concurrency model, as each agent is always logged by the same thread, the same thread is never used by two different agents, and the thread identifier is associated to the name assigned to the agent in the \ac{MAS} specification.
 %
@@ -2646,7 +2675,7 @@ After inferring the concurrency model of each \ac{BDI} technology,
 we assess if and to what extent the concurrency model can be \emph{customised} by the users of that technology,
 by looking for ad-hoc syntax or \ac{API} letting \ac{MAS} specifications customise the concurrecy model.
 
-\subsubsection{Direct Contact.}
+\subsubsection{Direct Contact with Maintainers}
 %
 Once the results from the previous steps were gathered,
 we contacted maintainers of each framework 
@@ -2663,11 +2692,44 @@ adding comments about whether the non-supported external concurrency models were
 available out of the box (thus, missed by the analysis),
 could be supported with reasonable effort,
 or required extensive rewriting of the codebase: 
-a template of the email sent to all maintainers can be found in \Cref{appendix:questions}.
-\sidenote{La metto la mail? io sarei per toglierla completamente}
+a template of the email sent to all maintainers can be found in \Cref{mail}.
 %
 We received answers from all developers except for \jason{} and \spadebdi{};
 all answers confirmed our initial results.
+
+\begin{lstlisting}[
+    breaklines, 
+    breakatwhitespace=true, 
+    frame=none, 
+    keepspaces=false, 
+    columns=flexible, 
+    tabsize=2,
+    label=mail,
+    caption={Template of the email sent to the maintainers of the surveyed \ac{BDI} technologies.}
+]
+Dear <Maintainer>,
+we are reaching out to you to ask information about <X>.
+
+Our research group is conducting research on how MAS platforms deal with the underlying concurrency mechanisms.
+We are surveying several technologies to understand how they map the agents' lifecycle on the underlying mechanisms:
+
+  1. One-Agent-One-Thread: Each agent is mapped into a single thread.
+  2. All-Agents-One-Thread: The whole MAS is executed on a single thread, following a scheduling policy (i.e. Round-Robin).
+  3. All-Agents-One-Event-Loop: The MAS is executed over an event-loop.
+  4. All-Agents-One-Executor: Similar to case 3, but it uses threads to allocate agents, resulting in an effectively parallel execution. We distinguish two sub-cases:
+      a. fixed-sized executors (static thread count)
+      b. variable-sized (dynamically changing thread count).
+  5. One-Agent-One-Process: which, internally, could exploit all the above taxonomies to execute its control loop.
+
+We inspected your code source and identified that <X> currently supports <list of supported>,
+however, we were not able to infer if it can supports <list of not supported>
+Would you agree with the previous assertion?
+
+Would it be possible to write custom extensions to implement <list of not supported> with no changes to the current code base of <X>?
+If not, what about implementing the missing mechanisms directly?
+Would it be feasible, in your opinion?
+And if so, would you consider it easy, moderate, hard, or very hard?
+\end{lstlisting}
 
 \subsection{Results}
 \label{subsec:results}
@@ -2706,7 +2768,7 @@ summarising the most prominent findings.
   %}
 \end{table}
 
-\subsubsection{\astra{}.}
+\subsubsection{\astra{}}
 
 \astra{}~\cite{CollierRL15} is a \ac{BDI} agent technology written in Java
 designed with a C-family syntax.
@@ -2725,7 +2787,7 @@ Since Java executors can be used as event loops, \ac{AA1EL} is supported, too.
   language=Java,
   label={lst:astra_executor},
   caption={Snippet of \astra{}'s code base (\url{https://gitlab.com/astra-language/astra-core}) showing how the \acl{AA1E} model is implemented.}
-]{listings/BasicSchedulerStrategy.java}
+]{listings/emas24/BasicSchedulerStrategy.java}
 %
 Among the available implementations which are present in the \astra{} codebase,
 the \texttt{BasicSchedulerStrategy} (see \Cref{lst:astra_executor}) 
@@ -2742,7 +2804,7 @@ thus describing to us that there is also the possibility to implement the \ac{1A
 by the means of a custom distributed messaging infrastructure implementation for \astra{} \texttt{Messaging} class,
 that currently is not provided.
 
-\subsubsection{\goal{}.}
+\subsubsection{\goal{}}
 
 \goal{}~\cite{Hindriks2009} is a Java \ac{BDI} library distributed as an Eclipse IDE plugin
 that integrates with SWI Prolog through \ac{JNI}~\cite{DBLP:journals/crossroads/Husaini97},
@@ -2764,7 +2826,7 @@ due to this strict integration with SWI Prolog,
 other concurrency models cannot be custom-built,
 even with major code changes.
 
-\subsubsection{\jadex{}.}
+\subsubsection{\jadex{}}
 
 \jadex{}~\cite{PokahrBL2005} is a \ac{BDI} Java library.
 %
@@ -2777,7 +2839,7 @@ and simplified agents' concurrency management through (\jadexV{}'s terminology)
 %
 Further customisation options could be implemented with custom \texttt{ExecutionFeature}s modules.
 
-\subsubsection{\jakta{}.}
+\subsubsection{\jakta{}}
 
 \jakta{}~\cite{BaiardiBCP23} is a Kotlin-based \ac{DSL}\footnote{
     \url{https://archive.is/El3fE}
@@ -2794,7 +2856,7 @@ through the implementation of the \texttt{ExecutionStrategy} interface.
     language=Kotlin,
     label={lst:jakta_configuration},
     caption={Example of \ac{MAS} configuration with execution strategy customisation in \jakta{}.}
-]{listings/snippet_jakta.kt}
+]{listings/emas24/snippet_jakta.kt}
 %
 By default, \jakta{} uses \ac{AA1T}
 to support reproducibility while debugging or simulating;
@@ -2804,7 +2866,7 @@ are also supported natively.
 \ac{1A1P} is not supported out of the box,
 but could be implemented through an extension.
 
-\subsubsection{\jason{}.}
+\subsubsection{\jason{}}
 
 \jason{}~\cite{BordiniHW2007} is a well-known
 \agentspeak{}-compliant
@@ -2821,7 +2883,7 @@ implementations available out of the box provide support for
 fixed-sized \ac{AA1E} and \ac{AA1EL} (\texttt{Local/pool} infrastructure);
 and \ac{1A1P} (\texttt{Jade} infrastructure).
 
-\subsubsection{\phidias{}.}
+\subsubsection{\phidias{}}
 
 \phidias{}~\cite{DUrsoLS19} is a Python internal \ac{DSL}
 defaulting to the \ac{1A1T} concurrency model.
@@ -2851,10 +2913,10 @@ confirming that only an entire model redesign would enable other concurrency mod
  language=Python,
  label={lst:phidias_thread_creation},
  caption={Snippet of \phidias{} code base (\url{https://github.com/corradosantoro/phidias}) showing how agents are executed on threads.}
-]{listings/snippet_phidias.py}
+]{listings/emas24/snippet_phidias.py}
 
 
-\subsubsection{\spadebdi{}.}
+\subsubsection{\spadebdi{}}
 
 \spadebdi{}~\cite{PalancaRCJT22} is a Python library adding \ac{BDI} agents on top of \spade{}~\cite{GregoriCB06}.
 %
@@ -2874,7 +2936,7 @@ and a notion of agent similar to \jade{} (cf.~\cite{BellifemineCG07}).
   (\url{https://github.com/javipalanca/spade_bdi}) 
   and \spade{} (\url{https://github.com/javipalanca/spade}) codebases.
  }
-]{listings/snippet_spadebdi.py}
+]{listings/emas24/snippet_spadebdi.py}
 %
 Agents in both \spadebdi{} and \spade{} are implemented via Python's native event loops and coroutines,
 providing native support for \ac{AA1EL}.
@@ -2899,7 +2961,7 @@ Generally speaking,
 the more options the better,
 as applications can be finely tailored to the specific requirements of the problem at hand.
 
-\paragraph{Controllability.}
+\paragraph{Controllability}
 
 Reproducibility and controllability are key aspects of \ac{MAS} engineering,
 especially during debug and simulation.
@@ -2908,7 +2970,7 @@ When full control is required,
 \ac{AA1T} and \ac{AA1EL} are the best choices,
 as they enforce a single control flow.
 
-\paragraph{Performance.}
+\paragraph{Performance}
 
 Better Performance is generally achieved by exploiting parallelism.
 %
@@ -2916,7 +2978,7 @@ Although the \ac{1A1T} model seems attractive for its simplicity,
 \ac{AA1E} is preferable,
 especially whenever the agent count largely exceeds the logical processors.
 
-\paragraph{Design of \ac{BDI} Technologies.}
+\paragraph{Design of \ac{BDI} Technologies}
 
 We argue that designers of \ac{BDI} technologies should provide means to customise the concurrency model
 with a dedicated and well-documented \ac{API}.
@@ -2940,7 +3002,7 @@ Following this principle,
 it should be possible to write the \ac{MAS} specification once,
 then run it unchanged on different concurrency models.
 %
-\paragraph{Impact on Internal Concurrency.}
+\paragraph{Impact on Internal Concurrency}
 
 We discuss how internal concurrency models impact external concurrency models
 by bounding the maximum \emph{granularity} at which the agent's control loop can be parallelised.
@@ -2952,11 +3014,11 @@ by exploiting finer-grained internal concurrency models
 (e.g., parallelise at the level of intentions).
 
 
-\paragraph{Final Remarks.}
+\paragraph{Final Remarks}
 
 The external concurrency of \ac{BDI} agents is a paramount aspect of practical \ac{MAS} engineering.
 %
-In this paper,
+In this chapter,
 we define clear terminology and taxonomy to support decision-making about concurrency in \ac{MAS},
 addressing both the construction of \ac{MAS}
 and the (re)design of \ac{BDI} technologies.
@@ -2994,7 +3056,7 @@ to \emph{any} \ac{AOP} technology,
 regardless of whether it is \ac{BDI} or not:
 \emph{external} concurrency is a key aspect of \ac{AOP} technologies in general,
 whereas \emph{internal} concurrency 
--- as it is defined in this paper --
+-- as it is defined in this chapter --
 is specific for the \ac{BDI} paradigm%
 ---and, specifically, to the notion of \emph{intention}.
 
@@ -3034,3 +3096,682 @@ Along this line,
 including non-\ac{BDI} technologies tailored on interaction
 (cf. Kiko~\cite{ChristieSC2023})
 would be paramount.
+
+\chapter{The Gap Between BDI Agents and Semantic Hypermedia and What We Can Do About It}
+
+Integrating intelligent agents with the Web is a long-standing goal
+in both the \ac{MAS}~\cite{DBLP:conf/edoc/ShafiqDF06}
+and Semantic Web~\cite{lassila2001semantic} communities, but,
+despite such common interest,
+the famous question
+``Where are all the intelligent agents?''~\cite{hendlerb2007expert},
+remains relevant today.
+%
+Although McBurney and Luck responded by arguing that 
+agents were not a "killer application" and that
+``once dynamic and open systems become the norm''
+companies would adopt agent technologies as a fundamental~\cite{mcburney2007expert}.
+More than fifteen years later
+the Web has transitioned towards a more dynamic and open environment, 
+but it is still dominated by traditional clients, servers,
+and (most recently) bots and scrapers%
+---which can hardly be considered full agents.
+%
+However,
+with the widespread adoption of the \ac{REST} architectural style~\cite{DBLP:journals/toit/FieldingT02}
+and Web interoperability standards like \ac{WoT}~\cite{wotarch},
+the integration of \ac{MAS} and the Web has gained renewed momentum.
+
+Along this line,
+the \ac{W3C} Autonomous Agents on the Web community group\footnote{\url{https://www.w3.org/community/webagents/}}
+has been founded to connect researchers and practitioners
+and a new perspective has been proposed: \ac{hMAS}~\cite{DBLP:conf/atal/CiorteaMGBRZ19}
+envision the (Semantic) Web as an open environment in which
+agents can interact by consuming and manipulating hypermedia resources.
+
+Even more recently,
+with the advent of \ac{LLM}-based \emph{Agentic AI}~\cite{acharya2025access}
+the creation of \ac{LLM}-driven agents that interact with Web APIs~\cite{10.5555/3692070.3692540}
+(or directly with Websites~\cite{10.5555/3692070.3694608})
+has gained significant attention.
+%
+However,
+despite being promising,
+these approaches
+do not make structured knowledge representation obsolete~\cite{pan2024tkde},
+and often trade the controllability offered by traditional agent-programming paradigms
+for more guarantees in terms of correctness, and completeness.
+
+Arguably,
+Web-integrated agents developed with cognitive architectures,
+such as \ac{BDI} agents~\cite{DBLP:conf/kr/RaoG91},
+would retain controllability and predictability:
+they could directly exploit hypermedia to discover new resources and actions,
+and use Semantic Web technologies like \ac{RDF}~\cite{RDF_Concepts_W3C:14} and \ac{OWL}~\cite{OWL_Syntax_W3C:12}
+to act intelligently without compromising on quality.
+%
+However,
+we believe
+the integration of \ac{BDI} agents with the Web
+is hindered by a conceptual and technological gap,
+which limits developers in creating agents that need to interact with (Semantic) hypermedia.
+%
+More precisely:
+\begin{enumerate*}[label=\textbf{(G\arabic*)}]
+  \item\label{gap:logic}
+  \ac{BDI} agents are historically tied to \ac{LP}
+  %-- e.g., with the popular \agentspeak{} semantic~\cite{DBLP:conf/maamaw/Rao96} --
+  whereas the Semantic Web is grounded on \ac{DL},
+  and although the two paradigms are theoretically compatible,
+  their practical implementations interoperate poorly,
+  increasing integration cost significantly;
+  % The different technological choices used to concretely implement them add cognitive load to developers working on the integration of the two worlds (e.g., converting \ac{OWL} and \ac{RDF} triples in Prolog-like formulas);
+
+  \item\label{gap:open-world}
+  \ac{BDI} agents are typically based on the \ac{PRS} architecture~\cite{georgeff1986pieee}
+  which relies on pre-defined plans and does not natively support discovering new actions at runtime,
+  a necessary feature to interact proficiently with hypermedia environments.
+\end{enumerate*}
+
+In this paper,
+we reflect on these gaps,
+their technical implications, % on the overall development experience of creating \ac{BDI} agents that interact with Web resources
+explore how this gap is currently being addressed in the \ac{hMAS} community,
+and
+propose a mitigation strategy based on abstracting the design of agent-oriented programming languages and frameworks.
+% %
+% We start by providing a brief overview of the \ac{BDI} model,
+% the hypermedia nature of the (Semantic) Web,
+% and
+% the fundamental principles of \ac{hMAS} in \Cref{sec:background}.
+% %
+% We then analyze the gap between \ac{BDI} agents and hypermedia,
+% and identify ideal integration requirements in \Cref{sec:gap-analysis}
+% %
+% Then,
+% in \Cref{sec:related-works},
+% we test those requirements against prior contributions
+% which already attempted to bridge the gap between \ac{BDI} agents and semantic hypermedia.
+% %
+% Finally,
+% in \Cref{sec:generalized-bdi-engine},
+% We present our research direction
+% aimed at %tightening the integration of \ac{BDI} agents and hypermedia
+% reducing the abstraction gap for developers
+% by introducing a generalized \ac{BDI} engine
+% that can directly leverage Semantic Web technologies for belief representation and deliberation;
+% and we discuss open challenges and opportunities of our approach.
+
+%==========================================================
+\section{Background}
+\label{sec:background}
+%==========================================================
+
+\subsection{BDI Agents}
+
+The \ac{BDI} model~\cite{DBLP:conf/kr/RaoG91}
+is a well-established cognitive architecture for the development of intelligent agents.
+%
+\ac{BDI} agents follow a continuous cycle of
+\begin{inlinelist}
+  \item \emph{perception} of external stimuli and gather new \emph{beliefs},
+  \item \emph{deliberation} to update beliefs, goals and choose \emph{intentions} to pursue selecting \emph{plan} to achieve goals,
+  and
+  \item \emph{action} advancing one intention by executing a step of the associated plan.
+\end{inlinelist}
+%
+Practically, most \ac{BDI} agents implementations follow the \ac{PRS} architecture~\cite{georgeff1986pieee},
+which is based on the ability for agents to select plans from a predefined set
+and execute them to achieve their goals.
+%
+The focus on \ac{BDI} agents, 
+as opposed to other reasoning-loop cognitive architectures, 
+is motivated by their direct mapping between high-level mental attitudes 
+(beliefs, desires, intentions) and practical agent programming constructs (plans and actions). 
+%
+This makes \ac{BDI} agents particularly suitable for engineering controllable, 
+predictable, 
+and explainable 
+agent behaviors.
+These properties, might be desirable in Web environments,
+where agents need to reliably interact with humans and other systems.
+
+To declaratively define the agent's behavior the \ac{AOP} community has developed several \ac{BDI} programming languages and frameworks~\cite{DBLP:conf/woa/MascardiDA05}.
+%
+Arguably, 
+the most popular language is \agentspeak{(L)}~\cite{DBLP:conf/maamaw/Rao96}
+with its \jason{}~\cite{bordini2007programming} implementation, 
+which uses a formal syntax and semantics derived from \ac{LP} for representing beliefs, goals, and actions as logic predicates.
+
+%
+Although \ac{BDI} programming languages and frameworks with little or no reliance on \ac{LP} mechanisms exist
+(e.g., \cite{map2005sp,kampik2019emas,howden2001jack}),
+they come with their own semantics and representation for beliefs, goals, and actions
+which still leave an abstraction gap to be covered with respect to Semantic Web technologies.
+%
+In the remainder of this work we will refer to \ac{BDI} agents implicitly assuming \agentspeak{(L)}-like agents.
+
+\subsection{The Web, Semantics and Hypermedia}
+
+The World Wide Web was proposed by Tim Berners-Lee as a global, open information space
+based on the ability to link resources through hypermedia documents~\cite{DBLP:journals/cn/Berners-LeeCG92}.
+%
+The Web is built with the \ac{REST} architectural style~\cite{DBLP:journals/toit/FieldingT02}
+which supports independently evolving components.
+%
+% The \ac{REST} architectural style~\cite{DBLP:journals/toit/FieldingT02}
+% adopted by the Web allows to have independently evolving components
+% that can interact through a uniform interface thanks to:
+% \begin{inlinelist}
+%   \item \acp{URI} to identify resources,
+%   \item the exchange of representations of resources using shared data formats (e.g., JSON, XML),
+%   \item self-descriptive messages following the semantics of the HTTP protocol, and
+%   \item the use of \ac{HATEOAS} guiding clients in their next possible actions.
+% \end{inlinelist}
+
+The Semantic Web~\cite{BernersLee2001} complements the \emph{self-descriptive} principle of \ac{REST}
+by encoding semantics in the representation through the general model of \ac{RDF}~\cite{RDF_Concepts_W3C:14}
+based on machine-readable \emph{triples}
+that state facts using a common vocabulary defined within ontologies.
+%
+{OWL}~\cite{OWL_Syntax_W3C:12} allows the encoding of such ontologies following the principles of \ac{DL} to define concepts and relationships between them.
+%
+%Ontologies can be used to encode structured knowledge about a domain of interest, creating consensus on the meaning of concepts and relationships between them, hence improving interoperability between different systems on the open Web.
+
+Another fundamental principle is \ac{HATEOAS} which defines hypermedia as ``the simultaneous presentation of information and controls such that the information becomes the affordance through which the user obtains choices and selects actions''~\cite{DBLP:journals/toit/FieldingT02}.
+% %
+This way, the Web can be seen as an open environment
+where clients discover new resources and available actions by consuming hypermedia.
+%
+When such hypermedia is annotated with explicit semantics,
+it should be possible for clients to better understand the meaning of the affordances,
+avoiding the need for hard-coded knowledge.
+%
+%This is the mechanism adopted for instance in the \ac{WoT}~\cite{wotarch} where \emph{\ac{TD}} are used as semantic hypermedia representations of \ac{IoT} devices,
+%declaring the possible interaction affordances exposed by the devices (e.g., reading a sensor value, turning on a light, etc.).
+
+
+\subsection{Hypermedia Multi-Agent Systems}
+
+The idea of \ac{hMAS}~\cite{DBLP:conf/atal/CiorteaMGBRZ19} seeks a deeper integration of \ac{MAS} and the Web through the adoption of hypermedia and \ac{REST} principles.
+%
+The main idea behind such integration is to overcome the limitations of previous integration approaches by considering the Web as an \emph{environment} for agents to operate in~\cite{DBLP:conf/emas/CiorteaBR18}.
+%
+Considering the environment as a first-class abstraction~\cite{weyns2007aamas},
+\ac{hMAS} revisits the Agents and Artifacts meta-model~\cite{ricci2011aamas} as a way to modularize and program the environment.
+%
+In \ac{hMAS}, artifacts are represented as hypermedia resources, exposing affordances that agents can discover through the uniform interface of the Web.
+%
+Most efforts in the \ac{hMAS} community have focused on shaping the environment dimension, 
+since, ideally, 
+heterogeneous agents should be able to operate within it.
+%
+However, the agent dimension also deservers further investigation to improve how agents can effectively exploit the hypermedia environment (e.g., for action discovery at runtime~\cite{vachtsevanou2024atal}).
+%
+Thus, 
+in this paper, 
+we focus on the agent dimension of \ac{hMAS}, and
+specifically on \ac{BDI} agents and how to support deeper integration with semantic hypermedia.
+
+%==========================================================
+\section{Integrating \acs{BDI} Agents and Semantic Hypermedia: a Gap Analysis}
+\label{sec:gap-analysis}
+%==========================================================
+
+% From the brief background presented in \Cref{sec:background},
+% it should be evident that
+% despite both \ac{BDI} agents and the Semantic Web being rooted in logic-based knowledge representation,
+% there are significant differences between the two worlds.
+% %Specifically, Prolog-like logic typically used to practically implement \ac{BDI} agents and \ac{DL} used in the Semantic Web are different subsets of \ac{FOL} with consequently different expressiveness and semantics
+% Specifically, \ac{DL} excel in representing relationships between concepts, while \ac{BDI} agents use \ac{LP} to store facts about the external environment as belief and declaratively express goals.
+% The different technologies used in the two different paradigms makes them difficult to integrate \ref{gap:logic}.
+% %
+% Furthermore, \ac{BDI} agents are typically designed with a closed-world perspective whereas the Semantic Web is an open information space \ref{gap:open-world}.
+% %
+% When it comes to practical applications this creates an abstraction and technological gap
+% which can be difficult to bridge for developers.
+% %
+% In the following, we describe in more detail such differences.
+
+Here we delve into the details of the gaps that we identified between \ac{BDI} agents and semantic hypermedia,
+namely,
+\ref{gap:logic} the practical differences for knowledge representation and manipulation
+between \ac{LP} and Semantic Web technologies,
+and
+\ref{gap:open-world} the limitations of \ac{BDI} agents with \emph{open} hypermedia environments,
+where actions are not predefined but discovered at runtime.
+
+\paragraph{Syntactical Differences Between \acs{LP} and \acs{RDF}.}
+
+On a syntactical level,
+\ac{BDI} agents commonly represent beliefs as definite clauses~\cite{MAKOWSKY1987266}
+% and goals as facts
+%which are either atomic \emph{terms} (e.g., \texttt{alice}) or a \emph{structure} composed of a \emph{functor} followed by an arbitrary number of \emph{arguments} within parentheses
+(e.g. \texttt{person(alice)}).
+%
+In the Semantic Web,
+knowledge is represented in the form of \ac{RDF} \emph{triples} which connect a \emph{subject} to an \emph{object} through a \emph{predicate} (e.g. \texttt{:alice rdf:type foaf:Person}).
+%
+Although \ac{RDF} triples can be represented as definite clauses~\cite{DBLP:conf/www/GrosofHVD03}
+(while the opposite is not true),
+in practice,
+semantic knowledge is available on the Web in \ac{RDF},
+and accessing that from \ac{BDI} agents requires a translation step,
+which has many degrees of freedom
+(e.g., \texttt{type(alice, person)} and \texttt{triple(alice, type, person)} are reasonable mappings of the \ac{RDF} triple above),
+which is completely up to \ac{BDI} developers.
+%
+% Developers wishing to integrate \ac{BDI} agents with the Semantic Web hence face the challenges of choosing a suitable -- and more importantly consistent -- mapping which we believe adds a significant cognitive load during the development process.
+In other words,
+implementing the translation is additional work which, if handled manually in an ad-hoc manner can be source of inconsistencies.
+
+\paragraph{Ontological Inference.}
+
+\ac{RDF} triplets are commonly paired with \ac{OWL} ontologies (e.g., \texttt{foaf}\footnote{\url{http://xmlns.com/foaf/spec/}} in the example above),
+providing \emph{axioms} that define the meaning of the triples's predicates
+(e.g., \texttt{rdf:type} denotes the \emph{instance of} relation between subjects and classes),
+as well as constraints, and relationships between concepts.
+%
+This is a way to standardize knowledge representation across hypermedia.
+%
+Logic programs, instead, are not really meant to be scattered over the Web,
+nor being accessed remotely.
+
+Again,
+\ac{BDI} developers who want to create agents capable of ontological inference face a hidden challenge:
+% This means that, in order to properly reason about the knowledge represented in \ac{RDF} and \ac{OWL},
+% developers may need to translate the whole \ac{RDF}, \ac{OWL} and ontology semantics into their own belief base, adding a significant overhead and a potential source of inconsistencies.
+either they translate the \ac{OWL} ontology into definite clauses,
+or they wrap some \ac{OWL} reasoner into the agent interpreter and reasoning cycle.
+%
+Despite being automatable to some extent (cf. ~\cite{samuel2008tplp}),
+both activities require additional engineering effort,
+and should rather be addressed with direct support from the \ac{BDI} framework.
+
+% Although \ac{OWL} ontologies can be converted into logic formulas through an automatic process
+% it can be cumbersome for \ac{BDI} developers to exploit them when writing the agent program
+% and similarly hard for Semantic Web experts to understand how to properly interact with the translated knowledge base.
+
+\paragraph{Querying.}
+
+\ac{BDI} commonly relies on \ac{SLD} resolution~\cite{emden1976jacm} to query the belief base,
+when this is implemented as a logic program.
+%
+Furthermore,
+they rely on logic unification~\cite{10.1145/357162.357169} to match plans and goals,
+making the intertwining with \ac{LP} even deeper.
+%
+% This basic mechanism allows to easily verify conditions based on the current beliefs, retrieve information and also perform inference using dedicated rules developers can encode to represent the problem domain.
+% %
+% Unification relies on finding a substitution for the variables in a logic formula that makes it true with the facts within a logic theory. When multiple substitutions are possible, the unification process usually returns the first available one, as it is typically implemented as a depth-first search algorithm with backtracking.
+%
+Conversely,
+the Semantic Web relies on \ac{SPARQL}~\cite{sparqlprotocol} to query \ac{RDF} data.
+%
+\ac{SPARQL} allows matching graph patterns and retrieve all the values of variables in the pattern from the matched triples,
+providing an intuitive way to query the knowledge base.
+
+Despite both \ac{LP} and \ac{SPARQL} allow expressing declarative queries for a knowledge base,
+the latter may be more practical and efficient for \ac{RDF} data,
+especially when the query spans over multiple triples.
+%
+Consider for instance a query searching for the unknown relations \texttt{?r} between \texttt{alice} and \texttt{bob},
+and matching all the triples where the subject is \texttt{carl} and
+the predicate is \texttt{?r} to retrieve all the objects \texttt{?x}.
+%
+A query of this kind would be straightforward to write in \acs{SPARQL}, 
+while it would require second-order variables in \ac{LP}. 
+%
+This feature is not commonly supported by \ac{LP} or \ac{BDI} frameworks, 
+and is typically worked around via \emph{meta-programming}, 
+resulting in longer and more cumbersome \ac{LP} code.
+
+%
+As for inference,
+given the expressiveness limitations of \ac{OWL},
+\ac{SWRL}~\cite{horrocks2004swrl} can be used to define inference rules.
+%
+% An important difference is that while logic unification automatically performs inference, \acs{SPARQL} searches only on the set of triples currently in a knowledge base. If inference is required, the developer must explicitly \emph{materialize} the triples inferred by a reasoner before querying.
+Here, a similar argument like the one above concerning the wrapping of \ac{SWRL} reasoners applies.
+
+\paragraph{Open vs. Close Environments.}
+
+\ac{BDI} agents are equipped with a predefined set of plans, composed of sequences of actions that the agent knows how to execute.
+%
+Additionally, \ac{BDI} agents usually run in a closed environment,
+which is designed by the developer to provide perceptions to the agents and
+support the execution of the actions used in the plans~\cite{weyns2007aamas}.
+%
+The development process of \ac{BDI} agents is hence based on the fact that a developer anticipates
+the relevant possible settings an agent may encounter and provides plans to handle them.
+%
+This makes it difficult for agents to adapt to unexpected settings or to flexibly incorporate new actions that become available while exploring the environment.
+%
+Relating this to the open hypermedia nature of the Web, makes the effective integration of \ac{BDI} agents challenging.
+%
+Following the \ac{HATEOAS} principle, agents may discover new affordances
+(i.e., possible actions)
+while navigating through the hypermedia environment.
+%
+The inability to exploit such new affordances may limit the agent in adapting to the environment and effectively interact with it.
+
+\subsection{Integration Requirements}
+\label{sec:integrating-bdi-hypermedia}
+
+Guided by our gap analysis,
+we identify a set of requirements that we believe may improve practical development of \ac{BDI} agents in Web environments.
+%
+We hence propose that a \ac{BDI} agent programming framework for \ac{hMAS} should support the following features:
+%
+\begin{enumerate*}[label=\textbf{(R\arabic*)}]
+  \item direct manipulation of \ac{RDF} and \ac{OWL} triples in the agent's belief base;
+  \label{req:direct}
+
+  \item ontological inference for deliberation (e.g., plan selection and execution);
+  \label{req:reasoning}
+
+  \item support for querying the belief base via \acs{SPARQL};
+  \label{req:query}
+
+  \item ability to exploit affordances discovered in the environment to dynamically adapt the agents' plans.
+  \label{req:actions}
+\end{enumerate*}
+
+
+%==========================================================
+\section{Related Works}
+\label{sec:related-works}
+%==========================================================
+
+% \sbnote{ho tolto i paragrafi ma non ho integrato, passo la palla a gio prima di conflicts}
+
+
+%\sbnote{Related works, JASDL (Jason+Ontological reasoning), Yggdrasil framework, Hypermedea (Saint-Etienne Cartago Artifacts for Hypermedia), others.... }
+
+Here we summarize some related works demonstrating how,
+despite the many extensions of \agentspeak{} towards \ac{DL},
+the direct exploitation of Semantic Web technologies
+(namely, \ref{req:direct} and \ref{req:query})
+in \ac{BDI} \emph{programming} frameworks is still underexplored.
+
+% \paragraph{Semantic extensions of \agentspeak{}.}
+
+In \cite{DBLP:conf/dalt/MoreiraVBH05} authors propose \agentspeakdl{},
+an extension of \agentspeak{} to support the $\mathcal{ALC}$ description logic~\cite{BAADER2008135}.
+%
+% In \agentspeakdl{},
+% semantic rules for the steps in the reasoning cycle are the same of predicate-logic \agentspeak{},
+% but the beliefs representation is extended with \ac{DL} objects and relationships to express \ac{RDF} triples.
+% %
+% Their formal semantics description highlights
+% that introducing ontological reasoning
+% affects mainly three operations of the whole \agentspeak{} lifecycle, namely:
+% \begin{inlinelist}
+%   \item the Plan research,
+%   \item the query on the Belief Base, and
+%   \item the Belief Update.
+% \end{inlinelist}
+There,
+agents' belief bases consist of an $\mathcal{ALC}$ ontology
+(concepts, roles, and individuals)
+and any operation involving access to the belief base
+(e.g., plan selection, belief update, and query)
+imply either performing inference or updating such ontology.
+%
+So,
+\agentspeakdl{} provides the theoretical foundations to support our integration requirements from \Cref{sec:integrating-bdi-hypermedia}.
+%
+\agentspeakdl{} is then extended by CooL-\agentspeak{}~\cite{DBLP:journals/wias/MascardiABBR14},
+where authors explore inter-agent exchange of procedural knowledge~\cite{DBLP:conf/dalt/AnconaM03},
+possibly expressed by different ontologies.
+%
+% To do so,
+% CooL-\agentspeak{} integrates Coo-BDI~\cite{DBLP:conf/dalt/AnconaM03} and \agentspeakdl{}
+% features.
+%
+The authors of \cite{DBLP:conf/iat/HalacED11} provide a different theoretical integration of \agentspeak{} with \ac{DL}
+to account for \emph{goal states}
+(new, suspended, active, succeeded, failed)
+in the agent's lifecycle,
+in such a way that state transitions are tied to conditions expressed in \ac{DL}.
+% claim that \agentspeakdl{} does not provide a complete solution for the integration of \ac{BDI} agents and Semantic Web technologies,
+% mainly because goals are only represented as events for procedural plans.
+%
+% Therefore,
+% they propose an extension of the \agentspeak{} semantics
+% where the agents lifecycle is enriched with goal states,
+% where beliefs are logic predicates adapted to represent \ac{DL} objects and relationships,
+% like in \agentspeakdl{}.
+% \gcsidenote{Riprendi da qui}
+
+% \paragraph{Integrating \ac{DL} and \ac{BDI}.}
+
+\agentspeakdl{} also serves as the foundation for JASDL~\cite{DBLP:conf/dalt/KlapiscakB08},
+an implementation of \agentspeakdl{} in \jason{}~\cite{bordini2007programming}.
+%
+The key extension in JASDL is the introduction of ``semantically-enriched literals,'' 
+i.e., $\mathcal{ALC}$ statements expressed as logic facts,
+%using \jason{} standard syntax for beliefs
+(see example in \Cref{lst:jasdl-example}).
+%
+% The examples in \Cref{lst:jasdl-example} illustrate how \ac{RDF} triples are represented as \ac{DL} in the belief base of the agent.
+%
+JASDL adopts \jason{} belief syntax and belief-base management mechanisms,
+while wrapping and adapting a semantic reasoner to let agents perform ontological inference,
+thus addressing \ref{req:reasoning}.
+%
+With this approach, 
+developers gain ontological inference in \jason{},
+but at the price of translating \ac{RDF} triples into logic predicates.
+%
+\lstinputlisting[float,
+  lastline=3,
+  language=Java,
+  caption={\small{On the left, \ac{RDF} triples expressed as predicates in JASDL, on the right their meaning inferred by a \ac{OWL} reasoner. The example is taken from \cite{DBLP:conf/dalt/KlapiscakB08}.}},
+  label={lst:jasdl-example}
+]{listings/hyperagents25/jasdl.txt}
+
+%
+Other approaches~\cite{DBLP:journals/wias/MascardiABBR14,DBLP:conf/www/CharpenayZLB22, DBLP:conf/semweb/ONeillBBC21, DBLP:conf/emas/CiorteaBR18}
+rely on encapsulating functionalities and services in external components that agents can share and exploit to support their activities.
+% where artifacts are a set of passive resources and tools encapsulating functionalities and services
+% that agents can share and exploit to support their activities.
+% using artifacts to mediate the interaction among agents and the semantic hypermedia environment.
+%
+For instance
+CooL-\agentspeak{}~\cite{DBLP:journals/wias/MascardiABBR14} relies on \cartago{}~\cite{DBLP:books/sp/09/RicciPVO09},
+to define and implement the \emph{Ontology Artifact},
+providing agents with ontological inference capabilities%
+---encoding \ac{DL} statements as beliefs similarly to JASDL.
+
+Similarly, 
+Hypermedea~\cite{DBLP:conf/www/CharpenayZLB22} extends \jacamo{}~\cite{BOISSIER2013747}
+(again, via artifacts and constraints on the beliefs-base syntax)
+to support agents interacting with semantic hypermedia and, in particular, the \ac{WoT}.
+%
+More precisely,
+Hypermedea \emph{artifacts} produce agent beliefs such as the ones in \Cref{lst:hypermedea-example}
+through observable properties%
+---i.e., \ac{RDF} triples expressed as logic predicates,
+in Jason's syntax.
+%
+Furthermore, 
+other \emph{artifacts} support the manipulation of such \ac{RDF} triples,
+materialization of ontological inferences,
+as well as the interaction with \acs{WoT}'s \emph{things},
+and the synthesis of plans via a PDDL planner%
+---hence addressing \ref{req:actions}.
+% \begin{inlinelist}
+%   \item \textit{Linked Data Artifact} to interact with \ac{RDF} triples,
+%   \item \textit{Ontology Artifact} which bridge the gap between \ac{RDF} models and predicate representations,
+%   \item \textit{Thing Artifact} which proxies the communication with Things in the environment (i.e. each Thing its own Thing Artifact to interact with it), and
+%   \item \textit{Planner Artifact} which synthetize plans given a \textit{domain description} and a \textit{Problem Description}, using PDDL definitions and FF-X planner.
+% \end{inlinelist}
+%
+\lstinputlisting[float,
+  % lastline=1,
+  language=Java,
+  caption={\small{The example shows how \ac{RDF} triples are represented in Hypermedea agents belief base. The example is taken from Hypermedea \ac{API} reference (https://archive.is/vxULu).}},
+  captionpos=b,
+  label={lst:hypermedea-example}
+]{listings/hyperagents25/hypermedea.txt}
+
+A different take is proposed in \cite{DBLP:conf/semweb/ONeillBBC21}
+where Astra~\cite{CollierRL15} agents are equipped with a set of \emph{modules} to allow \ac{BDI} agents to store knowledge and interact with a ``personal'' triple store separated from the belief base.
+Similarly to other approaches,
+the bridge to belief representation is by mapping triples directly to logic predicates with three arguments.
+
+Finally, although not directly related to \ac{BDI} agents, 
+the Yggdrasil framework~\cite{DBLP:conf/emas/CiorteaBR18} provides a hypermedia layer for building \ac{hMAS} environments on top of \cartago{} artifacts
+and has been used to implement \ac{hMAS} applications with the \jacamo{} framework.
+
+% Finally,
+% in line with the vision of the environment as a first-citizen abstraction for the interaction between hypermedia and agents~\cite{DBLP:conf/www/CharpenayZLB22},
+% the authors of~\cite{DBLP:conf/emas/CiorteaBR18} propose a demonstrator application,
+% % together with the engineering principles that support the integration using the environment.
+% based on Yggdrasil~\cite{DBLP:conf/emas/CiorteaBR18} for supporting the hypermedia abstraction,
+% and on \jacamo{}~\cite{BOISSIER2013747} for implementing agents and artifacts.
+
+
+
+\paragraph{Exploiting Discovered Actions at Runtime.}
+
+To exploit new actions discovered at runtime \ref{req:actions} \ac{BDI} agents must have access to a \emph{planner} either within the agent (see ~\cite{MeneguzziS15} for a general overview of planning in \ac{BDI} agents) or through the environment---as proposed in Hypermedea~\cite{DBLP:conf/www/CharpenayZLB22}.
+%
+In the context of \ac{hMAS}, 
+this requires that the environment 
+formally describes how and when to use them 
+(e.g., their preconditions and effects),
+and that agents can interpret such information to instruct the planner accordingly.
+%
+Recent works explored this idea by using \emph{signifiers}~\cite{vachtsevanou2023atal} in hypermedia environments to better convey affordances to \ac{BDI} agents~\cite{vachtsevanou2024atal}.
+%
+A less structured approach is proposed in \cite{10.1145/3603163.3609077,schmid2024kgswc},
+where agents (albeit not \ac{BDI}) are able to select actions in a hypermedia environment by using a \ac{LLM} oracle.
+
+%==========================================================
+\section{Levelling the Gap with a Generalized \ac{BDI} Engine}
+\label{sec:generalized-bdi-engine}
+%==========================================================
+
+To bridge the gap between \ac{BDI} agents and semantic hypermedia,
+we propose a \emph{generalized} \ac{BDI} engine,
+addressing the requirements in \Cref{sec:integrating-bdi-hypermedia}.
+%
+This approach primarily tackles gap~\ref{gap:logic}, while leaving the exploration of gap~\ref{gap:open-world} (benefitting from the modularity of the engine) to future works.
+%
+A similar approach has been proposed in~\cite{novak2006atal}, 
+in which authors discuss the idea of a modular \ac{BDI} architecture,
+to make it independent of the logic representation and reasoning mechanisms,
+although not in the context of hypermedia.
+%
+Sharing the core modularity idea, we propose to create a \ac{BDI} interpreter encapsulating agents reasoning cycle,
+while decoupling the specific technology used for knowledge representation and manipulation.
+%
+This would allow for tailoring the reasoning mechanisms to application-specific needs.
+%
+In this way,
+beliefs
+can flexibly support different formats depending on the domain at hand
+and be adapted to work directly with e.g., \ac{RDF} triples, to JSON, YAML, and other Web standards.
+%
+Such a design fulfills the first requirement \ref{req:direct}.
+
+\begin{wrapfigure}{R}{.35\linewidth}
+    \centering
+    \caption{\small{Generalized Architecture.}}
+    \label{fig:generalized-bdi-architecture}
+    \includegraphics[width=\linewidth]{figures/hyperagents25/architecture}
+\end{wrapfigure}
+
+However,
+separating the reasoning cycle of \ac{BDI} agents from knowledge representation is complex,
+as the two are deeply intertwined~\cite{DBLP:conf/dalt/MoreiraVBH05}.
+%
+Consider for instance these fundamental operations:
+%
+\begin{inlinelist}
+  \item \emph{plan selection}
+  % is the process of selecting a plan to achieve a goal among the ones available,
+  % which evaluation of applicability is strictly related on how beliefs are represented in the belief base;
+  depending on conditions to be tested against the belief base;
+
+  \item \emph{belief querying}
+  % is the process of retrieving information from the belief base;
+  as part of a plan, for the sake of decision-making;
+
+  \item \emph{belief update}
+  % is the process of updating the belief base with new information.
+  for the sake of updating the agent's knowledge,
+  as part of a course of action.
+\end{inlinelist}
+%
+In \ac{LP}-based frameworks,
+these would simply rely on logic unification and resolution,
+whereas in a generalized \ac{BDI} engine,
+each operation may rely on different matching strategies.
+%
+For instance,
+for Semantic Hypermedia agent,
+one may rely on \ac{RDF} and \ac{OWL} for beliefs representation,
+\acs{SPARQL} for belief querying and update,
+and \ac{SWRL} for plan selection and ontological inference%
+%
+% In the latter case,
+% agent developers would be able to plug-in convenient syntaxes and ad-hoc technologies,
+% hence customising how the generic \ac{BDI} engine operates upon beliefs in all such cases,
+---thus addressing \ref{req:reasoning} and \ref{req:query}.
+
+% The integration of \ac{BDI} \ac{MAS} with heterogeneous syntax representations
+% can be performed with a layered architecture of the framework.
+% %
+% The layered architecture proposed is composed of:
+The generalized \ac{BDI} engine can be realized with a layered architecture (see \Cref{fig:generalized-bdi-architecture}) comprising three layers.
+%
+\begin{enumerate*}[label={\emph{Layer \arabic*}:}]
+  \item \textbf{generalized \ac{BDI} reasoning layer},
+  where the agent's deliberation process is implemented as a reasoning cycle,
+  yet agnostic to how beliefs are represented and manipulated.
+  %
+  This is where
+  agents' intentions are maintained
+  and updated as agents perceive,
+  decide what to do,
+  and finally act.
+  %
+  Any operation involving belief bases should rely on some \emph{abstract} \acs{API},
+  to be implemented by the next layer.
+  %
+  \item \textbf{concrete specification layer},
+  where the aforementioned \acs{API} is implemented to provide concrete operations on the belief base.
+  %
+  This layer acts as an adapter between the generalized \ac{BDI} reasoner
+  and the specific knowledge representation technologies of choice.
+  %
+  Lastly,
+    \item \textbf{application layer},
+  where actual goals, plans, and interactions of a \ac{MAS} are defined
+  to tackle some specific use case.
+\end{enumerate*}
+
+% The main advantages of this isolation are: reuse of the same reasoning engine across multiple domains, and Better support for semantic web standards and open-world reasoning.
+
+Requirement \ref{req:actions} although not directly addressed by the approach,
+could be integrated with the techniques already being explored in the \ac{hMAS} community (cf. \Cref{sec:related-works}), benefitting from the possibility of choosing the most suitable knowledge representation technology
+to facilitate their agents to discover new actions at runtime in the hypermedia environment.
+
+%==========================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%==========================================================
+
+In this paper, we present a gap analysis between \ac{BDI} agents and semantic hypermedia,
+showing how they are difficult to integrate due to the different technologies and paradigms they rely on.
+%
+We identify a set of ideal requirements, finding that none of the surveyed related works fully satisfy them
+and propose to implement them through a generalized \ac{BDI} engine that can be tailored to use \ac{RDF} and \ac{OWL} as knowledge representation technologies.
+
+Future work will focus on implementing the architecture proposed in \Cref{sec:generalized-bdi-engine}
+and explore how to support \ac{hMAS} developers with syntax extensions
+and tools to ease the development of \ac{BDI} agents in hypermedia environments
+within our \ac{BDI} programming framework \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24}.
