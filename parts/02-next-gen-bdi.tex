@@ -127,6 +127,7 @@ we intend to experiment \jakta{} integration with other tools,
 trying to shape its evolution based on practical use cases.
 
 \chapter{Blending BDI Agents with \acs{OOP} and \ac{FP} with \jakta{}}
+\label{chap:jakta}
 
 This chapter focuses on the engineering choices behind embedding \ac{BDI} abstractions into mainstream languages via domain-specific languages. 
 %
@@ -3099,404 +3100,90 @@ would be paramount.
 
 \chapter{Exploiting GenAI for Plan Generation in \acs{BDI} Agents}
 
-Long before the current surge of interest in \ac{GenAI},
-the \ac{BDI} model has worked as a paradigm for rational agents,
-leading to the development of several \ac{BDI} agent-oriented programming architectures~\cite{RaoG95},
-as well as agent programming languages based on them%
----most notably, \agentspeak{}~\cite{rao-agentspeak96}.
+In \Cref{chap:jakta}, we discussed the advantages of integrating \ac{OOP}
+and \ac{FP} in the design of \ac{BDI} agents,
+using the \jakta{} programming framework as a concrete example.
 %
-\ac{BDI} languages design rational agents
-able to reason about complex and dynamic environments,
-and proactively act upon them.
-
-Nevertheless,
-traditional \ac{BDI} programming frameworks typically lack mechanisms allowing agents to autonomously acquire
-or build new plans at runtime~\cite{SilvaSP09}.
+The richer abstractions provided by \jakta{} enable more complex and flexible agent designs,
+opening the way to more advanced agent capabilities.
 %
-The procedural behaviour of \agentspeak{} agents is then limited
-to scenarios where the agent behaviour can be suitably defined at design time (pre-programmed):
-an effective option in terms of computational efficiency,
-which however constrains agent flexibility, responsiveness, and overall \emph{autonomy} when facing unpredictable environments.
+Building on this foundation,
+this chapter focuses on the problem of plan generation in \ac{BDI} agents,
+which is central to agent autonomy and intelligence.
 %
-% \gcsidenote{This capoverse should be reviewed once we have a clearer idea of the value added by our approach.}
-% Mechanisms for automatic plan construction have previously been explored within the broader \ac{AI} literature,
-% with \ac{RL} and classical planning serving as prominent examples.
-% %
-% However,
-% these approaches typically face two significant drawbacks:
-% they have not yet been stably integrated into existing \agentspeak{}-inspired programming frameworks,
-% and most notably,
-% they still depend heavily on fixed, pre-defined action models,
-% requiring substantial manual specification from developers.
+In practice,
+software engineers must predefine the plans that \ac{BDI} agents use to achieve their goals,
+yet this is not always feasible in highly dynamic environments.
 %
-Extending \ac{BDI} agents with planning capabilities has thus been extensively explored~\cite{MeneguzziS15}.
-
-Prior approaches typically attempt to bridge first-principles planning techniques with \ac{BDI} architectures~\cite{SilvaSP09},
-requiring a detailed model of the action space.
+This has motivated extensive work on extending \ac{BDI} agents with planning capabilities~\cite{MeneguzziS15}.
 %
 However,
-those models%,
-%usually expressed in terms of preconditions and effects,
-are typically costly and often unavailable for highly-dynamic environments.
+most prior approaches integrate first-principles planning techniques with \ac{BDI} architectures~\cite{SilvaSP09},
+requiring a detailed model of the action space.
 %
-% Also,
-% \emph{automatic} planning techniques mostly generate plans that are effective for \emph{specific} goals and conditions,
-% and lack the abstraction and generality that human plans typically feature instead\missingref{}---%
-% so that they are difficult to reuse.
-% %
-% As a result,
-% the costly planning process needs to be repeated even for similar goals.
-
-Recent advances in \ac{GenAI} methodologies promise to overcome such limitations
-by offering more dynamic and flexible solutions.
+Such models are often costly to build and are frequently unavailable in highly dynamic settings.
 %
-\ac{GenAI} technologies such as \acp{LLM} provide unprecedented opportunities for empowering cognitive agents
-with intelligent features involving the generation of cognitive abstractions
-(such as beliefs, goals, plans)
-as well as the ability to interact in natural language%
----just like human beings would do.
-
-Along that line, we ground our exploration on the assumptions that:
+Recent advances in \ac{GenAI} offer a promising way to overcome these limitations,
+providing more adaptive and flexible solutions.
+%
+\ac{GenAI} technologies such as \acp{LLM} can empower cognitive agents with capabilities for generating key cognitive abstractions,
+including beliefs, goals, and plans,
+while also enabling interaction in natural language,
+much as human beings do.
+%
+Our exploration is grounded in the assumptions that:
 %
 \begin{inlinelist}
     \item \acp{LLM} exhibit planning capabilities~\cite{HuangLWCWL24};
-    \item \acp{LLM} easily handle natural language,
-    and have absorbed \emph{common sense} knowledge that can be leveraged in the planning process~\cite{llmoracles-kbs310};
-    and, finally
+    \item \acp{LLM} handle natural language effectively and have absorbed \emph{common-sense} knowledge that can be leveraged in the planning process~\cite{llmoracles-kbs310}; and
     \item \acp{LLM} systems exhibit abstraction and \emph{imagination} capabilities---e.g.,~\cite{AregbedeAPLL24},
     which may lead to more flexible plans than those generated by classical planning techniques.
 \end{inlinelist}
 %
-Furthermore,
-observing that \ac{BDI} developers often rely on mnemonic and semantically-relevant names akin to natural language
-to represent cognitive abstractions,
-we suggest that \acp{LLM} can be exploited to generate \ac{BDI} plans
-by simply relying on the natural-language semantics of goals, actions, and plans,
-rather than explicitly-defined preconditions and effects.
+Moreover,
+\ac{BDI} developers often rely on mnemonic, semantically meaningful names akin to natural language
+to represent cognitive abstractions.
+This suggests that \acp{LLM} can be exploited to generate \ac{BDI} plans
+by leveraging the natural-language semantics of goals, actions, and plans,
+rather than relying solely on explicitly defined preconditions and effects.
 
-Hence,
-in this paper,
-we focus on the problem of augmenting \ac{BDI} agents with the ability to autonomously generate \emph{plans}
+Accordingly,
+this chapter addresses the problem of augmenting \ac{BDI} agents with the ability to autonomously generate \emph{plans}
 by exploiting \ac{GenAI} under the hood.
 %
-In our exploration we aim to answer the following research questions:
+In our exploration, we aim to answer the following research questions:
 %
 \begin{enumerate*}[label=\textbf{(RQ\arabic*)}]
     \item\label{rq:required-info} \emph{what} information would \acp{LLM} require to generate \ac{BDI} plans?
     \item\label{rq:knowledge-transfer} \emph{how} should knowledge be transferred between \acp{LLM} and \ac{BDI} agents?
-    \item\label{rq:agent-spec} \emph{how} does automatic plan generation impact \ac{BDI} agents operation and specification?
+    \item\label{rq:agent-spec} \emph{how} does automatic plan generation impact the operation and specification of \ac{BDI} agents?
     \item\label{rq:reusability} \emph{can} \acp{LLM} generate \emph{reusable} \ac{BDI} plans?
 \end{enumerate*}
 %
-To that end, 
-we analyse requirements for integrating \ac{GenAI} into the \ac{BDI} architecture, 
-propose a conceptual framework extending \ac{BDI} for plan generation, 
-and discuss preliminary results using a \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24} prototype.
+To this end,
+we analyse the requirements for integrating \ac{GenAI} into the \ac{BDI} architecture,
+propose a conceptual framework for plan generation, and
+discuss preliminary results obtained with a \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24} prototype.
 
-Accordingly,
-the remainder of this paper is structured as follows.
+The remainder of this chapter is structured as follows.
 %
 In \Cref{sec:background},
 we provide background on \ac{BDI} agents,
-related works on planning in \ac{BDI} systems,
+related work on planning in \ac{BDI} systems,
 and \ac{GenAI} agents.
 %
-In \Cref{sec:approach},
-we present our approach to the integration of a \ac{GenAI}-based \ac{PGP} into \agentspeak{} agents,
-followed by some practical remarks in \Cref{sec:remarks}.
+In \Cref{sec:pgp},
+we present our approach to integrating a \ac{GenAI}-based \ac{PGP} into \agentspeak{} agents,
+followed by practical remarks in \Cref{sec:remarks}.
 %
 In \Cref{sec:experiments}, we present preliminary experiments,
 and in \Cref{sec:conclusion} we conclude and outline future work.
 
-%==========================================
-%Il paragafo sotto secondo me va nella discussion
-%==========================================
-
-% Whereas much contemporary research prioritizes creating cognitive agents that directly leverage \ac{GenAI},
-% -- namely, where agents \emph{are} generative systems themselves, such as \ac{LLM} --,
-% our research adopts an alternative yet complementary perspective:
-% augmenting the well-established \agentspeak{}-based \ac{BDI} agent architecture
-% by embedding \ac{GenAI} where necessary,
-% while preserving agents' ordinary operation.
-% %
-% Such approach aims at picking up the best of both worlds:
-% %
-% \begin{inlinelist}
-%     \item the \ac{BDI} model's strong theoretical foundations,
-%     established programming paradigms,
-%     and inherent controllability, predictability, and explainability properties;
-%     and
-%     \item the generative and \ac{NLP} capabilities of \ac{GenAI} systems,
-% \end{inlinelist}
-% %
-% Therefore,
-% our primary research goal is to investigate and systematically evaluate methodologies
-% enabling \ac{BDI} agents to autonomously acquire novel plans,
-% significantly enhancing their operational autonomy and adaptive behaviour.
-
-
-
-% Specifically,
-% in this paper,
-% we focus on the problem of augmenting \agentspeak{} agents with the ability to autonomously generate \emph{plans},
-% exploiting \ac{GenAI} under the hood.
-% %
-% In other words,
-% we aim at studying if,
-% and how,
-% \ac{GenAI} technologies can be embedded into the \ac{BDI} architecture,
-% to let agents automatically figure out what to do in unseen situations. %,
-% %generating plans accordingly.
-% %
-% Along this line,
-% we analyse the many ways in which this integration can be modelled and implemented,
-% with a particular focus on the impact on the agent's architecture and operation,
-% as well as on the agent programmer(s) experience.
-
-% Put simply,
-% our research attempts to provide an answer to the following questions:
-% %
-% \begin{enumerate*}[label=\textbf{(RQ\arabic*)}]
-%     \item \emph{when} and \emph{how} should \ac{BDI} agents exploit generative capabilities to \emph{autonomously} generate plans?
-%     \item \emph{what} information should \ac{GenAI} be provided with to generate plans \emph{effectively}?
-%     \item in \emph{which} way is the role of the agent programmer(s) changing when agents can autonomously figure out what to do?
-% \end{enumerate*}
-%
-% Moreover,
-% we propose concrete extensions and novel syntactic constructs for agent-oriented programming languages like \agentspeak{},
-% specifically engineered to facilitate generative plan acquisition.
-% %
-% These linguistic enhancements are intended to offer developers practical tools and methodologies
-% to easily leverage generative functionalities,
-% thereby promoting broader adoption.
-% %
-% Ultimately,
-% our approach aims to significantly advance \ac{BDI} agents' capabilities,
-% facilitating the creation of more intelligent, flexible, and autonomous cognitive systems
-% capable of sophisticated reasoning and dynamic adaptation in complex and uncertain environments.
-% In trying to answer these questions,
-% we propose both a conceptual framework
-% -- put simply, we discuss admissible extension of the \agentspeak{} architecture, aimed at embedding \ac{GenAI} --
-% and a practical, prototype implementation of our framework based on \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24}.
-% %
-% Finally, we compare our approach with existing literature on plan generation in \ac{BDI} agents,
-% there including classical \ac{AI} planning and \ac{RL} techniques.
-
 \section{Background}\label{sec:background}
 
 Here,
-we recall the main notions behind \ac{BDI} agents, plan generation in \ac{BDI} agents, and \ac{GenAI} agents.
-
-\subsection{\ac{BDI} Agents and their Plans}\label{sec:bdi-agents}
-
-The \ac{BDI} model,
-inspired by human cognitive processes~\cite{bratman1987intention},
-and grounded upon a formal framework~\cite{bdilogic-jlc8} for modelling \emph{rational agents}' decision-making,
-has been adopted for agent programming languages (e.g., \cite{BordiniHW2007})
-as well as for simulating intelligent agents~\cite{HubnerB09} or human behaviour~\cite{AdamGaudou2016}.
-%
-\ac{BDI} systems represent a wide yet specific class of \acp{MAS},
-where rational agents feature \emph{cognitive} abstractions such as beliefs, goals, and intentions.
-
-Specifically, a \ac{BDI} agent~\cite{RaoG95}:
-%
-\begin{inlinelist}
-    \item maintains \emph{beliefs} about itself and its environment,
-    updated by perception, reasoning, or communication;% with other agents;
-    \item is guided by the \emph{desires} (or goals) it aims to achieve,
-    which may evolve over time or generate other desires to pursue;
-    \item commits to multiple concurrent \emph{intentions} to fulfil its desires;
-    \item executes \emph{plans} (i.e., sequences of \emph{actions}) in  order to achieve its goals.
-\end{inlinelist}
-
-Several architectures have been proposed to implement \ac{BDI} agents in software,
-including \agentspeak{}~\cite{RaoG95}, \ac{PRS}~\cite{IngrandGR1992}, and \ac{dMARS}~\cite{DInvernoLGKW04}.
-%
-In the following,
-we focus on the widely-adopted \agentspeak{}---%
-so that we may use the terms \ac{BDI} agents and \agentspeak{} agents interchangeably in the following.
-
-% \agentspeak{}~\cite{RaoG95} agents are animated by events,
-% to which they respond by selecting \emph{plans} that guide their execution.
-% %
-% Events may correspond to the addition or removal of beliefs
-% -- which, in turn, may be the result of perception or communication with other agents --
-% or to the occurrence of internal events,
-% such as the commitment of the agent to a new goal to pursue.
-% %
-% Unlike purely reactive systems,
-% where external stimuli are directly mapped to actions,
-% \ac{BDI} agents reason about events in the context of their current state
-% and choose \emph{plans} accordingly,
-% via a continuous \emph{deliberation} activity.
-%
-% The execution of plans can, in turn, generate new internal events,
-% allowing the agent to progress through its reasoning cycle
-% and operate autonomously.
-
-\agentspeak{} agents perform so-called \emph{procedural reasoning}~\cite{IngrandGR1992}:
-they are equipped by human developers with procedural knowledge in terms of a \emph{plan library},
-a collection of plans agents can select for execution at run time.
-%
-Agents' deliberation process is then aimed at selecting the most adequate plan for any event that may occur,
-% so that plans are, ultimately, a way to encode specific actions to perform in response to specific events.
-failing if none has been provided.
-
-% More precisely,
-\agentspeak{} plans are referred to as \emph{plan rules}, denoted as:
-%
-\inlineAsl{
-E : C <- A$_1$; \ldots; A$_n$.
-}
-%
-The rule describes how the agent should react to some \emph{triggering event} \inlineAsl{E},
-stating for instance what to do when a new percept arises,
-or how to achieve a given goal.
-%
-\inlineAsl{C} is the set of conditions under which the rule is applicable
-(a.k.a. the rule's \emph{context}),
-and \inlineAsl{A$_1$; \ldots; A$_n$} is the \emph{body} of the rule,
-corresponding to the actual plan,
-i.e., the actions to perform to handle the event.
-
-Plan rules differ significantly from first-principles planning,
-where the plan is a sequence of actions to be performed to reach a desired world state%
----i.e., \emph{declarative} goals~\cite{winikoff2002kr}.
-%
-In fact,
-although it is possible to write plans rules and goals in a declarative style to mimic classic planning~\cite{hubner2006dalt, HindriksBHM00},
-it is often the case that a goal expressed as the triggering event
-of a \ac{BDI} plan rule
-is simply a \emph{mnemonic name} of an event the agent may react to%
----i.e., \emph{procedural} goals~\cite{winikoff2002kr}.
-%
-% Additionally,
-% other than encoding the procedural knowledge to achieve goals (\inlineAsl{!Goal}),
-% \agentspeak{} plan rules can be written to react to the addition or removal of beliefs (\inlineAsl{+/-Bel}),
-% as well as performing \emph{epistemic actions}---e.g., a \emph{test} to retrieve information from the current belief base (\inlineAsl{?Test}).
-%
-% \begin{inlinelist}
-%     \item the addition (resp. removal) of a belief \inlineAsl{+Bel} (resp. \inlineAsl{-Bel})
-%     representing some novel (resp. old) information which the agent memorized (resp. forgot)
-%     due to reasoning, perception, or communication;
-%     or
-%     \item the commitment to a new achievement (resp. test) \emph{goal} \inlineAsl{+!G} (resp. \inlineAsl{+?G}),
-%     representing something that the agent intends to do (resp. know).
-% \end{inlinelist}
-%
-% Practically speaking,
-% while beliefs are logic (most commonly, Prolog) facts,
-% -- i.e. the agents' belief base is considered as a logic theory --
-% such as \inlineAsl{temperature(25, celsius)},
-% goals are logic terms named after the activities they represent,
-% such as \inlineAsl{!go(home)} or \inlineAsl{?weather(raining)}.
-% %
-% Plans events may be non-ground,
-% in which case the plan would react to any event matching its head
-% via logic unification%
-% \missingref{}%
-% ---e.g., the plan
-% \inlineAsl{+temperature(X, celsius) : tolerance(T) \& (X > T) <- !go(away)}
-% would match any update concerning the temperature.
-% %
-% As shown in the last example,
-% plans' contexts are just logic expressions possibly involving
-% the variables in the plan's head,
-% or any other belief from the agent's belief base.
-%
-% The many activities in a plan's body can either be
-% %
-% \begin{inlinelist}
-%     \item subgoals, i.e., expressions such as \inlineAsl{+!G} or \inlineAsl{+?G},
-%     representing new goals to be achieved (or tested) by the agent;
-%     \item actions, i.e., logic terms denoting operations to be performed,
-%     such as \inlineAsl{move(up)};
-%     or
-%     \item special actions for the update of believes (e.g. \inlineAsl{+Bel} or \inlineAsl{-Bel}).
-% \end{inlinelist}
-% %
-% Actions can, and most commonly will, provoke side effects when executed,
-% i.e. change either the agent's internal status or affect the environment.
-
-Similarly to goals,
-actions are basically \emph{mnemonic names} of functionalities causing effects.
-%
-Unlike other \ac{AI} sub-fields,
-though,
-pre-/post-conditions for an action are not explicitly represented in \agentspeak{}
-as the actions are usually invoking low-level software/hardware facilities that bring side effects about.
-%
-Typically,
-in \ac{BDI} agents,
-actions may even fail due to unpredictable environment dynamics making pre-/post-conditions hard to define.
-
-Lastly,
-a notable feature of \agentspeak{} plan rules is that the \emph{body} of a plan may contain subgoals%
----i.e., statements triggering the selection and execution of other plans.
-%
-Through this mechanism,
-\agentspeak{} agents can pursue complex goals by breaking them down into smaller subgoals
-for which the specific plans are selected at runtime,
-resulting in a non-linear execution.
-%
-Yet,
-the underlying assumption is that all plans are known in advance,
-and the agent can select them based on the current context.
-%
-% Then,
-% it may happen that a plan is not available for a given event and context,
-% in which case the agent may fail to achieve the goal.
-%
-% To make that possible,
-% \agentspeak{} assumes that low-level software/hardware facilities are attached to the agent,
-% and that executing the action will invoke them accordingly.
-% %
-% So, in a sense, actions are invocations to \ac{FLI}.
-
-% \gcsidenote{'Sto capoverso è intuile, lo lascio per completezza ma è la prima cosa che salta se serve spazio}
-% When encountering a subgoal during plan execution,
-% a new internal event is generated inside the agent,
-% which may trigger the execution of another plan,
-% and so on recursively.
-% %
-% Stacks of goals, subgoals, and partially executed plans are called \emph{intentions}.
-% %
-% In a given moment,
-% each agent may have multiple intention,
-% each one keeping track of some course of action the agent is currently carrying on.
-
-% In this framework,
-% goals are just \emph{mnemonic names} of events the agent may be willing to react to,
-% and,
-% similarly,
-% actions are just \emph{mnemonic names} for functionalities which provoke side effects.
-%
-% However
-% -- differently from other sub-fields of \ac{AI} --,
-% the actual semantics of goals and actions
-% (namely,
-% what properties of the world should be reached for a goal to hold,
-% or what pre-/post-conditions is an action subject to)
-% is not explicitly represented in \agentspeak{}.
-% %
-% So,
-% it is up to human developers to write \emph{meaningful} plans, goals, and actions,
-% similarly to what programmers to with ordinary programming languages.
-%
-
-% By supporting multiple concurrent intentions,
-% \ac{BDI} agents can manage complex scenarios
-% where multiple goals must be pursued in parallel,
-% and
-% where multiple courses of actions must be interleaved to pursue them all.
-% %
-% Yet,
-% the underlying assumption is that all plans are known in advance,
-% and the agent can select them based on the current context.
-% %
-% It may happen that a plan is not available for a given event and context,
-% in which case the agent may fail to act,
-% and the whole intention may remain unfulfilled.
+we complement the notions in \Cref{subsec:agentspeak} with
+plan generation in \ac{BDI} agents, and \ac{GenAI} agents.
 
 \subsection{Plan Generation in \ac{BDI} Agents}
 
@@ -3517,24 +3204,12 @@ incorporating techniques from \ac{AI} planning into the \ac{BDI} architecture.
 % for an account of the many approaches proposed in the literature.
 Reference \cite{MeneguzziS15} nicely summarises the many approaches proposed in the literature so far.
 %
-For this paper, we highlight the main implications of integrating plan generation techniques into \ac{BDI} agents.
+For this chapter, we highlight the main implications of integrating plan generation techniques into \ac{BDI} agents.
 % which serve as a foundation for our approach as well.
 
-In the previous section we have already surfaced the main differences between \ac{BDI} plans
-and classical (a.k.a. first-principles) planning
-(e.g., STRIPS~\cite{fikes1971ai})
-which can be essentially be summarised as:
-%
-\begin{inlinelist}
-    \item \ac{BDI} plans and goals are procedural, while classical planning are declarative~\cite{winikoff2002kr};
-    \item \ac{BDI} actions have no clearly stated pre- and post\-conditions, while classical planning actions are defined by them
-    \item \label{item:diff-subgoals} \ac{BDI} plans can include subgoals for a more flexible execution flow,
-    while classical planning is usually assembling a linear sequence of actions to move from one world state to another.
-\end{inlinelist}
-%
 \ac{HTN} planning~\cite{georgievski2015ai},
 based on the idea of task decomposition,
-allows generating more abstract plans that can mimic the invocation of subgoals addressing \ref{item:diff-subgoals}.
+allows generating more abstract plans that can mimic the invocation of subgoals.
 %
 Nevertheless,
 tasks must be defined in advance,
@@ -3562,29 +3237,8 @@ plans should ideally be reused in the future~\cite{SilvaSP09},
 although this may lead to a bloated plan library
 and conflicts with the original plans that need to be handled~\cite{cardoso2019emas}.
 
-% \gcnote{
-%     TODO: briefly mention \ac{AI} planning and \ac{RL}, then bring the focus to \ac{BDI} agents,
-%     stressing the main analogies and (above all) differences between these approaches and \ac{BDI} plan.
-%     %
-%     \href{https://virtuale.unibo.it/mod/resource/view.php?id=1517191}{Andrea Omicini's slides on AI Planning in the ISE course} may be useful.
-%     %
-%     Then mention prior works on (automatic) plan generation in \ac{BDI} agents.
-%     %
-%     Authors to be considered (non-exaustive):
-%     %
-%     \emph{(i)} Felipe Meneguzzi, in particular papers such as \cite{MeneguzziZM04,MeneguzziZML07,MeneguzziS15,IchidaM23,XuLPM24,PereiraM24,IchidaM024};
-%     \emph{(ii)} my fluffy work \cite{imagination-extraamas2021} on \ac{BDI} agents with imagination;
-% }
-
 \subsection{\ac{GenAI} Agents}
 
-%\gcnote{
-%    TODO: Overview on other approaches mixing agents (in any possible interpretation of the term) with \ac{GenAI}.
-%    The point that should emerge is that \ac{BDI} and/or \agentspeak{} agents are uncovered.
-%    Do not forget to mention reference \cite{IchidaM024}, among the others.
-    %
-%    Note: this is not merely "raw" code generation; rather, we aim to leverage the LLM's "common sense" capabilities within a planning process that can subsequently be used to write the plan.
-%}
 Recent advances in \ac{GenAI} have sparked significant interest in developing agents that incorporate \acp{LLM},
 thanks to their remarkable ability to perform effectively across a diverse range of tasks
 without specialised training for each domain~\cite{BubeckCEHLKLPZ23}.
@@ -3688,66 +3342,6 @@ focuses on the generation of reusable plans from the agent's existing knowledge,
 rather than relying on it for selecting actions to perform among those dynamically discovered at runtime.
 
 \section{Generative Plan Generation for \acs{BDI} Agents}
-\label{sec:approach}
-
-% \gcnote{
-%     TODO: Three levels of discussion, order of presentation to be decided.
-%     1. Need for a mechanism to generate plans for specific goals, via \ac{LLM} and prompt engineering.
-%     2. Need to decide \emph{when} the aforementioned mechanism should be triggered.
-%     3. Need to decide how plans are automatically evaluated by the agent (and possibly revised).
-% }
-
-% % \gcnote{
-% %     TODO: Discuss the mechanism for item 1.
-% %     The mechanism should generate one or more plans for a given goal.
-% %     It should be aware of which actions and sub-plans are available to the agent and possibly reuse them,
-% %     but also be open to the invention of new sub-plans.
-% %     Implementation details related to \ac{LLM} exploitation are relevant here.
-% % }
-% % \gcnote{
-% %     Can we take some inspiration from \cite{llmoracles-kbs310}?
-% % }
-
-% Long before \ac{GenAI} entered the mainstream,
-% the vision of cognitive agents equipped with \emph{imagination}
-% -- i.e. capable of \emph{creative} adaptation and greater autonomy --
-% was already envisioned.
-% %
-% Previous research~\cite{llmoracles-kbs310}
-% has proposed mechanisms enabling \ac{BDI} agents to engage in imaginative processes,
-% thereby enhancing their cognitive and operational flexibility.
-% %
-% Now,
-% with the proliferation of \ac{LLM} and \ac{GenAI} technologies,
-% the compelling research question arises:
-% can these new generative tools effectively augment agent autonomy through the dynamic generation of information?
-
-% Attempting to answer this question,
-% we investigate the integration of \ac{GenAI} into the well-established \agentspeak{}-based architecture.
-% %
-% Specifically,
-% we seek to ensure that generative capabilities complement
-% (rather than replacing)
-% the fundamental \agentspeak{} structure.
-% %
-% The agents should thus maintain compliance with established \ac{BDI} principles,
-% resorting to \ac{GenAI} exclusively when generative action is necessary.
-
-% The next question is:
-% what should \ac{BDI} agents exploit \ac{GenAI} for?
-% %
-% While generative and \ac{NLP} capabilities have significant potential for various aspects of cognitive agent engineering
-% -- including perception, interpretation of percepts, natural-language representation of plans, and deliberation --
-% our current research scope is explicitly focused on the autonomous generation of \emph{plans}.
-% %
-% We deliberately leave the exploitation of \ac{GenAI} for perception, deliberation, and representation to future work,
-% assuming these functions remain implemented as in conventional \agentspeak{} agents.
-% %
-% That said,
-% in the remainder of this paper,
-% we refer to \emph{generative} \ac{BDI} agents as those capable of generating plans autonomously.
-
-% \subsection{Generating Plans}
 \label{sec:pgp}
 
 In this section,
@@ -3997,22 +3591,6 @@ Now the agent has all the plans it needs to achieve the initial goal \inlineAsl{
 so it can proceed executing them.
 
 \subsection{When Should Plans Be Generated?}\label{sec:pgp-when}
-
-% \gcnote{
-%     TODO: Enumerate the possible reasonable solutions for item 2, giving them fancy mnemonic names.
-%     I can think of two major approaches:
-%     a. \emph{Reactive} generation: plans are generated on-the-fly, when needed, i.e. when a plan for a goal is not available.
-%     b. \emph{Proactive} generation: plans are generated by an ad-hoc plan-generation intention which is present in each generative agent since the very beginning.
-%     The latter has actually already been envisioned in \cite{imagination-extraamas2021}.
-%     For each solution, let's discuss the implications on the agent's design and engineering.
-%     In particular, for each solution, we should discuss how the solution may "scale"
-%     (creating a plan may imply creating a sub plan later on, and so on recursively).
-%     c. \emph{On-demand} generation: plans are generated via some action that the agent (i.e. the programmer) can decide when to trigger.
-% }
-% \gcnote{
-%     REMARK: Most likely, we will implement only one solution (a), so we must clarify this in the paper.
-% }
-
 In other words,
 when should the agent trigger its \ac{PGP}?
 %
@@ -4610,7 +4188,7 @@ by indirectly assessing the quality of the generated plans.
 
 \paragraph{Experimental Setup}
 
-We implement the reactive \ac{PGP} approach as described in \Cref{sec:approach} in a \jakta{} agent~\cite{DBLP:journals/sncs/BaiardiBCP24},
+We implement the reactive \ac{PGP} approach as described in \Cref{sec:pgp} in a \jakta{} agent~\cite{DBLP:journals/sncs/BaiardiBCP24},
 whose specification is enriched with natural-language descriptions as discussed in \Cref{sec:writing}.
 %
 The experiment is publicly available\footnote{github.com/pslab-unibo/experiment-2025-ECAI-generative-bdi-agents} 
@@ -4619,7 +4197,7 @@ and archived on Zenodo~\cite{ZenodoArtifact}.
 The agent has to reach home within a simulated 2D grid world environment
 where it can perceive obstacles, with no pre-programmed knowledge.
 %
-The setup mirrors our running example throughout the paper.
+The setup mirrors our running example throughout the chapter.
 %
 We conduct the experiment across multiple popular and publicly available LLM models
 (specifically: \texttt{gpt-4.1}, \texttt{gemini pro 2.5}, \texttt{deepseek V3}, and \texttt{claude 3.7 thinking}),
@@ -4795,30 +4373,10 @@ The tendency of LLMs to generate more complex plans than necessary (higher \PC{}
 and occasionally invent new abstractions presents both opportunities and challenges.
 %
 Overall, LLMs can generate (re)usable BDI plans, but their quality and effectiveness are highly model-dependent, with tradeoffs between generalization, complexity, and utility.
-% \gcnote{
-% Let's select a list of models to test.
-% For each model, submit N prompts corresponding to PGP invocations.
-% For each result, compute the following metrics.
-% Finally, discuss results.
-% - amount of generated plans (per PGP invocation)
-% - average amount of beliefs per plan context
-% - average amount of operations per plan body
-% - amount of generated plans which are general/specific (roughly: using variables or not)
-% - amount of invented goals
-% - amount of invented beliefs
-% - amount of generated plans which are useless (e.g., not executable at runtime, subsumed my more general plans, etc.)
-% - amount of generated plans groups (PGP invocations) which “work”
-%     * i.e., that EVENTUALLY lead to goal satisfaction if executed
-% - distance of generated plans group w.r.t. minimal, human-derived plans group
-%     * distance TBD, could be as simple as difference in amount of plans, AST comparison, etc
-% - amount of inadequate usage of admissible goals
-% - amount of inadequate usage of admissible beliefs
-% - time to goal achievement for the generated plan groups who work (maybe normalized w.r.t. the minimal human-generated plan)
-% }
 
 \section{Conclusion}\label{sec:conclusion}
 
-In this paper,
+In this chapter,
 we explore integrating \ac{GenAI} into the \agentspeak{} agent architecture
 to exploit \acp{LLM} for generating new plans at runtime, 
 based on the agent's current knowledge.

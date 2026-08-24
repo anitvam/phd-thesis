@@ -108,6 +108,9 @@ or exchanging procedural knowledge
 Among the several approaches for designing autonomous agents,
 the \ac{BDI} definition is one interesting approach~\cite{RaoG95}.
 %
+\ac{BDI} systems represent a wide yet specific class of \acp{MAS},
+where rational agents feature \emph{cognitive} abstractions.
+%
 Rather than describing agents exclusively in terms of inputs and outputs,
 the \ac{BDI} architecture defines their behavior through explicit mental attitudes,
 providing an abstraction of practical reasoning that closely resembles human decision making.
@@ -218,7 +221,11 @@ underlying many agent programming languages.
 While the \ac{BDI} architecture provides a conceptual model for describing autonomous agents, 
 it does not prescribe how such abstractions should be represented or executed in software. 
 %
-\agentspeak{} bridges this gap, 
+Several architectures have been proposed to implement \ac{BDI} agents in software,
+including \agentspeak{}~\cite{RaoG95}, \ac{PRS}~\cite{IngrandGR1992}, and \ac{dMARS}~\cite{DInvernoLGKW04}.
+%
+Among these, 
+\agentspeak{} became one of the most influential \ac{BDI} programming languages, 
 proposing an agent-oriented programming language grounded in the \ac{BDI} model 
 and equipped with an operational semantics for autonomous agents~\cite{rao1996maamaw}.
 
@@ -423,27 +430,51 @@ or executing internal computations.
 Actions are conceived as operations that are executed in a single lifecycle step,
 and provide a mechanism for injecting the underlying language procedures and libraries into an agent's plans.
 
-\paragraph{Plans}
-Plans in \agentspeak{} consist of two main components: 
-a \emph{head} and a \emph{body}. 
+Pre-/post-conditions for an action are not explicitly represented in \agentspeak{}
+as the actions are usually invoking low-level software/hardware facilities that bring side effects about.
 %
-The head is composed of a \emph{triggering event} and a \emph{context},
-whereas the body contains a sequence of actions and goals to be executed.
+In practice, 
+\agentspeak{} actions are basically \emph{mnemonic names} of functionalities causing effects.
 %
-The triggering event specifies the condition under which the plan becomes relevant, 
-while the context defines the beliefs that must hold in the agent's belief base for the plan to be considered applicable. 
-%
-Once both the triggering event and the context are satisfied, 
-the plan can be selected for execution.
+Typically,
+in \ac{BDI} agents,
+actions may even fail due to unpredictable environment dynamics making pre-/post-conditions hard to define.
 
-If selected, 
-the agent adopts a new intention associated with that plan 
-and schedules the execution of its body over the subsequent reasoning cycles. 
+\paragraph{Plans}
+\agentspeak{} plans differ significantly from first-principles planning,
+where the plan is a sequence of actions to be performed to reach a desired world state%
+---i.e., \emph{declarative} goals~\cite{winikoff2002kr}.
 %
-The actions and sub-goals composing the plan are then executed incrementally until the intention is either successfully completed, 
-suspended while waiting for the achievement of sub-goals, 
-or discarded.
-% 
+\agentspeak{} plans are called \emph{plan rules} and have the form:
+%
+\inlineAsl{
+E : C <- A$_1$; \ldots; A$_n$.
+}
+%
+The rule specifies how the agent reacts to a \emph{triggering event} \inlineAsl{E},
+for example when a new percept is received or when a goal must be achieved.
+%
+The \emph{context} \inlineAsl{C} contains the conditions that must hold for the rule to be applicable,
+while \inlineAsl{A$_1$; \ldots; A$_n$} is the \emph{body}, i.e., the sequence of actions and sub-goals to execute.
+%
+A plan has a \emph{head} and a \emph{body}. The head includes the triggering event and the context, whereas the body contains the actions and goals to be performed.
+%
+A rule becomes relevant when its triggering event matches a current event, and it is selected only if the context is satisfied by the agent's belief base.
+%
+Once selected, the agent creates a new intention for that plan and schedules execution of its body over subsequent reasoning cycles.
+%
+The actions and sub-goals are then executed incrementally until the intention succeeds, suspends while waiting for sub-goals to be achieved, or is discarded.
+%
+Through the sub-goal mechanism,
+\agentspeak{} agents can pursue complex goals by breaking them down into smaller sub-goals
+for which the specific plans are selected at runtime,
+resulting in a non-linear execution.
+
+Although it is possible to write plans rules and goals in a declarative style to mimic classic planning~\cite{hubner2006dalt, HindriksBHM00},
+it is often the case that a goal expressed as the triggering event
+of a \ac{BDI} plan rule
+is simply a \emph{mnemonic name} of an event the agent may react to%
+---i.e., \emph{procedural} goals~\cite{winikoff2002kr}.
 
 \begin{lstlisting}[
     label=lst:plan,
@@ -481,6 +512,19 @@ and finally deposits the collected waste into the bin.
 Naturally, 
 the robot must also possess additional plans enabling it to navigate to the required locations, 
 so that the sub-goal invoked by the plan can be successfully accomplished.
+
+%
+The underlying \agentspeak{} assumption is that all plans are known in advance,
+and the agent can select them based on the current context.
+%
+Then,
+it may happen that a plan is not available for a given event and context,
+in which case the agent may fail to achieve the goal.
+%
+To make that possible,
+\agentspeak{} assumes that low-level software/hardware facilities are attached to the agent,
+and that executing the action will invoke them accordingly.
+%
 
 \subsection{Recent Extensions of \agentspeak{}}
 
@@ -647,6 +691,14 @@ Current \agentspeak{} technologies still exhibit limitations with respect to int
 %
 Moreover, while recent advances in generative artificial intelligence significantly extend the applicability of the language, 
 integrating these capabilities without compromising the formal semantics of \agentspeak{} remains an active area of investigation.
+%
+Traditional \ac{BDI} programming frameworks typically lack mechanisms allowing agents to autonomously acquire
+or build new plans at runtime~\cite{SilvaSP09}.
+%
+The procedural behaviour of \agentspeak{} agents is then limited
+to scenarios where the agent behaviour can be suitably defined at design time (pre-programmed):
+an effective option in terms of computational efficiency,
+which however constrains agent flexibility, responsiveness, and overall \emph{autonomy} when facing unpredictable environments.
 
 Overall, recent research demonstrates that \agentspeak{} continues to evolve through extensions that preserve its original symbolic and declarative foundations 
 while expanding its applicability to increasingly complex and heterogeneous software systems. 
