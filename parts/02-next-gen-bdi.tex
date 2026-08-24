@@ -5070,3 +5070,50 @@ Future work will focus on implementing the architecture proposed in \Cref{sec:ge
 and explore how to support \ac{hMAS} developers with syntax extensions
 and tools to ease the development of \ac{BDI} agents in hypermedia environments
 within our \ac{BDI} programming framework \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24}.
+
+\chapter{Perspectives}
+
+This part of the thesis has proposed some opportunities 
+for advancing \ac{BDI} agents in modern software environments.
+%
+First,
+it has shown with the \jakta{} prototype 
+that \ac{BDI} agents can be integrated 
+with mainstream programming languages 
+to provide a more expressive and accessible programming environment 
+while not loosing the core abstractions of \ac{BDI} systems.
+%
+This improves modularity, reuse, and maintainability, 
+while lowering the entry barrier.
+%
+Second,
+it has investigated how concurrency is managed in \agentspeak{} frameworks,
+proposing a dichotomy between \emph{internal} and \emph{external} concurrency.
+%
+Then,
+it has investigated how \ac{GenAI} can be integrated with \ac{BDI} agents to support plan generation at runtime,
+showing a \jakta{} prototype implementation of a plan generation pipeline that leverages \acp{LLM} to generate candidate plans when no suitable plan is available in the library.
+%
+Our analysis addresses the main questions surrounding this integration:
+what information is required to generate admissible plans,
+how knowledge should be transferred between the model and the agent,
+what changes are introduced to the agent specification,
+and whether the resulting plans can be reusable.
+%
+Finally,
+it has investigated how the paradigm could be integrated with semantic hypermedia and the Web,
+proposing a generic \ac{BDI} engine that separates the reasoning cycle from the concrete representation of beliefs and actions,
+thus allowing reasoning on any knowledge representation, other than \ac{OWL} and \ac{RDF}.
+
+Taken together, these contributions point to a common conclusion:
+\ac{BDI} agents remain a powerful and principled foundation for intelligent systems,
+but their practical adoption depends on their ability to evolve with software engineering practices.
+%
+The next generation of \ac{BDI} systems should be designed as open, adaptable, and interoperable cognitive architectures,
+capable of integrating multiple paradigms rather than relying on a single, rigid execution model.
+
+%% Future work: make a heading
+
+\section{Supporting ... BDI tooling}
+\section{Cognitive agents in the field}
+\section{Learning enabled ...}
