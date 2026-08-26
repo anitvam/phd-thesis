@@ -1,28 +1,53 @@
-\chapter{Multi-Paradigm Integration for the \acs{BDI} Resurgence}
+\chapter*{Introduction}
+
+Modern software systems are increasingly required to manage complexity in dynamic and uncertain environments,
+including physical settings in which actions can have significant consequences for the surrounding world.
+A wide range of software engineering methodologies have been proposed to address this challenge,
+from agent-oriented approaches to autonomic computing.
+In particular, the \ac{AOP} paradigm, introduced more than thirty years ago~\cite{DBLP:journals/ai/Shoham93},
+seeks to model autonomous entities with an explicit mental state,
+while autonomic computing~\cite{DBLP:journals/computer/KephartC03} aims to design systems capable of self-management,
+following the principles originally inspired by IBM's vision of self-* behaviour.
 
 At the beginning of the millennium,
-scenarios typical of autonomic and self-* systems
-seemed to be better tackled with techniques designed for \ac{MAS},
-among them, \acl{BDI} cognitive model was considered particularly promising.
-%
-As the years went by, however, interest decreased
-in the community of self-* systems for the \ac{BDI} approach
-despite new proposals still sharing a strong resemblance
-with the defining features of BDI agents.
-%
-We argue that this trend is not a sign of the inadequacy of \ac{BDI} paradigm itself, 
-rather, it is a sign of the inadequacy of the tools and frameworks available for its adoption.
+scenarios typical of autonomic and self-* systems appeared to be better addressed with techniques designed for multi-agent systems.
+Among these, the \ac{BDI}~\cite{DBLP:conf/kr/RaoG91} model was considered particularly promising.
+Yet, over time, interest in the \ac{BDI} approach within the self-* community decreased.
+This trend, we argue, is not a sign that the \ac{BDI} paradigm is inherently inadequate,
+but rather that the tools and frameworks available for its adoption have often been insufficient in practice.
 
-% \section{Introduction}
-% Computational agents are \emph{autonomous} entities~\cite{OmiciniRV08}
-% situated into an \emph{environment} they can perceive and affect;
-% they interact either directly or through the environment~\cite{cartago-jaamas23} by means of stigmergy.
-% %
-% There are several ways to model agents,
-% and one of the most popular in the dedicated literature is the \ac{BDI} model.
-% %
+Alongside the \ac{AOP} paradigm, autonomic computing was also inspired by a human metaphor,
+this time centred on the nervous system,
+which coordinates bodily functions without requiring conscious intervention.
+In this setting, systems are typically characterised by self-configuration,
+self-optimisation, self-healing, and self-protection~\cite{DBLP:journals/csur/HuebscherM08}.
+The \mapek{} loop (Monitor, Analyse, Plan, Execute, Knowledge) captures this architecture,
+and it is closely aligned with agent-based reasoning.
 
-\section{An unfulfilled promise}
+Despite this conceptual alignment, the literature also highlights a persistent tension between \ac{AOP} and autonomic computing.
+As noted by Huebscher and McCann~\cite{DBLP:journals/csur/HuebscherM08}, \ac{AOP} is not always the most suitable paradigm for building autonomic systems,
+partly because many \acp{MAS} are application-specific and lack the self-management functions that are central to autonomic computing.
+This limitation is discussed also in other works that extend the classical notion of \ac{BDI} \acp{MAS} in autonomic settings~\cite{DBLP:conf/prima/LiaoJG06},
+proposing PDC-agents (policies, desires, and contracts) to address the effects of environmental change on agent behaviour~\cite{DBLP:conf/smc/JunJZBCJ04}.
+
+In this part, we argue that the reason \ac{BDI} has not been more central to the development of autonomic computing systems is not primarily the abstractions themselves,
+but rather the lack of practical tools that support their integration with real systems.
+The challenge is not only conceptual: it also concerns interoperability between autonomic control components,
+for which \ac{BDI} may be well suited,
+and the systems they manage,
+which are often expressed through more conventional abstractions and frameworks.
+Additionally,
+learning \ac{BDI} requires considerable effort,
+as it introduces new paradigmatic elements unknown to most computer scientists,
+and, typically, does so through a custom syntax;
+in other words, the learning curve is \emph{steep}.
+%
+On top of this, developers willing to learn a new paradigm and related syntax
+may still end up being discouraged from using the paradigm by the lack of industrial-grade
+tooling (\acp{IDE}, debuggers, static analysers, build systems, testing frameworks, and so on).
+
+
+\section*{An unfulfilled promise}
 
 Since their very inception,
 \ac{BDI} agents have been considered as
@@ -62,7 +87,7 @@ extensions and modifications of the original paradigm have been proposed in the 
 providing evidence that, at the same time,
 the paradigm can be suitable, but it may need amendments and adaptations to be effectively used in such scenarios.
 
-\section{The road ahead}
+\section*{The road ahead}
 
 We argue that the call for better tools
 and for declinations of \ac{BDI} specific for autonomic and self-* systems are not conflicting,
@@ -90,41 +115,29 @@ A step in the direction of \ac{BDI} \ac{AOP} injected into mainstream programmin
 JS-son~\cite{DBLP:conf/emas/KampikN19},
 an agent programming library for JavaScript.
 %
-In this work,
+In \Cref{chap:jakta},
 we introduce the community to \jakta{}~\cite{BaiardiBCP23},
-a further step forward in this direction,
-leveraging a recent, quickly-growing, multi-paradigm language:
-Kotlin,
-released first in 2016,
-and with a fast-growing community due to its versatility and robustness.
+a further step forward in this direction.
 %
 \jakta{} is an attempt to integrate the \ac{BDI} \emph{within} Kotlin
 in form of an internal \ac{DSL},
 thus inheriting all Kotlin-native mechanisms,
 an approach successfully used by other tools used in the self-* systems community, such as Scafi~\cite{DBLP:journals/softx/CasadeiVAP22}.
 %
-\jakta{} is meant to improve:
+In \Cref{chap:concurrency},
+we discuss the importance of carefully managing concurrency in \acp{MAS},
+distinguishing between \emph{internal} and \emph{external} concurrency.
 %
-\begin{itemize}
-    \item the interoperability among \ac{BDI}/\ac{AOP} and other programming paradigms;
-    \item the reuse of existing tools supporting the development of \emph{complex} \ac{BDI} codebases
-    (e.g.,~\acp{IDE}, testing suites, etc.);
-    \item the support for simulating and debugging \acs{BDI} agents;
-    \item the concurrency and communication options.
-\end{itemize}
+In doing so, we analyse the state of the art of \ac{BDI} frameworks and highlight how they address concurrency.
 %
-\jakta{} is still in its early stages;
-although experimental,
-it has been open-sourced for the community to experiment with\footnote{https://github.com/jakta-bdi/jakta}.
-
-One first step towards the integration of \jakta{} with other tools in the self-* systems community
-has been its integration with the Alchemist Simulator~\cite{PianiniJOS2013},
-which we used to build a drone coordination scenario as a reference scenario to understand how the \ac{BDI} paradigm
-could be amended to simplify the construction of complex systems.
+Building on this paradigm-blending approach, 
+\jakta{} enables us to explore the integration of \ac{GenAI} into \ac{BDI} agents,
+as discussed in \Cref{chap:genai},
+to investigate how \acp{LLM} can support plan generation in unknown environments.
 %
-In future work,
-we intend to experiment \jakta{} integration with other tools,
-trying to shape its evolution based on practical use cases.
+In the final chapter of this part, \Cref{chap:perspectives},
+we summarise the research outcomes and outline the direction for building the next generation of \ac{BDI} agents,
+while also offering a perspective on future research directions for further improving the \ac{BDI} paradigm and its adoption within the self-* systems community.
 
 \chapter{Blending BDI Agents with \acs{OOP} and \ac{FP} with \jakta{}}
 \label{chap:jakta}
@@ -1905,6 +1918,7 @@ then run benchmarks to compare the performance of \jakta{} with other \ac{BDI} t
 primarily \jason{}.
 
 \chapter{External Concurrency in BDI Framework Implementations}
+\label{chap:concurrency}
 
 This chapter focuses on a practical and often overlooked question: 
 how do existing \ac{BDI} framework implementations 
@@ -4446,6 +4460,7 @@ This research bridges traditional \ac{BDI} architectures and emerging \ac{GenAI}
 laying the groundwork for more autonomous, adaptable, and explainable cognitive agents.
 
 \chapter{The Gap Between BDI Agents and Semantic Hypermedia and What We Can Do About It}
+\label{chap:genai}
 
 Integrating intelligent agents with the Web has long been an objective
 for both the \ac{MAS}~\cite{DBLP:conf/edoc/ShafiqDF06}
@@ -5072,6 +5087,7 @@ and tools to ease the development of \ac{BDI} agents in hypermedia environments
 within our \ac{BDI} programming framework \jakta{}~\cite{DBLP:journals/sncs/BaiardiBCP24}.
 
 \chapter{Perspectives}
+\label{chap:perspectives}
 
 This part of the thesis has proposed some opportunities 
 for advancing \ac{BDI} agents in modern software environments.
@@ -5114,6 +5130,269 @@ capable of integrating multiple paradigms rather than relying on a single, rigid
 
 %% Future work: make a heading
 
-\section{Supporting ... BDI tooling}
-\section{Cognitive agents in the field}
+
+\section{Cognitive Agents in the Field: a Hybrid Approach Between Agent-Oriented and Aggregate Computation}
+
+Engineering self-* systems
+necessitates robust abstractions that can bridge the gap between 
+conceptual understanding 
+and practical implementation.
+%
+Software modeling has emerged since the very beginning 
+of the \ac{SASO} systems community 
+as a fundamental pillar for understanding, 
+designing, 
+and implementing complex systems~\cite{karsai1999saso}. 
+%
+Nowadays,
+software modeling has become an essential component of the entire software development lifecycle,
+facilitating both human understanding and computational processing.
+%
+
+Models play a crucial role in computer science research for several interconnected reasons:
+%
+\begin{inlinelist}
+\item they bridge the abstraction gap between 
+high-level conceptual understanding 
+and low-level implementation details, 
+enabling researchers to focus on essential system properties;
+\item they enable reproducibility in research by providing precise specifications that can be independently validated and compared across different studies;
+\item they serve as development guides that inform architectural decisions and implementation strategies, reducing the likelihood of design errors and facilitating systematic software construction;
+\item they provide the flexibility needed to adapt to changing requirements, allowing systems to evolve while maintaining their essential properties and behaviors.
+\end{inlinelist}
+
+In the context of \ac{SASO} systems, 
+two distinct yet complementary perspectives have emerged 
+that address different aspects of system complexity.
+%
+The \emph{singular perspective}, 
+focuses on modeling individual entities (i.e. devices, agents),
+providing rich abstractions for modeling their behavior.
+%
+Different modeling approaches have been proposed in this perspective, 
+coming from different research communities.
+%
+Some examples of such approaches include \mapek{}~\cite{kephart2003computer}, and \ac{PRS}~\cite{georgeff1987aaai}.
+%
+Conversely, the \emph{aggregated perspective},
+emphasizes collective behaviors and emergent properties 
+that arise from the interaction of several entities.
+%
+In this perspective,
+the focus is on modeling the collective phenomena,
+simplifying the singular agents abstractions.
+%
+An example of the latter is the \ac{AP} paradigm~\cite{BealIEEEComputer2015}.
+
+While both perspectives offer valuable modeling capabilities, 
+they are typically applied separately in practice, 
+often favoring either an advanced individual approach or a collective one.
+%
+We recognize that individual agents and collective behaviors 
+are not competing abstractions but complementary aspects for the design of complex adaptive systems.
+%
+
+This paper bridges together cognitive \ac{BDI} \ac{AOP} and \ac{AP} paradigms, 
+creating a unified framework that leverages the strengths of the both.
+%
+The integration of \ac{AP} paradigm and \ac{AOP} was first explored in~\cite{viroli2017ijaose}, 
+which examined the incorporation of aggregate plans within \ac{AOP} \ac{MAS}.
+%
+Building on the future directions outlined in that work, 
+we advance the integration by adopting the \ac{BDI} framework as the abstraction for \ac{AOP}, 
+and we outline a roadmap for its realization.
+%
+Specifically, 
+we leverage existing frameworks for both \ac{BDI} and \ac{AP} paradigm abstractions.
+
+% ============================
+% CONTRIBUTION AND OBJECTIVES
+% ============================
+\section{Contribution and Objectives}\label{sec:contribution}
+% present the main contribution of the research in a way that a non-expert could clearly understand, then present the detailed objectives of your research, highlighting why your work is novel in comparison to existing research.
+
+This paper proposes to investigate a novel cognitive agent-oriented framework that seamlessly integrates 
+individual decision-making capabilities with distributed collective computation. 
+%
+The aim is to provide a hybrid framework that combines the \ac{BDI} \ac{AOP} for local cognitive reasoning 
+with \ac{AP} paradigm mechanisms for collective coordination.
+%
+
+\subsection{Hybrid Cognitive-Collective Framework}
+Unlike tools that treat individual and collective intelligence as separate paradigms, 
+our proposal provides a unified framework that seamlessly integrates both perspectives.
+%
+% This integration enables to adopt sophisticated modelling abstractions for both
+% individual cognitive reasoning and collective computation.
+%
+% Depending on the goal requirements and environmental conditions,
+% developers can preserve a cognitive model abstraction for defining individual agents' behaviour
+% while allowing them to benefit from distributed collective capabilities.
+
+The proposed framework is built upon three fundamental features:
+
+\paragraph{Cognitive Local Decision-Making}
+Individual agents employ the \acf{BDI} \ac{AOP} cognitive framework to devise locally-relevant decisions.
+%
+Inspired from \ac{PRS}, 
+\ac{BDI} has its roots in philosophy, 
+where Michael Bratman described humans’ reasoning via the
+“beliefs, desires, intentions” framework, as a way to explain future-directed
+decision-making~\cite{Bratman1987-BRAIPA}. 
+%
+Successively, the framework
+turned into an abstract semantics for computational agents: \agentspeak{}~\cite{DBLP:conf/maamaw/Rao96}.
+%
+With this model, 
+each agent maintains its own beliefs about the environment (i.e. its local perception), 
+goals, and intentions that guide the sequence of actions.
+%
+% The main advantage of this cognitive architecture is a fine-grained plan engineering which relies on agents' local perception.
+%
+
+\paragraph{Collective-Oriented Task Delegation}
+When dealing with tasks that exceed the capabilities of individual perspective
+or benefit from collective intelligence, 
+modelling singular agents falls short.
+%
+% This delegation allows the system to leverage the collective computational power and distributed sensing capabilities of multiple devices in the environment.
+%
+%
+Tasks such as crowd management~\cite{BealIEEEComputer2015}, 
+application-level network protocols~\cite{baiardi2025robust}, 
+or swarm-drone coordination~\cite{DBLP:conf/acsos/GrushchakKPFABS24}, 
+are some examples of successful application of \ac{AP} paradigm.
+% where the emergent behavior of the collective exceeds what individual agents could achieve independently.
+%
+\ac{AP} paradigm~\cite{BealIEEEComputer2015} is a functional macro-programming paradigm
+centered around the notion of a \emph{computational field}~\cite{DBLP:journals/tocl/AudritoVDPB19}:
+a distributed data structure that maps points in space and time to values.
+%
+% Building on computational fields, \ac{FC}~\cite{DBLP:journals/tocl/AudritoVDPB19}
+% extends this idea through higher-order functional programming abstractions,
+% allowing manipulation and composition of fields
+% based on local observations of their values.
+
+\paragraph{Bidirectional Information Flow}
+The proposed framework establishes a bidirectional information flow 
+between local cognitive agents and the aggregated computing layer.
+%
+On the one hand, agents gather information from swarm computation 
+and exploit collective intelligence to enhance their individual reasoning processes.
+%
+% This integration is driven by each agent's own perception of the environment, 
+% ensuring that collective insights are appropriately contextualized within the agent's local decision-making framework.
+%
+On the other hand, 
+the collective layer is informed by the individual situated perceptions of participating agents.
+
+This framework improves the engineering of \ac{SASO} systems, 
+by providing a unified framework that leverages the strengths of both paradigms,
+thus enabling the development of more sophisticated and adaptive systems that can operate effectively across a wide range of scenarios and scale requirements.
+
+
+
+\section{Methodology}\label{sec:methodology}
+% present the methodology of your approach, discussing why it is suitable to your contribution, and also present any preliminary results if you have them, including a statement about the current status of your work.
+
+To address the features described in Section~\ref{sec:contribution}, 
+we propose to leverage the modeling capabilities of two frameworks: 
+\ac{jakta} for \ac{BDI} \ac{AOP} and Collektive for \ac{AP} paradigm.
+%
+
+\ac{jakta}\footnote{https://github.com/jakta-bdi/jakta} integrates \agentspeak{} semantic features with Kotlin-native mechanisms, 
+meant to improve \ac{BDI} ergonomics with pluggable concurrency and communication management constructs~\cite{baiardi2024sncs}.
+
+Collektive\footnote{https://github.com/Collektive/collektive} is a prototype framework for \ac{AP} paradigm based on \ac{XC}~\cite{audrito2024jss},
+which extends the Kotlin compiler plugin for performing \ac{AP} paradigm \emph{alignment}~\cite{audrito2016saso}.
+%
+The alignment is the mechanism that allows communication between devices (or, agents),
+without an explicit notion of message communication, 
+by exploiting \ac{AST} annotations.
+%
+
+Both technologies are built on top of Kotlin and distributed as open-source libraries,
+and provide an internal \ac{DSL} that allows developers to write programs in a more expressive way.
+%
+The \ac{DSL} design enhances the ergonomics of programming in the respective framework,
+while still allowing the use of Kotlin's powerful type system and paradigm blending features (i.e. the seamless usage of \ac{OOP} and \ac{FP} constructs).
+%
+The choice of Kotlin as the underlying language is strategic,
+since it allows reuse of existing tools and libraries (i.e. \acp{IDE}, syntax highlighters, ...),
+which are essential to support the development process of complex software systems.
+
+Since both \ac{jakta} and Collektive are built on top of Kotlin,
+we will leverage Kotlin's type system and \ac{DSL} capabilities to create a unified
+framework that integrates cognitive and aggregate paradigms.
+%
+The expected result is a unified framework for modelling cognitive agents
+that can invoke collective computation as a natural extension of \ac{BDI} action capabilities.
+%
+% At the cognitive level, 
+% agents reason over their events and perceptions using 
+% \ac{jakta} \ac{BDI} abstractions.
+% %
+% At the collective level, 
+% aggregate computations can be defined using directly Collektive model abstractions,
+% %
+% At the hybrid level, 
+% agents can invoke Collektive computations to perform tasks that require collective intelligence,
+% gathering the outcomes of the computation to enhance their local decision-making.
+
+% Information flow will be modeled using Kotlin's type system to create compile-time verified specifications.
+
+% ============================
+% FUTURE WORK AND RESEARCH PLAN
+% ============================
+\section{Future work and Research plan}
+% summarise your intended future work and provide a schedule of milestones with a discussion of their feasibility.
+
+The main challenge of this integration lies in 
+the logic-based nature of \ac{BDI} reasoning,
+which is inherited from the \agentspeak{} semantics.
+%
+Since proposed as an implementation of \agentspeak{},
+current \ac{jakta} implementation comes with its own logic reasoning engine.
+%
+Collektive,
+on the other hand,
+operates in terms of \emph{computational fields}, 
+which are distributed data structures
+that conceptually map every device to a value produced in
+a program. 
+%
+Therefore,
+the first step for the definition of this framework is to separate the tight coupling between logic constructs and the \ac{jakta} implementation.
+%
+This separation will allow \ac{jakta} to be used as a general-purpose programming language for \ac{BDI} agents,
+extending its reasoning process to reason over any kind of structured information other than the logic one.
+
+Once this is achieved,
+\ac{jakta} and Collektive can be easily integrated,
+since the first can invoke aggregate plans and then reason on its outcome.
+
+Finally,
+to validate the hybrid framework,
+we will integrate it with the Alchemist Simulator\footnote{https://github.com/AlchemistSimulator/Alchemist},
+which is a \ac{DES} engine for simulating large-scale distributed systems~\cite{alchemist}.
+%
+The advantage of using Alchemist is twofold:
+\begin{inlinelist}
+    \item It will enable simulation of non-trivial large-scale distributed systems, 
+    acting as a \emph{debugging} tool for this framework, and
+    \item It will enable direct simulation of \ac{DSL} definition of the system, 
+    thus validating the same codebase that will be executed in real-world deployment.
+\end{inlinelist}
+%
+Simulation will enable the evaluation of 
+scalability, 
+robustness, 
+efficiency, 
+and convergence time 
+in systems modeled with the proposed framework, 
+thereby assessing not just application performance 
+but the framework’s own expressiveness and its advantages relative to existing approaches.
+
+
+
 \section{Learning enabled ...}
