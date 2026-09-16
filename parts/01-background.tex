@@ -1,5 +1,34 @@
 \chapter{Complex Adaptive Systems}
+
+Complex systems composed of many interacting, adaptive entities
+are increasingly central to modern software,
+from robot swarms to large-scale \ac{IoT} deployments,
+and pose a distinctive challenge for software engineering:
+their intended behaviour is often only meaningfully described at the level of the system as a whole,
+rather than of any single component.
+%
+This chapter introduces the background needed to reason about such \acp{CAS} from three complementary perspectives,
+moving from a general coordination principle to its concrete consequences at increasing scale.
+%
+\Cref{sec:self-organization} introduces \emph{self-organization},
+the general principle by which a system composed of many locally-interacting entities can remain robust,
+scalable,
+and adaptive without relying on centralized control.
+%
+\Cref{sec:autonomic-computing} examines \emph{autonomic computing},
+one concrete instantiation of this principle,
+in which a \emph{single} complex system is endowed with a self-managing control loop
+so that it can configure, heal, optimize, and protect itself with limited human intervention.
+%
+Finally,
+\Cref{sec:distributed-intelligence} discusses \emph{distributed intelligence},
+the phenomenon that arises when self-organization operates at the scale of \emph{many} interacting entities:
+adaptive, seemingly intelligent behaviour that emerges from their local interactions,
+rather than residing in any of them individually.
+
 \section{Self-Organization}
+\label{sec:self-organization}
+
 \acp{CAS} are characterized by large populations 
 of interacting entities whose global behaviour emerges from local decisions, 
 feedback loops, 
@@ -10,16 +39,93 @@ self-organization has become a central principle for engineering systems that mu
 scalable, 
 and adaptive without relying on a single point of control. 
 
-Research on nature-inspired coordination 
-has shown how local interaction mechanisms 
-can support pervasive \acp{MAS} and collective adaptation in open environments~\cite{zambonelli2015percom}. 
+Research on nature-inspired coordination
+has shown how local interaction mechanisms
+can support pervasive \acp{MAS} and collective adaptation in open environments~\cite{zambonelli2015percom}.
 %
-Similar motivations appear in swarm-intelligence approaches for cyber-physical systems, 
-where robustness and flexibility are obtained through distributed decision-making 
-rather than centralized orchestration~cite{schranz2021swevo}. 
+Similar motivations appear in swarm-intelligence approaches for cyber-physical systems,
+where robustness and flexibility are obtained through distributed decision-making
+rather than centralized orchestration~\cite{schranz2021swevo}.
+
+A concrete engineering property that operationalises self-organization is \emph{self-stabilisation}:
+a system is self-stabilising if, starting from an arbitrary state,
+it is guaranteed to converge autonomously to a correct (legitimate) configuration in a finite number of steps,
+regardless of transient faults or unexpected perturbations~\cite{DBLP:journals/cacm/Dijkstra74}.
+%
+This property is particularly attractive for \acp{CAS},
+since it provides a formal guarantee of resilience
+without requiring a centralised supervisor to detect and correct deviations.
+%
+Building on this idea,
+self-stabilisation has been used as a first-class design principle
+for engineering resilient collective adaptive systems,
+showing how self-organising coordination mechanisms can be proven to recover from perturbations
+by construction rather than by ad-hoc error handling~\cite{DBLP:journals/tomacs/ViroliABDP18}.
 
 \section{Autonomic Computing}
+\label{sec:autonomic-computing}
+
+Autonomic computing was proposed as a response to the growing complexity of managing large-scale software infrastructures,
+drawing an explicit analogy with the human body's autonomic nervous system,
+which regulates functions such as heart rate and breathing without conscious intervention~\cite{DBLP:journals/computer/KephartC03}.
+%
+The vision is that of \emph{self-managing} systems,
+capable of administering themselves according to high-level objectives specified by administrators,
+rather than requiring constant manual intervention.
+%
+This self-management capability is commonly decomposed into four complementary properties,
+often referred to as \emph{self-CHOP}:
+self-configuration,
+the ability to install, integrate, and configure components automatically;
+self-healing,
+the ability to detect, diagnose, and recover from faults;
+self-optimization,
+the ability to monitor and tune resources to improve efficiency;
+and self-protection,
+the ability to anticipate and defend against malicious attacks or cascading failures~\cite{DBLP:journals/computer/KephartC03}.
+
+The reference architecture for realising these properties is the \mapek{} feedback loop,
+which structures an autonomic manager into four stages:
+\emph{monitoring} the managed resource and its environment,
+\emph{analyzing} the collected data to detect symptoms requiring attention,
+\emph{planning} a course of corrective action,
+and \emph{executing} it,
+all grounded on a shared \emph{knowledge} base~\cite{DBLP:journals/computer/KephartC03}.
+%
+This control loop has since become the de facto reference model for self-adaptive software systems more broadly,
+and its recurring structure across a wide range of concrete architectures has been documented in surveys of the field~\cite{DBLP:journals/csur/HuebscherM08}.
+
+Autonomic computing is best understood as a specific instance of the wider effort towards self-adaptive software,
+namely software capable of modifying its own behaviour in response to changes in its operating environment or in its own state,
+typically by relying on an explicit, model-based representation of the system being managed~\cite{karsai1999saso}.
+%
+This broader research area has since matured into an established software-engineering discipline in its own right,
+with dedicated venues and roadmaps identifying assurance,
+that is, providing justified confidence that a self-adaptive system will behave as intended,
+as one of its central open challenges~\cite{delemos2013swese}.
+
 \section{Distributed Intelligence}
+\label{sec:distributed-intelligence}
+
+While autonomic computing centres on a single managed system endowed with a self-management loop,
+many complex systems instead exhibit intelligent behaviour that cannot be attributed to any individual component,
+but rather emerges from the interaction of a large number of simple, locally-interacting entities.
+%
+This phenomenon,
+already illustrated by the bird-flocking example given in the introduction,
+is commonly studied under the umbrella of swarm and collective intelligence,
+where robustness and adaptivity to unpredictable conditions are obtained precisely because no single entity holds a global view of, or exerts centralised control over, the system~\cite{schranz2021swevo}.
+
+From a software-engineering perspective,
+this shift of the locus of intelligence from the individual to the collective raises the question of how to design, program, and reason about systems whose behaviour is only meaningfully described at the aggregate level.
+%
+Research on \acp{CAS} has approached this question by proposing dedicated abstractions and platforms
+that allow engineers to directly express and manage collective, self-adaptive behaviour at scale,
+rather than deriving it indirectly from the specification of individual components~\cite{DBLP:conf/saso/CasadeiV18}.
+%
+\ac{AC},
+discussed in detail in Section~\ref{sec:ac},
+is one such approach.
 
 \chapter{Designing Complex Systems' Software}
 
@@ -228,11 +334,11 @@ agents may enrich their own procedural knowledge by acquiring new plans,
 either as the result of internal reasoning
 or through interactions with other agents.
 
-One of the earliest and most influential implementations of the \ac{BDI}
-architecture is \agentspeak{}~\cite{rao1996maamaw}, a programming language based on the Procedural Reasoning System (PRS)~\cite{georgeff1987reactive}.
+The \ac{BDI} architecture is rooted in the \acf{PRS}, 
+one of the earliest architectures for reasoning and acting in real time within dynamic, uncertain environments.
 %
-The abstractions introduced \agentspeak{} provide the conceptual model
-underlying many agent programming languages.
+\ac{PRS} builds on the notion of \emph{procedural knowledge},
+that is, representing an agent's know-how as a library of executable procedures rather than as purely declarative facts to be processed by a general-purpose planner~\cite{georgeff1986pieee}.
 
 \subsection{AgentSpeak}
 \label{subsec:agentspeak}
@@ -1166,8 +1272,9 @@ or being open source
 All solutions but \jack{} (which is proprietary, commercial, and closed-source) adopt a \ac{FOSS} license.
 
 \section{\acl{AC}}
+\label{sec:ac}
 
-\ac{AC} provides a particularly relevant formal and engineering framework, 
+\ac{AC} provides a particularly relevant formal and engineering framework,
 since it models collective behaviour through computational fields 
 and enables designers to specify distributed coordination 
 at the aggregate level rather than at the level of individual devices~\cite{viroli2019jlap}.
