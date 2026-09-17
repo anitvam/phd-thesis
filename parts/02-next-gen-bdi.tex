@@ -5172,7 +5172,7 @@ providing rich abstractions for modeling their behavior.
 Different modeling approaches have been proposed in this perspective, 
 coming from different research communities.
 %
-Some examples of such approaches include \mapek{}~\cite{kephart2003computer}, and \ac{PRS}~\cite{georgeff1987aaai}.
+Some examples of such approaches include \mapek{}~\cite{DBLP:journals/computer/KephartC03}, and \ac{PRS}~\cite{DBLP:conf/aaai/GeorgeffL87}.
 %
 Conversely, the \emph{aggregated perspective},
 emphasizes collective behaviors and emergent properties 
@@ -5211,7 +5211,7 @@ we leverage existing frameworks for both \ac{BDI} and \ac{AP} paradigm abstracti
 \section{Contribution and Objectives}\label{sec:contribution}
 % present the main contribution of the research in a way that a non-expert could clearly understand, then present the detailed objectives of your research, highlighting why your work is novel in comparison to existing research.
 
-This paper proposes to investigate a novel cognitive agent-oriented framework that seamlessly integrates 
+This section proposes to investigate a novel cognitive agent-oriented framework that seamlessly integrates 
 individual decision-making capabilities with distributed collective computation. 
 %
 The aim is to provide a hybrid framework that combines the \ac{BDI} \ac{AOP} for local cognitive reasoning 
@@ -5238,7 +5238,7 @@ Inspired from \ac{PRS},
 \ac{BDI} has its roots in philosophy, 
 where Michael Bratman described humans’ reasoning via the
 “beliefs, desires, intentions” framework, as a way to explain future-directed
-decision-making~\cite{Bratman1987-BRAIPA}. 
+decision-making~\cite{bratman1987intention}. 
 %
 Successively, the framework
 turned into an abstract semantics for computational agents: \agentspeak{}~\cite{DBLP:conf/maamaw/Rao96}.
@@ -5259,7 +5259,7 @@ modelling singular agents falls short.
 %
 %
 Tasks such as crowd management~\cite{BealIEEEComputer2015}, 
-application-level network protocols~\cite{baiardi2025robust}, 
+application-level network protocols~\cite{DBLP:conf/acsos/BaiardiPAT25}, 
 or swarm-drone coordination~\cite{DBLP:conf/acsos/GrushchakKPFABS24}, 
 are some examples of successful application of \ac{AP} paradigm.
 % where the emergent behavior of the collective exceeds what individual agents could achieve independently.
@@ -5301,7 +5301,7 @@ we propose to leverage the modeling capabilities of two frameworks:
 %
 
 \ac{jakta}\footnote{https://github.com/jakta-bdi/jakta} integrates \agentspeak{} semantic features with Kotlin-native mechanisms, 
-meant to improve \ac{BDI} ergonomics with pluggable concurrency and communication management constructs~\cite{baiardi2024sncs}.
+meant to improve \ac{BDI} ergonomics with pluggable concurrency and communication management constructs~\cite{DBLP:journals/sncs/BaiardiBCP24}.
 
 Collektive\footnote{https://github.com/Collektive/collektive} is a prototype framework for \ac{AP} paradigm based on \ac{XC}~\cite{audrito2024jss},
 which extends the Kotlin compiler plugin for performing \ac{AP} paradigm \emph{alignment}~\cite{audrito2016saso}.
@@ -5374,7 +5374,7 @@ since the first can invoke aggregate plans and then reason on its outcome.
 Finally,
 to validate the hybrid framework,
 we will integrate it with the Alchemist Simulator\footnote{https://github.com/AlchemistSimulator/Alchemist},
-which is a \ac{DES} engine for simulating large-scale distributed systems~\cite{alchemist}.
+which is a \ac{DES} engine for simulating large-scale distributed systems~\cite{PianiniJOS2013}.
 %
 The advantage of using Alchemist is twofold:
 \begin{inlinelist}
