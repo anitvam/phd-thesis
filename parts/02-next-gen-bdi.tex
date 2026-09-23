@@ -5182,7 +5182,7 @@ In this perspective,
 the focus is on modeling the collective phenomena,
 simplifying the singular agents abstractions.
 %
-An example of the latter is the \ac{AC} paradigm~\cite{BealIEEEComputer2015}.
+An example of the latter is the \ac{AC} paradigm (see \Cref{sec:ac}).
 
 While both perspectives offer valuable modeling capabilities, 
 they are typically applied separately in practice, 
@@ -5232,16 +5232,7 @@ our proposal provides a unified framework that seamlessly integrates both perspe
 The proposed framework is built upon three fundamental features:
 
 \paragraph{Cognitive Local Decision-Making}
-Individual agents employ the \acf{BDI} \ac{AOP} cognitive framework to devise locally-relevant decisions.
-%
-Inspired from \ac{PRS}, 
-\ac{BDI} has its roots in philosophy, 
-where Michael Bratman described humans’ reasoning via the
-“beliefs, desires, intentions” framework, as a way to explain future-directed
-decision-making~\cite{bratman1987intention}. 
-%
-Successively, the framework
-turned into an abstract semantics for computational agents: \agentspeak{}~\cite{DBLP:conf/maamaw/Rao96}.
+Individual agents employ the \acf{BDI} \ac{AOP} cognitive framework  (see \Cref{sec:bdi}) to devise locally-relevant decisions.
 %
 With this model, 
 each agent maintains its own beliefs about the environment (i.e. its local perception), 
@@ -5258,20 +5249,9 @@ modelling singular agents falls short.
 % This delegation allows the system to leverage the collective computational power and distributed sensing capabilities of multiple devices in the environment.
 %
 %
-Tasks such as crowd management~\cite{BealIEEEComputer2015}, 
-application-level network protocols~\cite{DBLP:conf/acsos/BaiardiPAT25}, 
-or swarm-drone coordination~\cite{DBLP:conf/acsos/GrushchakKPFABS24}, 
-are some examples of successful application of \ac{AC}.
-% where the emergent behavior of the collective exceeds what individual agents could achieve independently.
-%
-\ac{AC}~\cite{BealIEEEComputer2015} is a functional macro-programming paradigm
-centered around the notion of a \emph{computational field}~\cite{DBLP:journals/tocl/AudritoVDPB19}:
-a distributed data structure that maps points in space and time to values.
-%
-% Building on computational fields, \ac{FC}~\cite{DBLP:journals/tocl/AudritoVDPB19}
-% extends this idea through higher-order functional programming abstractions,
-% allowing manipulation and composition of fields
-% based on local observations of their values.
+Such tasks are the natural target of \ac{AC} (see \Cref{sec:ac}),
+which has been successfully applied to domains ranging from crowd management
+to swarm-drone coordination (see \Cref{subsec:macroprogramming}).
 
 \paragraph{Bidirectional Information Flow}
 The proposed framework establishes a bidirectional information flow 
@@ -5304,23 +5284,13 @@ we propose to leverage the modeling capabilities of two frameworks:
 \ac{jakta}\footnote{https://github.com/jakta-bdi/jakta} integrates \agentspeak{} semantic features with Kotlin-native mechanisms, 
 meant to improve \ac{BDI} ergonomics with pluggable concurrency and communication management constructs~\cite{DBLP:journals/sncs/BaiardiBCP24}.
 
-Collektive\footnote{https://github.com/Collektive/collektive} is a prototype framework for \ac{AC} based on \ac{XC}~\cite{audrito2024jss},
-which extends the Kotlin compiler plugin for performing \ac{AC} \emph{alignment}~\cite{audrito2016saso}.
-%
-The alignment is the mechanism that allows communication between devices (or, agents),
-without an explicit notion of message communication, 
-by exploiting \ac{AST} annotations.
-%
+Collektive is a Kotlin framework for \ac{AC} based on \ac{XC},
+described in \Cref{subsec:ac-frameworks}.
 
-Both technologies are built on top of Kotlin and distributed as open-source libraries,
-and provide an internal \ac{DSL} that allows developers to write programs in a more expressive way.
-%
-The \ac{DSL} design enhances the ergonomics of programming in the respective framework,
-while still allowing the use of Kotlin's powerful type system and paradigm blending features (i.e. the seamless usage of \ac{OOP} and \ac{FP} constructs).
-%
-The choice of Kotlin as the underlying language is strategic,
-since it allows reuse of existing tools and libraries (i.e. \acp{IDE}, syntax highlighters, ...),
-which are essential to support the development process of complex software systems.
+Both technologies are built on top of Kotlin, distributed as open-source libraries,
+and provided as internal \acp{DSL},
+thus inheriting Kotlin's type system, paradigm-blending features, and tooling ecosystem
+(see \Cref{chap:jakta}).
 
 Since both \ac{jakta} and Collektive are built on top of Kotlin,
 we will leverage Kotlin's type system and \ac{DSL} capabilities to create a unified
@@ -5357,10 +5327,7 @@ current \ac{jakta} implementation comes with its own logic reasoning engine.
 %
 Collektive,
 on the other hand,
-operates in terms of \emph{computational fields}, 
-which are distributed data structures
-that conceptually map every device to a value produced in
-a program. 
+operates in terms of \emph{computational fields} (see \Cref{subsec:ac-model}).
 %
 Therefore,
 the first step for the definition of this framework is to separate the tight coupling between logic constructs and the \ac{jakta} implementation.
@@ -5374,8 +5341,8 @@ since the first can invoke aggregate plans and then reason on its outcome.
 
 Finally,
 to validate the hybrid framework,
-we will integrate it with the Alchemist Simulator\footnote{https://github.com/AlchemistSimulator/Alchemist},
-which is a \ac{DES} engine for simulating large-scale distributed systems~\cite{PianiniJOS2013}.
+we will integrate it with the Alchemist simulator~\cite{PianiniJOS2013}
+(see \Cref{subsec:ac-frameworks}).
 %
 The advantage of using Alchemist is twofold:
 \begin{inlinelist}
@@ -5638,58 +5605,17 @@ and
 
 \subsubsection{\acl{AC}}
 
-\ac{AC}~\cite{BealIEEEComputer2015} 
-is an approach meant to design self-organising systems
-from a global perspective.
-%
-Compared to many rule-based frameworks, 
-a key element of \ac{AC} is the usage of functional languages in place of middlewares.
-%
-In other words, 
-\ac{AC} is a programming paradigm where the logical machine being programmed shifts
-from the single device to the network of devices.
-%
-\ac{AC} languages manipulate distributed data structures 
-mapping devices to values, called fields, 
-through functional operators~\cite{DBLP:journals/tocl/AudritoVDPB19}.
-%
-A central aspect of this approach is 
-that well-behaved (typically, self-stabilising~\cite{DBLP:journals/cacm/Dijkstra74})
-patterns can be modularised as functions and reused,
-building libraries of reusable building blocks~\cite{DBLP:journals/tomacs/ViroliABDP18}.
-
-In \ac{AC},
-all agents execute the same programme indefinitely in repeated asynchronous rounds.
-%
-Each round comprises the following phases:
-\begin{itemize}
-  \item \emph{sense}: 
-  each agent perceives 
-  the environment's information and the messages coming from neighbouring agents
-  \item \emph{compute}:
-  each agent runs the aggregate programme
-  using the data collected during the \emph{sense} phase;
-  \item \emph{share/act}:
-  each agent sends messages to neighbouring agents with the computation result.
-\end{itemize}
-
-% There exist several implementations for \ac{AC}, 
-% each one targeting a different platform.
-% %
-% Some examples include Protelis~\cite{pianini2015protelis} Java-based implementation,
-% ScaFi~\cite{casadei2022scafi} Scala framework,
-% and 
-% Collektive~\cite{cortecchia2024multiplatform} Kotlin multiplatform implementation.
-% %
+\ac{AC} (see \Cref{sec:ac})
+designs self-organising systems from a global perspective,
+by programming the network of devices as a whole
+through functional operators on computational fields,
+and by composing reusable, self-stabilising building blocks.
 
 %% AC LIMITATIONS >>
-However, 
-the strengths of the paradigm comes with a drawback:
-devices are typically assumed to be 
-homogeneous 
-%and to execute the same program,
-which makes it 
-hard to naturally express and support heterogeneous capabilities and behaviours within \ac{AC}.
+As discussed in \Cref{subsec:ac-model},
+the main drawback of the paradigm is that
+devices are typically assumed to be homogeneous,
+which makes it hard to naturally express and support heterogeneous capabilities and behaviours within \ac{AC}.
 %
 What is needed is an approach that 
 preserves the high-level expressiveness and coordination abstractions of \ac{AC} 

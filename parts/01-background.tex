@@ -149,7 +149,7 @@ Computational agents are autonomous entities~\cite{OmiciniRV08}
 situated in an environment that they can perceive and affect.
 %
 Unlike passive software components, 
-agents exhibit autonomous behavior,
+agents exhibit autonomous behaviour,
 continuously perceiving their surroundings, 
 reasoning about the current state of the system, 
 and selecting appropriate actions to achieve their objectives.
@@ -167,7 +167,7 @@ Direct interaction relies on explicit communication between agents through messa
 Indirect interaction, instead, takes place through modifications of the shared environment..
 %
 The latter mechanism is commonly referred to as \emph{stigmergy}~\cite{ch30-castelfranchifestschrift2012,HadeliVKB04}:
-the actions performed by one agent alter the environment, and such alterations can subsequently be perceived by other agents, which adapt their behavior accordingly.
+the actions performed by one agent alter the environment, and such alterations can subsequently be perceived by other agents, which adapt their behaviour accordingly.
 
 To support stigmergic coordination in software systems,
 some \ac{MAS} technologies provide explicit and programmable abstractions for the environment~\cite{weyns2007aamas}.
@@ -237,7 +237,7 @@ the \ac{BDI} definition is one interesting approach~\cite{RaoG95}.
 where rational agents feature \emph{cognitive} abstractions.
 %
 Rather than describing agents exclusively in terms of inputs and outputs,
-the \ac{BDI} architecture defines their behavior through explicit mental attitudes,
+the \ac{BDI} architecture defines their behaviour through explicit mental attitudes,
 providing an abstraction of practical reasoning that closely resembles human decision making.
 %
 This abstraction was inspired by the work of the philosopher Michael Bratman,
@@ -358,7 +358,7 @@ Rather than introducing new abstractions,
 \agentspeak{} provides an executable representation of the concepts discussed in \Cref{sec:bdi}. 
 %
 Beliefs, goals, and plans become first-class language constructs, 
-enabling developers to describe both an agent's knowledge and its behavior declaratively.
+enabling developers to describe both an agent's knowledge and its behaviour declaratively.
 %
 In addition,
 the execution model of \agentspeak{} is event-driven. 
@@ -1278,10 +1278,129 @@ All solutions but \jack{} (which is proprietary, commercial, and closed-source) 
 since it models collective behaviour through computational fields 
 and enables designers to specify distributed coordination 
 at the aggregate level rather than at the level of individual devices~\cite{viroli2019jlap}.
-
+%
+This section first frames \ac{AC} within the broader family of macroprogramming approaches,
+then presents its core abstractions and execution model,
+and finally surveys the main frameworks implementing it.
 
 \subsection{Macroprogramming}
+\label{subsec:macroprogramming}
+
+As discussed in \Cref{sec:distributed-intelligence},
+when intelligence resides in the collective rather than in any individual entity,
+the natural level at which to specify a system's behaviour is the aggregate one~\cite{DBLP:conf/saso/CasadeiV18}.
+%
+Macroprogramming approaches embrace this view:
+the logical machine being programmed shifts
+from the single device to the network of devices,
+and the local behaviour of each device is derived from the global specification,
+rather than being written by hand\missingref[macroprogramming survey].
+
+\ac{AC}~\cite{BealIEEEComputer2015} is a functional macroprogramming paradigm
+meant to design self-organising systems from a global perspective.
+%
+Compared to many rule-based frameworks,
+a key element of \ac{AC} is the usage of functional languages in place of middlewares:
+collective behaviours are expressed as compositions of functions,
+while the underlying platform takes care of executing them on each device
+and of the communication among neighbours.
+%
+Tasks such as crowd management~\cite{BealIEEEComputer2015},
+application-level network protocols~\cite{DBLP:conf/acsos/BaiardiPAT25},
+or swarm-drone coordination~\cite{DBLP:conf/acsos/GrushchakKPFABS24}
+are some examples of successful application of \ac{AC}.
 
 \subsection{\acl{AC}}
+\label{subsec:ac-model}
+
+\ac{AC} is centred around the notion of \emph{computational field}~\cite{DBLP:journals/tocl/AudritoVDPB19}:
+a distributed data structure that maps each device,
+at a given point in space and time,
+to a value.
+%
+\ac{AC} languages manipulate fields through functional operators,
+so that programs describe how whole fields evolve and combine,
+rather than how single devices behave.
+%
+This model has been formalised by the field calculus~\cite{viroli2019jlap}
+and, more recently, generalised by the \acf{XC}~\cite{audrito2024jss}.
+
+A distinctive mechanism of \ac{AC} is \emph{alignment}~\cite{audrito2016saso},
+which allows communication between devices
+without an explicit notion of message passing.
+%
+Each device exchanges information only with the neighbours
+that are evaluating the same part of the program,
+so that the structure of the aggregate program itself
+determines which values are shared, and with whom.
+
+A central aspect of this approach is
+that self-stabilising patterns (see \Cref{sec:self-organization}),
+can be modularized as functions and reused,
+building libraries of reusable building blocks~\cite{DBLP:journals/tomacs/ViroliABDP18}.
+%
+Since such blocks preserve their guarantees under composition,
+complex collective behaviours can be built incrementally
+while retaining resilience by construction.
+
+In \ac{AC},
+all devices execute the same programme indefinitely in repeated asynchronous rounds.
+%
+Each round comprises the following phases:
+\begin{itemize}
+  \item \emph{sense}:
+  each device perceives
+  the environment's information and the messages coming from its neighbours;
+  \item \emph{compute}:
+  each device runs the aggregate programme
+  using the data collected during the \emph{sense} phase;
+  \item \emph{share/act}:
+  each device acts on the environment
+  and sends the computation result to its neighbours.
+\end{itemize}
+
+However,
+the strengths of the paradigm come with a drawback:
+devices are typically assumed to be homogeneous,
+which makes it hard to naturally express and support
+heterogeneous capabilities and behaviours within \ac{AC}.
+%
+Devices with different computational resources,
+sensing modalities,
+and functional roles
+cannot easily participate and contribute according to their individual capabilities,
+while preserving the high-level expressiveness and coordination abstractions of the paradigm.
 
 \subsection{\acl{AC} Frameworks}
+\label{subsec:ac-frameworks}
+
+There exist several implementations of \ac{AC},
+each one targeting a different platform
+and typically provided as a \ac{DSL}.
+%
+Protelis\missingref[Protelis] is an external \ac{DSL} hosted on the Java platform.
+%
+ScaFi~\cite{DBLP:journals/softx/CasadeiVAP22} is a Scala internal \ac{DSL} and toolkit for aggregate programming.
+%
+Collektive\footnote{\url{https://github.com/Collektive/collektive}}\missingref[Collektive]
+is a Kotlin Multiplatform framework for \ac{AC} based on \ac{XC}~\cite{audrito2024jss}.
+%
+It provides an internal \ac{DSL}
+and relies on a Kotlin compiler plugin to perform alignment,
+by tracking the position of each aggregate operation in the program's \ac{AST}.
+%
+Similarly to \jakta{} (see \Cref{chap:jakta}),
+Collektive benefits from being embedded in a mainstream language:
+it reuses Kotlin's type system,
+its paradigm-blending features,
+and its tooling ecosystem.
+
+\ac{AC} programs are commonly evaluated through simulation.
+%
+Alchemist\footnote{\url{https://github.com/AlchemistSimulator/Alchemist}}~\cite{PianiniJOS2013}
+is a \ac{DES} engine for simulating large-scale distributed systems,
+which supports the execution of aggregate programs written with the aforementioned frameworks.
+%
+Simulation enables the evaluation of non-trivial large-scale scenarios
+before deployment,
+while running the same program specification that will be executed on real devices.
