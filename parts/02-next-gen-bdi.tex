@@ -237,7 +237,7 @@ Where appropriate,
 the chapter highlights practical benefits such as \ac{IDE} support, 
 code reuse, and safer composition with Kotlin code.
 
-The remainder of the chapter describes the \ac{DSL} design and the interpreter architecture (Section~\ref{sec:jaktadsl}), illustrates the approach via examples (Section~\ref{sec:running-example}), and discusses limitations and future directions (Section~\ref{sec:conclusion}).
+The remainder of the chapter describes the \ac{DSL} design and the interpreter architecture (Section~\ref{sec:jaktadsl}), illustrates the approach via examples (Section~\ref{sec:running-example}), and discusses limitations and future directions (Section~\ref{sec:jakta:conclusion}).
 
 \section{Background}
 \label{sec:background}
@@ -1580,7 +1580,7 @@ at the cost of a single line in the projects' Gradle build file.
 \end{figure}
 
 
-\section{Conclusion, limitations, and future work}\label{sec:conclusion}
+\section{Conclusion, limitations, and future work}\label{sec:jakta:conclusion}
 
 In this chapter,
 we introduced \jakta{}:
@@ -1964,7 +1964,7 @@ Our analysis produces a taxonomy of external concurrency models,
 a classification of notable \ac{BDI} implementations against this taxonomy, 
 and a set of practical engineering recommendations for the development of \ac{BDI} technologies, suggesting to make concurrency choices visible and controllable.
 
-We start this chapter describing the terminology we rely on (Section~\ref{sec:background}) and then present the taxonomy of external concurrency models (Section~\ref{sec:taxonomy}). Section~\ref{sec:comparison} applies the taxonomy to a set of real frameworks and discusses practical trade-offs; Section~\ref{sec:discussion} draws lessons and recommendations for framework design and use.
+We start this chapter describing the terminology we rely on (Section~\ref{sec:concurrency:background}) and then present the taxonomy of external concurrency models (Section~\ref{sec:taxonomy}). Section~\ref{sec:comparison} applies the taxonomy to a set of real frameworks and discusses practical trade-offs; Section~\ref{sec:discussion} draws lessons and recommendations for framework design and use.
 %
 We analyse concurrency models commonly adopted in modern software development,
 then (\Cref{sec:taxonomy}) we discuss how agents (and their internal components) can be mapped onto them,
@@ -1977,7 +1977,7 @@ Finally,
 in \Cref{sec:discussion} we elaborate on the importance of configurable concurrency models
 well-separated from the agent's behaviour specification.
 
-\section{Background}\label{sec:background}
+\section{Background}\label{sec:concurrency:background}
 
 In this section,
 we first recall basic notions frame the concepts of \emph{internal} and \emph{external} concurrency,
@@ -3181,7 +3181,7 @@ discuss preliminary results obtained with a \jakta{}~\cite{DBLP:journals/sncs/Ba
 
 The remainder of this chapter is structured as follows.
 %
-In \Cref{sec:background},
+In \Cref{sec:genai:background},
 we provide background on \ac{BDI} agents,
 related work on planning in \ac{BDI} systems,
 and \ac{GenAI} agents.
@@ -3191,9 +3191,9 @@ we present our approach to integrating a \ac{GenAI}-based \ac{PGP} into \agentsp
 followed by practical remarks in \Cref{sec:remarks}.
 %
 In \Cref{sec:experiments}, we present preliminary experiments,
-and in \Cref{sec:conclusion} we conclude and outline future work.
+and in \Cref{sec:genai:conclusion} we conclude and outline future work.
 
-\section{Background}\label{sec:background}
+\section{Background}\label{sec:genai:background}
 
 Here,
 we complement the notions in \Cref{subsec:agentspeak} with
@@ -4388,7 +4388,7 @@ and occasionally invent new abstractions presents both opportunities and challen
 %
 Overall, LLMs can generate (re)usable BDI plans, but their quality and effectiveness are highly model-dependent, with tradeoffs between generalization, complexity, and utility.
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Conclusion}\label{sec:genai:conclusion}
 
 In this chapter,
 we explore integrating \ac{GenAI} into the \agentspeak{} agent architecture
@@ -4536,7 +4536,7 @@ we will refer to \ac{BDI} agents implicitly assuming \agentspeak{}-like agents.
 
 In this chapter,
 we provide a brief overview of the hypermedia nature of the (Semantic) Web
-and the main principles of \ac{hMAS} in \Cref{sec:background}.
+and the main principles of \ac{hMAS} in \Cref{sec:hypermas:background}.
 %
 We then analyse the gap between \ac{BDI} agents and hypermedia
 and identify the integration requirements discussed in \Cref{sec:gap-analysis}.
@@ -4556,7 +4556,7 @@ and we discuss the main open challenges and opportunities of this approach.
 
 %==========================================================
 \section{Background}
-\label{sec:background}
+\label{sec:hypermas:background}
 %==========================================================
 
 \subsection{The Web, Semantics and Hypermedia}
@@ -5071,7 +5071,7 @@ to facilitate their agents to discover new actions at runtime in the hypermedia 
 
 %==========================================================
 \section{Conclusion}
-\label{sec:conclusion}
+\label{sec:hypermas:conclusion}
 %==========================================================
 
 In this chapter, 
@@ -5110,7 +5110,7 @@ Then,
 it has investigated how \ac{GenAI} can be integrated with \ac{BDI} agents to support plan generation at runtime,
 showing a \jakta{} prototype implementation of a plan generation pipeline that leverages \acp{LLM} to generate candidate plans when no suitable plan is available in the library.
 %
-Our analysis addresses the main questions surrounding this integration:
+The analysis addresses the main questions surrounding this integration:
 what information is required to generate admissible plans,
 how knowledge should be transferred between the model and the agent,
 what changes are introduced to the agent specification,
@@ -5182,7 +5182,7 @@ In this perspective,
 the focus is on modeling the collective phenomena,
 simplifying the singular agents abstractions.
 %
-An example of the latter is the \ac{AP} paradigm~\cite{BealIEEEComputer2015}.
+An example of the latter is the \ac{AC} paradigm~\cite{BealIEEEComputer2015}.
 
 While both perspectives offer valuable modeling capabilities, 
 they are typically applied separately in practice, 
@@ -5192,10 +5192,10 @@ We recognize that individual agents and collective behaviors
 are not competing abstractions but complementary aspects for the design of complex adaptive systems.
 %
 
-This paper bridges together cognitive \ac{BDI} \ac{AOP} and \ac{AP} paradigms, 
+This section bridges together cognitive \ac{BDI} \ac{AOP} and \ac{AC}, 
 creating a unified framework that leverages the strengths of the both.
 %
-The integration of \ac{AP} paradigm and \ac{AOP} was first explored in~\cite{viroli2017ijaose}, 
+The integration of \ac{AC} and \ac{AOP} was first explored in~\cite{viroli2017ijaose}, 
 which examined the incorporation of aggregate plans within \ac{AOP} \ac{MAS}.
 %
 Building on the future directions outlined in that work, 
@@ -5203,7 +5203,7 @@ we advance the integration by adopting the \ac{BDI} framework as the abstraction
 and we outline a roadmap for its realization.
 %
 Specifically, 
-we leverage existing frameworks for both \ac{BDI} and \ac{AP} paradigm abstractions.
+we leverage existing frameworks for both \ac{BDI} and \ac{AC} abstractions.
 
 % ============================
 % CONTRIBUTION AND OBJECTIVES
@@ -5215,7 +5215,7 @@ This section proposes to investigate a novel cognitive agent-oriented framework 
 individual decision-making capabilities with distributed collective computation. 
 %
 The aim is to provide a hybrid framework that combines the \ac{BDI} \ac{AOP} for local cognitive reasoning 
-with \ac{AP} paradigm mechanisms for collective coordination.
+with \ac{AC} mechanisms for collective coordination.
 %
 
 \subsubsection{Hybrid Cognitive-Collective Framework}
@@ -5261,10 +5261,10 @@ modelling singular agents falls short.
 Tasks such as crowd management~\cite{BealIEEEComputer2015}, 
 application-level network protocols~\cite{DBLP:conf/acsos/BaiardiPAT25}, 
 or swarm-drone coordination~\cite{DBLP:conf/acsos/GrushchakKPFABS24}, 
-are some examples of successful application of \ac{AP} paradigm.
+are some examples of successful application of \ac{AC}.
 % where the emergent behavior of the collective exceeds what individual agents could achieve independently.
 %
-\ac{AP} paradigm~\cite{BealIEEEComputer2015} is a functional macro-programming paradigm
+\ac{AC}~\cite{BealIEEEComputer2015} is a functional macro-programming paradigm
 centered around the notion of a \emph{computational field}~\cite{DBLP:journals/tocl/AudritoVDPB19}:
 a distributed data structure that maps points in space and time to values.
 %
@@ -5298,14 +5298,14 @@ thus enabling the development of more sophisticated and adaptive systems that ca
 
 To address the features described in Section~\ref{sec:contribution}, 
 we propose to leverage the modeling capabilities of two frameworks: 
-\ac{jakta} for \ac{BDI} \ac{AOP} and Collektive for \ac{AP} paradigm.
+\ac{jakta} for \ac{BDI} \ac{AOP} and Collektive for \ac{AC}.
 %
 
 \ac{jakta}\footnote{https://github.com/jakta-bdi/jakta} integrates \agentspeak{} semantic features with Kotlin-native mechanisms, 
 meant to improve \ac{BDI} ergonomics with pluggable concurrency and communication management constructs~\cite{DBLP:journals/sncs/BaiardiBCP24}.
 
-Collektive\footnote{https://github.com/Collektive/collektive} is a prototype framework for \ac{AP} paradigm based on \ac{XC}~\cite{audrito2024jss},
-which extends the Kotlin compiler plugin for performing \ac{AP} paradigm \emph{alignment}~\cite{audrito2016saso}.
+Collektive\footnote{https://github.com/Collektive/collektive} is a prototype framework for \ac{AC} based on \ac{XC}~\cite{audrito2024jss},
+which extends the Kotlin compiler plugin for performing \ac{AC} \emph{alignment}~\cite{audrito2016saso}.
 %
 The alignment is the mechanism that allows communication between devices (or, agents),
 without an explicit notion of message communication, 
@@ -5491,7 +5491,7 @@ and
 their integration into a single self-adaptive architecture 
 remains largely unexplored. 
 %
-In this paper, we propose such an integration, 
+In this section, we propose such an integration, 
 grounded in self-adaptive systems and targeting precisely this gap.
 %
 Our contributions are:
@@ -5516,7 +5516,7 @@ Our contributions are:
 \end{enumerate}
 
 %% __ STRUCTURE ________________________________
-The remainder of this paper is organised as follows. 
+The remainder of this section is organised as follows. 
 \Cref{subsec:background} 
 reviews the state of the art across self-adaptation 
 and 
@@ -5636,7 +5636,7 @@ we investigate the integration of three families of \ac{MAS}-based approaches: \
 and 
 \ac{MARL} together with its federated extension.
 
-\subsection{\acl{AC}}
+\subsubsection{\acl{AC}}
 
 \ac{AC}~\cite{BealIEEEComputer2015} 
 is an approach meant to design self-organising systems
@@ -5654,7 +5654,7 @@ mapping devices to values, called fields,
 through functional operators~\cite{DBLP:journals/tocl/AudritoVDPB19}.
 %
 A central aspect of this approach is 
-that well-behaved (typically, self-stabilising~\cite{dijkstra1974self})
+that well-behaved (typically, self-stabilising~\cite{DBLP:journals/cacm/Dijkstra74})
 patterns can be modularised as functions and reused,
 building libraries of reusable building blocks~\cite{DBLP:journals/tomacs/ViroliABDP18}.
 
@@ -5887,7 +5887,7 @@ the aggregation step must remain robust to unreliable or poorly performing contr
 \label{subsec:architecture}
 %% NOTE: Revised by Ghassan
 
-The approaches discussed in \Cref{sec:background} 
+The approaches discussed in \Cref{subsec:background} 
 are typically investigated independently, 
 despite their potential to complement one another.
 
@@ -5912,7 +5912,7 @@ and
 captures the emergent behaviour arising from the interactions 
 of large numbers of homogeneous devices.
 
-In this paper, 
+In this section, 
 we argue that these approaches can be integrated into a unified framework 
 that 
 leverages the strengths of each to compensate for the limitations of the others.
@@ -5967,7 +5967,7 @@ for specifying collective behaviour over large populations of
 homogeneous agents through
 distributed, field-based computations.
 %
-As discussed in \Cref{sec:background}, 
+As discussed in \Cref{subsec:background}, 
 its homogeneous programming model makes it difficult to 
 represent systems whose entities differ in 
 capabilities, objectives, or decision processes.
