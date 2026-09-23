@@ -5208,7 +5208,7 @@ we leverage existing frameworks for both \ac{BDI} and \ac{AP} paradigm abstracti
 % ============================
 % CONTRIBUTION AND OBJECTIVES
 % ============================
-\section{Contribution and Objectives}\label{sec:contribution}
+\subsection{Contribution and Objectives}\label{sec:contribution}
 % present the main contribution of the research in a way that a non-expert could clearly understand, then present the detailed objectives of your research, highlighting why your work is novel in comparison to existing research.
 
 This section proposes to investigate a novel cognitive agent-oriented framework that seamlessly integrates 
@@ -5218,7 +5218,7 @@ The aim is to provide a hybrid framework that combines the \ac{BDI} \ac{AOP} for
 with \ac{AP} paradigm mechanisms for collective coordination.
 %
 
-\subsection{Hybrid Cognitive-Collective Framework}
+\subsubsection{Hybrid Cognitive-Collective Framework}
 Unlike tools that treat individual and collective intelligence as separate paradigms, 
 our proposal provides a unified framework that seamlessly integrates both perspectives.
 %
@@ -5292,7 +5292,8 @@ thus enabling the development of more sophisticated and adaptive systems that ca
 
 
 
-\section{Methodology}\label{sec:methodology}
+
+\subsection{Methodology}\label{sec:methodology}
 % present the methodology of your approach, discussing why it is suitable to your contribution, and also present any preliminary results if you have them, including a statement about the current status of your work.
 
 To address the features described in Section~\ref{sec:contribution}, 
@@ -5344,7 +5345,7 @@ that can invoke collective computation as a natural extension of \ac{BDI} action
 % ============================
 % FUTURE WORK AND RESEARCH PLAN
 % ============================
-\section{Future work and Research plan}
+\subsection{Future work and Research plan}
 % summarise your intended future work and provide a schedule of milestones with a discussion of their feasibility.
 
 The main challenge of this integration lies in 
@@ -5393,6 +5394,880 @@ in systems modeled with the proposed framework,
 thereby assessing not just application performance 
 but the framework’s own expressiveness and its advantages relative to existing approaches.
 
+\section{Learning enabled hybrid multi-agent coordination for resilient self-integrating systems}
+
+Modern cyber-physical 
+and 
+socio-technical systems~\cite{ZENG20201028} are growing in 
+scale, openness, and dynamism 
+faster than their behaviour can be specified at design time~\cite{Sztipanovits03072019}. 
+Increasingly, 
+such systems take the form of 
+large populations of autonomous agents 
+that 
+share an environment but differ in 
+their capabilities, 
+communication norms, 
+and 
+objectives. 
+%
+Transportation is a representative example: 
+maritime vessels, ground vehicles, and aircraft 
+increasingly operate as fleets of autonomous agents, 
+yet 
+their coordination remains 
+domain-specific, 
+architecturally centralised, 
+and 
+unable to transfer experience across operating contexts.
+
+%% __ CHALLENGES ________________________________
+For systems of this kind, 
+anticipating every operating condition at design time 
+is no longer feasible, 
+and 
+two limitations of current practice stand out. 
+%
+First, 
+centralised coordination creates a performance bottleneck 
+and 
+a single point of failure, 
+and 
+does not scale to fleet-level deployment. 
+%
+Second, 
+agents designed or trained in isolation degrade when 
+they meet conditions outside their design assumptions%
+---new actors, infrastructure changes, or cross-domain situations. 
+%
+What is required are therefore
+%not merely better individual agents,
+%but
+systems that continuously 
+self-adapt and self-integrate at runtime as agents 
+join, leave, are upgraded, or interact across domain boundaries.
+
+%% __ RELEVANCE TO SISSY ________________________________
+This is precisely the concern of the \ac{SISSY} initiative, 
+which seeks to move integration-related decisions 
+from 
+design time to runtime, 
+shifting expertise and responsibility 
+from 
+human engineers to the system itself~\cite{bellman2021self}. 
+%
+It continues a longer tradition of 
+self-adaptive and self-organising systems%
+--autonomic and organic computing--%
+that 
+manage complexity through runtime self-management 
+rather than 
+fixed design~\cite{DBLP:journals/computer/KephartC03,muller2017organic}.
+
+%% __ SUGGESTED SOLUTION: PARADIGM FUSION ________________________________
+We observe a structural gap at 
+the intersection of three research traditions that, 
+combined, could meet this need:
+\begin{itemize}
+    \item \textbf{\acf{AC}}~\cite{BealIEEEComputer2015,viroli2019jlap} 
+    programs collective behaviour at the aggregate level, 
+    resolving heterogeneity at the coordination-language level 
+    without requiring homogeneous agent implementations.
+
+    \item \textbf{\acf{AMAS}}~\cite{gleizes2007engineering} 
+    focus on local agent behaviour to ensure 
+    adaptation, robustness, and self-repair 
+    through cooperative behavioural rules 
+    and environment-driven self-organisation.
+
+    \item \textbf{\acf{FMARL}}~\cite{jing2025federated} 
+    lets agents share learned models across organisational 
+    and domain boundaries without centralising raw experience data.
+\end{itemize}
+
+%% __ CONTRIBUTION/NOVELTY ________________________________
+These paradigms are typically studied in isolation, 
+and 
+their integration into a single self-adaptive architecture 
+remains largely unexplored. 
+%
+In this paper, we propose such an integration, 
+grounded in self-adaptive systems and targeting precisely this gap.
+%
+Our contributions are:
+\begin{enumerate}[label=\alph*)]
+    \item a three-layer reference architecture for the self-improving integration 
+    of heterogeneous \ac{MAS}, 
+    combining 
+    collective coordination, cooperative self-organisation, and federated learning, 
+    with 
+    an explicit account of how each layer compensates the limitations of the others;
+
+    \item the identification of \emph{situation characterisation}
+    -- deciding at runtime which paradigm should govern a given situation --
+    as the central open challenge 
+    that 
+    makes the integration work, together with the further challenges it raises; 
+    and
+
+    \item an illustrative transportation scenario (highway platooning) 
+    that 
+    shows the architecture in operation.
+\end{enumerate}
+
+%% __ STRUCTURE ________________________________
+The remainder of this paper is organised as follows. 
+\Cref{subsec:background} 
+reviews the state of the art across self-adaptation 
+and 
+the three contributing paradigms. 
+%
+\Cref{subsec:architecture} 
+presents the three-layer architecture. 
+%
+\Cref{subsec:challenges} 
+sets out the central research challenge and those derived from it. 
+%
+\Cref{subsec:domain} 
+illustrates the architecture on a platooning scenario, 
+and 
+\Cref{subsec:conclusion} 
+concludes and outlines future directions.
 
 
-\section{Learning enabled ...}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Background                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Background}
+\label{subsec:background}
+%% NOTE: Revised by Ghassan
+
+Self-adaptation is widely recognised as a key approach 
+to address 
+the growing complexity of modern applications. 
+%
+A self-adaptive system is considered to lie somewhere 
+between two categories of systems \cite{delemos2013swese}. 
+
+%% top-down: Motivation >>
+On one hand,
+there are self-adaptive systems driven by a central controller,
+which evaluates and monitors the system and the operating context
+to decide whether to trigger adaptations.
+%% top-down: Centralised >>
+These systems 
+typically 
+rely on an explicit internal representation 
+of themselves and their environment. 
+%
+Although 
+this approach provides 
+strong control over the adaptation process 
+and 
+facilitates verification and predictability, 
+it also presents several limitations 
+when dealing with large-scale 
+and 
+highly dynamic applications. 
+%
+In particular, 
+the central controller may become a performance bottleneck 
+and 
+a single point of failure~\cite{lange2025measurement}.
+%
+Maintaining an accurate global model of 
+the system and its environment 
+can be computationally expensive 
+and 
+increasingly difficult as the system grows in size and complexity.
+%
+In addition, 
+centralised adaptation mechanisms 
+often struggle to cope with 
+uncertainty, incomplete information, and rapidly changing environments, 
+thereby 
+limiting their scalability, flexibility, and robustness (see~\cite{al2026collaborative}).
+
+%% bottom-up: Motivation >>
+On the other hand, 
+there are self-adaptive systems designed to function in a decentralised fashion.
+%% bottom-up: Pro >>
+These systems operate without a central authority 
+and 
+are typically made up of a large number of components 
+interacting locally according to simple rules. 
+%
+The global behaviour of the system emerges from these local interactions.
+%
+Examples of these systems include nature-inspired and organic computing systems,
+with coordination mechanisms taking inspiration from physics~\cite{DBLP:journals/tosem/MameiZ09,viroli2019jlap},
+chemistry~\cite{DBLP:conf/coordination/ViroliC09},
+biology~\cite{schranz2021swevo},
+and ecology~\cite{zambonelli2015percom,DBLP:journals/nc/BriscoeSW11}.
+%
+By design,
+these systems generally exhibit high
+scalability, robustness, and flexibility.
+
+Provided the importance the local interactions have in this kind of system,
+their design is often driven by the creation of local rules,
+in a bottom-up fashion.
+%
+However,
+systems designed in this way may be difficult to modularise and reuse~\cite{DBLP:conf/icse/BozhinoskiB18}.
+%
+In general,
+there are few guarantees that the combination of multiple local rules
+coming from different sources will lead to a desired combined global behaviour~\cite{DBLP:journals/swarm/ReinaMDT15}.
+%
+It is generally difficult to predict the global behaviour of a system in the absence of a global view,
+which in turn may lead to suboptimal decisions,
+or conflicts between local objectives~\cite{DBLP:journals/firai/Kuckling23,DBLP:journals/firai/RoliLB19}.
+
+\acp{MAS}~\cite{wooldridge2009introduction} are a large family of approaches that
+has been widely investigated as self-* systems 
+able to self-adapt the system during runtime 
+lying between the afore-mentioned categories. 
+% Our Goal in contract >>
+In this work, 
+we investigate the integration of three families of \ac{MAS}-based approaches: \ac{AC}, 
+\ac{AMAS}, 
+and 
+\ac{MARL} together with its federated extension.
+
+\subsection{\acl{AC}}
+
+\ac{AC}~\cite{BealIEEEComputer2015} 
+is an approach meant to design self-organising systems
+from a global perspective.
+%
+Compared to many rule-based frameworks, 
+a key element of \ac{AC} is the usage of functional languages in place of middlewares.
+%
+In other words, 
+\ac{AC} is a programming paradigm where the logical machine being programmed shifts
+from the single device to the network of devices.
+%
+\ac{AC} languages manipulate distributed data structures 
+mapping devices to values, called fields, 
+through functional operators~\cite{DBLP:journals/tocl/AudritoVDPB19}.
+%
+A central aspect of this approach is 
+that well-behaved (typically, self-stabilising~\cite{dijkstra1974self})
+patterns can be modularised as functions and reused,
+building libraries of reusable building blocks~\cite{DBLP:journals/tomacs/ViroliABDP18}.
+
+In \ac{AC},
+all agents execute the same programme indefinitely in repeated asynchronous rounds.
+%
+Each round comprises the following phases:
+\begin{itemize}
+  \item \emph{sense}: 
+  each agent perceives 
+  the environment's information and the messages coming from neighbouring agents
+  \item \emph{compute}:
+  each agent runs the aggregate programme
+  using the data collected during the \emph{sense} phase;
+  \item \emph{share/act}:
+  each agent sends messages to neighbouring agents with the computation result.
+\end{itemize}
+
+% There exist several implementations for \ac{AC}, 
+% each one targeting a different platform.
+% %
+% Some examples include Protelis~\cite{pianini2015protelis} Java-based implementation,
+% ScaFi~\cite{casadei2022scafi} Scala framework,
+% and 
+% Collektive~\cite{cortecchia2024multiplatform} Kotlin multiplatform implementation.
+% %
+
+%% AC LIMITATIONS >>
+However, 
+the strengths of the paradigm comes with a drawback:
+devices are typically assumed to be 
+homogeneous 
+%and to execute the same program,
+which makes it 
+hard to naturally express and support heterogeneous capabilities and behaviours within \ac{AC}.
+%
+What is needed is an approach that 
+preserves the high-level expressiveness and coordination abstractions of \ac{AC} 
+while 
+enabling devices with 
+heterogeneous computational resources, 
+sensing modalities, 
+and functional roles 
+to 
+participate and contribute according to their individual capabilities.
+
+\subsubsection{Adaptive Multi-Agent Systems}
+The \ac{AMAS} theory \cite{gleizes1999theory,gleizes2007engineering} 
+is a bottom-up design approach 
+in which cooperation drives the system's self-organisation. 
+%
+Starting from the autonomous entities of the 
+target problem and their interactions, 
+the theory guides the design of 
+local cooperative agent behaviours 
+from which a solution to the global problem emerges.
+
+In \ac{AMAS},
+cooperation is defined as 
+the ability of agents to work together to achieve a \emph{common global objective}.
+%
+To this end, 
+the design process relies on 
+analysing agent behaviours across a variety of execution scenarios 
+in order to identify situations where cooperation fails. 
+%
+The system designer 
+must then generate agents with mechanisms that 
+enable them to resolve these non-cooperative situations autonomously. 
+%
+Three generic adaptation mechanisms have been defined~\cite{bonnet2017multi}:
+\begin{itemize}
+    \item Reorganisation: 
+    the agent modifies its relationships with other agents by 
+    establishing new interactions, 
+    terminating existing ones, 
+    or adjusting the level of trust associated with its current relationships.
+    
+    \item Adjustment: 
+    the agent adapts its behaviour by modifying its internal parameters.
+    
+    \item Openness: 
+    the agent decides either to create a new agent or to remove itself from the system.
+\end{itemize}
+
+Through these continuous and autonomous adaptations, 
+agents collectively enable the system to self-adapt to changes in its environment. 
+%
+In other words, 
+the cooperative design of individual agent behaviours constitutes 
+the driving mechanism for both 
+the continuous adaptation of agents 
+and 
+the autonomous organisation of the overall system.
+
+%% AMAS LIMITATIONS >>
+However, 
+achieving such adaptive behaviour requires 
+careful calibration by the system designer. 
+%
+In particular, 
+the designer must determine 
+\begin{enumerate*}[label=(\roman*)]
+    \item the local information that should be accessible 
+    to each agent to support effective decision making, 
+    and
+    \item  sufficiently comprehensive set of execution scenarios 
+    to identify and address potential cooperation failures.
+\end{enumerate*} 
+%
+Both aspects are highly 
+application-dependent 
+and 
+rely heavily on the designer's expertise, 
+making the autonomous integration and interoperability 
+of independently designed \ac{AMAS}-based systems particularly challenging.
+
+
+\subsubsection{\acl{MARL}}
+\ac{RL} 
+allows an agent to learn a decision-making policy through 
+trial-and-error interaction with its environment, 
+guided only by a scalar reward signal~\cite{sutton2018reinforcement}.
+%
+\ac{MARL} extends this principle 
+to settings in which several agents learn concurrently 
+within a shared environment~\cite{busoniu2008comprehensive}. 
+%
+Depending on how their rewards relate, 
+agents may be 
+fully cooperative, 
+fully competitive, 
+or act in mixed settings, 
+which 
+makes \ac{MARL} a natural framework for modelling coordination among autonomous entities.
+
+A difficulty specific to \ac{MARL} is non-stationarity: 
+as every agent updates its own policy, 
+the environment perceived by each individual agent keeps changing, 
+which weakens the convergence guarantees available in the single-agent case~\cite{busoniu2008comprehensive}. 
+%
+A widely adopted response is the paradigm of 
+centralised training with decentralised execution, 
+in which agents exploit shared information 
+while learning but act only on local observations at runtime~\cite{lowe2017multi}. 
+%
+Building on deep neural networks, 
+recent \ac{MARL} methods have addressed increasingly realistic problems 
+involving large agent populations 
+and 
+high-dimensional perception~\cite{gronauer2022multi}.
+
+The main strength of \ac{MARL} is 
+that it learns coordinated behaviour directly from experience, 
+without requiring designers to anticipate and encode every situation the agents may face.
+%% MARL LIMITATIONS >>
+This same property is also its main weakness. 
+%
+Achieving robust performance generally demands 
+a large and diverse set of training scenarios, 
+which is costly in 
+data, computation, and energy. 
+%
+Furthermore, 
+the resulting policies are hard to interpret and to verify, 
+which is 
+a serious obstacle in safety-critical applications 
+where 
+guarantees on behaviour are required~\cite{gronauer2022multi}.
+
+
+
+\subsubsection{\acl{FL} for \acl{MAS}}
+\ac{FL} 
+is a distributed machine-learning setting in which 
+many clients collaboratively train a shared model 
+under the coordination of a server,
+while keeping their training data local~\cite{mcmahan2017communication}. 
+%
+Only model updates, rather than raw observations, 
+are exchanged and aggregated, 
+which 
+reduces communication cost 
+and 
+limits the exposure of private or proprietary data~\cite{kairouz2021advances}.
+%
+These properties are attractive for \ac{MAS}, 
+whose agents are often owned by different 
+stakeholders, operate across organisational or domain boundaries, 
+and 
+cannot share their raw experience for reasons of 
+privacy, bandwidth, or regulation.
+
+%% FMARL = MARL + FL
+\ac{FMARL} combines this principle with \ac{MARL}: 
+each agent learns locally from its own interactions 
+and 
+periodically shares the parameters of its learned model, 
+so that the collective benefits from 
+\emph{experience gathered across the whole population} 
+without centralising it~\cite{jing2025federated}. 
+%
+A further practical advantage is that 
+a newly joining agent can \emph{inherit the shared model} 
+instead of learning from scratch, 
+which 
+accelerates its integration into the system.
+
+%% FMARL LIMITATION >>
+The main open difficulties of \ac{FMARL} stem from heterogeneity. 
+%
+Agents typically observe non-identically distributed data 
+and may differ in their 
+sensing modalities, action spaces, and roles, 
+which 
+makes the aggregation of their models 
+far from straightforward~\cite{kairouz2021advances,jing2025federated}. 
+%
+In addition, 
+the quality of the shared model still depends on 
+the diversity of the situations encountered across the federation, 
+and 
+the aggregation step must remain robust to unreliable or poorly performing contributors.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       Framework description                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The three-layers architecture vision}
+\label{subsec:architecture}
+%% NOTE: Revised by Ghassan
+
+The approaches discussed in \Cref{sec:background} 
+are typically investigated independently, 
+despite their potential to complement one another.
+
+Each approach captures only a subset of the complexity inherent to adaptive \acp{MAS}.
+%
+Indeed, 
+each is designed to address a specific challenge 
+while abstracting away other aspects 
+that remain relevant to the overall system behaviour.
+%
+Specifically, 
+\ac{FMARL} 
+focuses on tuning system parameters based on 
+previous executions within a bounded environment; 
+%
+\ac{AMAS} 
+models the behaviour of heterogeneous autonomous entities 
+operating in unknown environments; 
+%
+and 
+\ac{AC} 
+captures the emergent behaviour arising from the interactions 
+of large numbers of homogeneous devices.
+
+In this paper, 
+we argue that these approaches can be integrated into a unified framework 
+that 
+leverages the strengths of each to compensate for the limitations of the others.
+%
+Furthermore, 
+we contend that relying on a single modelling abstraction 
+is insufficient to capture the full complexity of adaptive systems, 
+potentially leading to 
+deployments that lack the resilience required 
+for operation in dynamic and uncontrolled environments.
+
+To address this limitation, 
+we propose 
+the layered architecture illustrated in \Cref{fig:architecture}, 
+in which the aforementioned approaches interact with one another 
+in addition to acting directly on the underlying devices. 
+%
+In the following sections, 
+we describe how each layer benefits from the others 
+within this unified architectural framework.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{figures/sissy26/schema-layered}
+    \includegraphics[width=0.48\linewidth]{figures/sissy26/elsyFig1}
+    \caption{%
+        The layered framework architecture proposal (left) and the interlayer information/control exchanges (right).
+        The \emph{\acl{AC}} layer provides
+        collective coordination, and builds collective concepts such as teams,
+        or even aggregate visions of the entire system.
+        %
+        The \emph{Self-Organising} layer provides heterogeneous agent-level coordination;
+        crucially, individual agents may be teams of devices behaving as a single entity,
+        as produced by the \ac{AC} layer.
+        %
+        The \emph{Federated MARL} layer continuously improves
+        shared policies from operational data
+        and
+        intervention events.}
+        % devices, teams of devices, and sys behaviours.
+        % The \emph{Federated MARL} layer continuously improves
+        % shared policies from operational data and
+        % intervention events.}
+    \label{fig:architecture}
+\end{figure}
+
+\subsubsection{\acl{AC} and self-organising layer}
+
+\ac{AC}
+offers a powerful abstraction 
+for specifying collective behaviour over large populations of
+homogeneous agents through
+distributed, field-based computations.
+%
+As discussed in \Cref{sec:background}, 
+its homogeneous programming model makes it difficult to 
+represent systems whose entities differ in 
+capabilities, objectives, or decision processes.
+%
+The \ac{AMAS} layer 
+addresses exactly this gap: 
+it supports heterogeneous autonomous agents through 
+cooperative local behaviours, 
+letting each agent adapt to its own role and constraints.
+%
+Crucially,
+\ac{AC} can be leveraged to create entities that are treated as single-agent at the \ac{AMAS} layer,
+despite being composed of multiple devices.
+%
+For instance, a swarm of drones that must stay in formation could be programmed using \ac{AC}
+(there are dedicated frameworks, such as Macroswarm~\cite{DBLP:journals/lmcs/AguzziCV25}),
+and the swarm can then be treated as a single agent at the \ac{AMAS} layer (bottom-up construction).
+\ac{AMAS}-level swarm commands get automatically translated into control signals for each device by \ac{AC} (top-down control).
+
+The combination of \ac{AC} and \ac{AMAS} enables both local interactions and emergent behaviour: 
+agents make decisions based solely on local information 
+while collectively contributing to a shared global behaviour. 
+%
+This coordination is facilitated by \ac{AC}, 
+which provides a shared representation of the environment through a spatio-temporal field,
+where information is continuously propagated and updated so agents can indirectly coordinate their actions without requiring explicit communication or centralised control.
+
+
+
+\subsubsection{The self-organising layer and \ac{FMARL}}
+The \ac{FMARL} layer 
+builds on the reinforcement-learning policies running at agent level, 
+leveraging local behaviours through 
+shared policies learned from operational data or generated scenarios. 
+%
+\ac{FMARL} 
+is well suited to learning complex coordination policies 
+without explicit expert knowledge, 
+but 
+robust performance generally requires a large and diverse set of training scenarios, 
+which is 
+costly in time, memory, and energy. 
+%
+Conversely, 
+the \ac{AMAS} layer relies on expert-designed cooperative behaviours 
+that 
+are transparent, interpretable, and easy to validate; 
+its limitation is that experts must anticipate the situations agents may meet 
+and 
+design behaviours for them, including rare or complex cases that are hard to foresee.
+
+
+% COUPLING >
+% \gaf{Coupling of FMARL and the AMAS is presented, but coupling AMAS and AC is missing!}
+% \dpi{Coupling described in the previous section.}
+% \gaf{The limitations of each was described, introducing to the urge/logic of coupling suggested here.}
+Coupling the two paradigms relieves this tension. 
+%
+The expert specifies cooperative behaviours 
+for 
+the most frequent and well-understood situations, 
+so 
+the self-organising mechanisms handle the majority of operation, 
+while 
+\ac{FMARL} is dedicated to learning policies 
+for the remaining 
+uncommon, ambiguous, or highly dynamic situations, 
+where handcrafted behaviours would be impractical. 
+%
+The learning problem is thereby restricted to a much smaller part of the state space, 
+which 
+sharply reduces the data and computation required 
+while 
+preserving the adaptability of the whole system.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Open Research Challenges                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Open Research Challenges}
+\label{subsec:challenges}
+%% NOTE: Revised by Ghassan and Elsy
+
+Integrating the three paradigms shifts 
+the central difficulty from designing or learning all agent behaviours 
+to 
+deciding, at runtime, 
+which 
+paradigm should govern a given situation. 
+%
+We single out this question as the main open challenge, 
+and 
+then outline three further challenges that the integration raises.
+
+\subsubsection{Situation characterisation}
+The proposed architecture exploits 
+expert knowledge wherever it is available 
+and 
+delegates only uncertain situations to \ac{FMARL}.
+%
+\ac{RL} 
+is therefore no longer expected to learn the complete system behaviour, 
+but only to complement the self-organising mechanisms 
+in regions of the state space where expert knowledge is incomplete. 
+%
+This improves learning efficiency 
+while 
+preserving the interpretability and robustness of the overall system.
+%
+% CHALLENGE OF AMAS+FMARL
+The price is a new decision problem: 
+combining \ac{FMARL} with \ac{AMAS}-based self-organisation 
+moves the challenge from designing or learning every behaviour 
+to 
+determining when each paradigm should apply. 
+%
+The architecture thus needs a mechanism to 
+characterise the situations agents encounter 
+and to 
+select the most appropriate decision-making paradigm%
+---distinguishing situations that the expert-designed behaviours can reliably handle 
+from those 
+that fall outside their scope, 
+where the learned policies must take over. 
+%
+This situation characterisation acts as a decision layer 
+that dynamically selects the control strategy 
+according to the current operational context, 
+and 
+is central to the framework.
+
+
+\subsubsection{Further challenges}
+The integration raises three further challenges. 
+% CHALLENGE 1:
+\emph{Governance and minimal intervention}: 
+deciding 
+when and how 
+a higher layer should intervene in the collective 
+without re-centralising control or undermining agent autonomy. 
+%
+% CHALLENGE 2:
+\emph{Robust federated aggregation}: 
+combining models learned by agents that observe non-identically distributed data 
+and 
+differ in their observation and action spaces, 
+while 
+remaining robust to unreliable contributors~\cite{kairouz2021advances,jing2025federated}. 
+%
+% CHALLENGE 3:
+\emph{Multi-objective evaluation}: 
+assessing self-improving \ac{MAS} against 
+competing objectives%
+--safety, efficiency, coordination resilience, and fairness--%
+whose trade-offs must be made explicit 
+and 
+measured consistently at both global and local levels~\cite{lange2025measurement}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Application Domain                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application Domain}
+\label{subsec:domain}
+%% NOTE: Revised by Ghassan
+% \eka{Polish and Confirmation requried for the revised version}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/sissy26/framework.pdf}
+    \caption{%
+        % \gaf{Other representation for self-standing figure?}
+        The proposed layered architecture applied to a highway platooning scenario. Autonomous vehicles dynamically self-organise into platoons through \ac{AC}, while \ac{AMAS} mechanisms operate on both individual vehicles and collective entities, and \ac{FMARL} continuously optimises system parameters across multiple levels of abstraction.}
+    \label{fig:workflow}
+\end{figure}
+
+To illustrate the applicability of the proposed architecture, 
+consider the scenario depicted in \Cref{fig:workflow}, 
+in which 
+a set of autonomous vehicles cooperate to perform highway platooning. 
+%
+Systems like platooning are inherently complex, 
+as they 
+require reasoning at multiple levels of abstraction: 
+individual vehicles must react to their local perceptions, 
+groups of vehicles must coordinate collective manoeuvers, 
+and 
+the system as a whole must continuously adapt to changing traffic conditions.
+
+Traditional approaches typically 
+model cooperation in this kind of system bottom-up,
+by explicitly specifying the interactions among vehicles 
+and 
+the underlying consensus protocols. 
+%
+In contrast, 
+our layered architecture enables the same system to be observed 
+and 
+controlled at multiple abstraction levels, 
+and 
+use paradigms that are better suited for different levels.
+
+At the lowest level, 
+vehicles self-organise into platoons through \ac{AC} mechanisms, 
+which 
+allow nearby vehicles satisfying the required conditions 
+to identify themselves as members of the same collective entity. 
+%
+This abstraction 
+eliminates the need to explicitly model pairwise interactions 
+while 
+naturally capturing the dynamic formation and dissolution of platoons.
+
+Once a platoon has emerged, 
+the self-organising layer can treat it as a single entity 
+and 
+specify its collective behaviour. 
+%
+Rather than 
+coordinating every individual vehicle, 
+adaptation can be expressed at the platoon level 
+through high-level objectives, 
+such as 
+initiating a lane change, 
+merging with another platoon, 
+or splitting into smaller groups. 
+%
+Importantly, 
+the formation of platoons is not mandatory: 
+when the conditions for creating a platoon are not satisfied, 
+the same mechanisms can operate directly on individual vehicles. 
+%
+This flexibility allows 
+the architecture to seamlessly support multiple organisational structures 
+and 
+different levels of abstraction within the same system.
+
+Finally, 
+a \ac{FMARL} layer 
+continuously observes the rewards of the system performance 
+and 
+can learn how to improve parameter used in the behaviour representation. 
+%
+\ac{MARL} techniques 
+can exploit information collected at different abstraction levels
+-- individual vehicles, platoons, or even the complete traffic system --
+to tune decision-making policies 
+and 
+improve metrics such as safety, and traffic throughput.
+
+This scenario 
+highlights how the proposed framework combines complementary modelling paradigms 
+to address different aspects of the same adaptive \ac{MAS}. 
+%
+\ac{AC} captures the emergence of collective entities, 
+\ac{AMAS} mechanisms govern their behaviour, 
+and 
+\ac{FMARL} continuously improves system performance, 
+resulting 
+in a unified architecture capable of operating across multiple levels of abstraction.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               Conclusion                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conclusion}
+\label{subsec:conclusion}
+
+We have argued that 
+the growing complexity of cyber-physical and socio-technical systems calls for 
+self-adaptive integration at runtime, 
+and that 
+no single multi-agent paradigm is sufficient on its own. 
+%
+We proposed a 
+three-layer reference architecture 
+that 
+combines \ac{AC}, \ac{AMAS}, and \ac{FMARL}, 
+discussing how each layer compensates for the limitations of the others: 
+\ac{AC} supplies scalable collective coordination, 
+\ac{AMAS} adds heterogeneity and bottom-up cooperative behaviour, 
+and 
+\acl{FMARL} covers the situations that experts cannot foresee.
+
+We identified situation characterisation%
+--deciding at runtime which paradigm should govern a given situation--%
+as the central open challenge that makes the integration effective, 
+alongside the further challenges of 
+governance, robust federated aggregation, and multi-objective evaluation. 
+%
+This work contributes to the broader vision of the 
+Self-Improving Systems Integration (SISSY) initiative, 
+in which integration concerns are addressed at runtime rather than design time, 
+allowing systems to autonomously make decisions that previously required human expertise.
+%
+Future work will 
+instantiate the architecture on the different layers of 
+synchromodal transportation scenarios, 
+formalise the situation-characterisation mechanism as a runtime decision layer 
+between 
+self-organisation and learned policies, 
+and 
+study how intervention events can be turned into training scenarios 
+that progressively reduce the need for intervention. 
