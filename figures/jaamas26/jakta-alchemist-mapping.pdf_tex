@@ -1,0 +1,76 @@
+%% Creator: Inkscape 1.3.2 (091e20ef0f, 2023-11-25, custom), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'jakta-alchemist-mapping.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1117.36216628bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.77739409)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{jakta-alchemist-mapping.pdf}}%
+    \put(0.80697368,0.20652122){\color[rgb]{0.23137255,0.32156863,0.54509804}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Reaction}\end{tabular}}}}%
+    \put(0.69476672,0.4285245){\color[rgb]{0.23137255,0.32156863,0.54509804}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Linking Rule}\end{tabular}}}}%
+    \put(0.65714463,0.16657765){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Molecule}\end{tabular}}}}%
+    \put(0.78258854,0.16735555){\color[rgb]{0.23137255,0.32156863,0.54509804}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Concentration}\end{tabular}}}}%
+    \put(0.819567,0.70518851){\color[rgb]{0.23137255,0.32156863,0.54509804}\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}\textbf{Alchemist}\textbf{Environment}\end{tabular}}}}%
+    \put(0.84161946,0.24021736){\color[rgb]{0.23137255,0.32156863,0.54509804}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Node}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{jakta-alchemist-mapping.pdf}}%
+    \put(0.28611946,0.70608365){\color[rgb]{0.26666667,0.00392157,0.32941176}\rotatebox{12.206184}{\makebox(0,0)[t]{\lineheight{0}\smash{\begin{tabular}[t]{c}\textbf{JaKtA}\textbf{Environment}\end{tabular}}}}}%
+    \put(0.06214597,0.50641619){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Agent}\end{tabular}}}}%
+    \put(0.12935589,0.65985925){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Agents }\textbf{Communication}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{jakta-alchemist-mapping.pdf}}%
+    \put(0.31603844,0.11435529){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Beliefs}\end{tabular}}}}%
+    \put(0.20777868,0.02089597){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Goals}\end{tabular}}}}%
+    \put(0.03856472,0.0154956){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Plans /}\textbf{Actions}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{jakta-alchemist-mapping.pdf}}%
+    \put(0.4440311,0.18085519){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Percept}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{jakta-alchemist-mapping.pdf}}%
+    \put(0.37955907,0.35978517){\color[rgb]{0.26666667,0.00392157,0.32941176}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\textbf{Act}\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
