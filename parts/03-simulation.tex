@@ -82,7 +82,7 @@ there are not many tools that effectively allow one
 
 %% Introduce following chapters here, and explain how they are related to the problem of simulation and validation of BDI MAS.
 
-\chapter{Testing \acs{BDI}-based \aclp{MAS} using \acl{DES}}
+\chapter[Testing BDI-based MAS using DES]{Testing BDI-based Multi-Agent Systems using Discrete Event Simulation}
 \label{chap:bdi-simulation}
 
 Modern software systems are increasingly complex,
@@ -181,7 +181,7 @@ cyber-security~\cite{NunesSF17}.
 %
 The abstraction gap between the \ac{BDI} programming model and most simulators~\cite{singh_integrating_2016},
 along with the minimal support of \ac{BDI} technologies
-for producing \emph{reproducible} simulations of articulated scenarios~\cite{kehoe2016robust}
+for producing \emph{reproducible} simulations of articulated scenarios
 lead developers to resort to one of the following approaches:
 %
 \begin{enumerate}
@@ -335,23 +335,23 @@ may help in spotting issues that would have been otherwise overlooked.
 
 \paragraph{Structure of the paper}
 
-In \Cref{sec:background},
+In \Cref{sec:simulation:background},
 we recall most relevant concepts behind \ac{BDI} agents and simulation,
 proposing \ac{DES} as a
 % \sidesamu{sta frase ha fatto incazzare i revisori in passato, forse meglio toglierla smorzarla?}
 % given the event-driven nature of \ac{BDI} agents,
 natural and robust way to simulate \ac{BDI} systems.
 %
-Then, in \Cref{sec:related-works},
+Then, in \Cref{sec:simulation:related-works},
 we discuss existing approaches to simulate \ac{BDI}-programmed software in complex environments,
 commenting on their limitations.
 %
-In \Cref{sec:bdi-over-des},
+In \Cref{sec:simulation:bdi-over-des},
 we show how to bridge the gap between \ac{BDI} and \ac{DES},
 commenting on the technical implications simulating \acp{MAS},
 and the granularity at which the \ac{BDI} reasoning cycle can be mapped into simulation events to increase simulation fidelity.
 %
-We then present in \Cref{sec:prototype} an open-source prototype that allows a \ac{BDI} agent specification
+We then present in \Cref{sec:simulation:prototype} an open-source prototype that allows a \ac{BDI} agent specification
 written in \jakta{}
 to be executed on the \alchemist{} simulator.
 %
@@ -362,12 +362,13 @@ mechanisms,
 while still benefitting from the robustness of a state-of-the-art simulation engine.
 %
 Finally,
-in \Cref{sec:evaluation},
+in \Cref{sec:simulation:evaluation},
 we exercise the prototype in a multi-drone coordination scenario,
 discussing how choosing different mappings between \ac{BDI} and \ac{DES} events can lead to misleading results,
-before concluding and discussing future works in \Cref{sec:conclusion}.
+before concluding and discussing future works in \Cref{sec:simulation:conclusion}.
 
-\section{Background}\label{sec:background}
+\section{Background}
+\label{sec:simulation:background}
 
 Here,
 we recall the main notions behind \ac{BDI} agents and computer simulation,
@@ -377,7 +378,7 @@ Accordingly,
 in \Cref{subsec:BDI-agents} we first summarise the state of the art of \ac{BDI} agents architectures,
 then we analyse which events are involved in their lifecycle.
 %
-We also report in \Cref{subsec:discrete-simulation}
+We also report in \Cref{subsec:simulation:discrete-simulation}
 major definitions such as discrete-event, -time, and multi-agent-based simulation,
 to ground our selection for the mapping of \ac{BDI} in simulation.
 
@@ -391,7 +392,7 @@ agents'
 decision-making.
 % in autonomous entities called \emph{agents}.
 %
-Originally a philosophical concept~\cite{BratmanEtAl1987},
+Originally a philosophical concept~\cite{bratman1987intention},
 it is now used to program~\cite{BordiniHW2007}
 and simulate~\cite{HubnerB09} agents,
 and model social behaviour~\cite{AdamGaudou2016}.
@@ -631,7 +632,7 @@ and to exploit parallelism accordingly.
 % and their real-world deployment.
 
 \subsection{Simulation Concepts: \acs{DES}, \acs{DTS}, \acs{MABS}}
-\label{subsec:discrete-simulation}
+\label{subsec:simulation:discrete-simulation}
 
 We call simulation the process of replicating a real-world process
 in a simplified and controlled fashion to gather insights about its behaviour.
@@ -754,7 +755,7 @@ This leads to an inevitable trade-off between accuracy, development time, and si
 Different phases of the engineering process may therefore call for different fidelity levels: fast, low-detail simulations to rapidly test ideas early on, and slower, high-detail simulations later when behaviour must be assessed more thoroughly.
 
 \section{\ac{BDI} Agents Simulation Methods}
-\label{sec:related-works}
+\label{sec:simulation:related-works}
 
 To achieve \ref{rq:methods},
 in this section,
@@ -830,7 +831,7 @@ and in~\cite{ricci_exploiting_2020} is present a proposal to apply \ac{DES} to \
 
 \paragraph{\relatedExtendSimulator{} Implementing \ac{BDI} Features in Simulators}
 
-As discussed in \Cref{subsec:discrete-simulation},
+As discussed in \Cref{subsec:simulation:discrete-simulation},
 the agent model in \ac{MABS} simulators are simpler than \ac{BDI} agents,
 thus,
 their execution requires a reimplementation of the agent interpreter on top of the simulation engine.
@@ -877,7 +878,7 @@ environment modelling,
 visualization,
 and data export tools.
 %
-Using strategy \relatedMiddleware{}, as we discuss in more detail in \Cref{sec:bdi-over-des},
+Using strategy \relatedMiddleware{}, as we discuss in more detail in \Cref{sec:simulation:bdi-over-des},
 can have important consequences on the reality gap with respect to the real-world execution.
 %
 Depending on how synchronisation is achieved,
@@ -915,10 +916,10 @@ rather,
 %
 This difference in scope makes the execution of a complete reasoning cycle at each simulation step as done in~\cite{caballero2011eaai}
 not viable under the fidelity point of view,
-as we will discuss in \Cref{sec:bdi-over-des} and demonstrate in \Cref{sec:evaluation}.
+as we will discuss in \Cref{sec:simulation:bdi-over-des} and demonstrate in \Cref{sec:simulation:evaluation}.
 
 \section{Integrating \ac{BDI} and \ac{DES}}
-\label{sec:bdi-over-des}
+\label{sec:simulation:bdi-over-des}
 
 % In this section,
 % we focus on the problem of running a \ac{BDI} \ac{MAS} specification over a \ac{DES} platform
@@ -947,7 +948,7 @@ as we will discuss in \Cref{sec:bdi-over-des} and demonstrate in \Cref{sec:evalu
 % \end{inlinelist}
 
 In this section
-(and, more specifically, in \Cref{sec:portable-agent-specifications}),
+(and, more specifically, in \Cref{sec:simulation:portable-agent-specifications}),
 we discuss how to allow
 for testing the behaviour of \ac{BDI} agents systems
 in a simulation environment,
@@ -955,7 +956,7 @@ without changes to the codebase of the \ac{MAS} specification (\ref{rq:abstract-
 % we now discuss the implication of achieving that objective.
 %
 In particular,
-as mentioned in \Cref{subsec:discrete-simulation},
+as mentioned in \Cref{subsec:simulation:discrete-simulation},
 we are interested in studying the exploitation of \ac{DES} to serve this purpose (\ref{rq:des}).
 %
 At the intuition level,
@@ -1010,7 +1011,7 @@ as opposed to \emph{offline} training%
     This training phase is outside the scope of this work,
     but given the final specification of the agent behaviour
     (e.g., a trained neural network implementing a policy),
-    our assumptions discussed at the beginning of \Cref{sec:bdi-over-des} still apply.
+    our assumptions discussed at the beginning of \Cref{sec:simulation:bdi-over-des} still apply.
     %
     In fact,
     the learned policy would simply work in the target environment
@@ -1021,7 +1022,7 @@ as opposed to \emph{offline} training%
 }
 
 \subsection{Portable Agent Specifications}
-\label{sec:portable-agent-specifications}
+\label{sec:simulation:portable-agent-specifications}
 % We have already established in \Cref{subsec:BDI-agents}
 % that the control flow of a \ac{BDI} agent can be considered event-driven.
 
@@ -1128,7 +1129,7 @@ but it is worth stressing its importance
 when the goal is to run the same agent specification
 both in simulation and in real-world deployments.
 %
-In (\Cref{ssec:design-simulated-environment})
+In (\Cref{ssec:simulation:design-simulated-environment})
 we will discuss in depth the implications of this abstraction when
 discussing how to bind the \ac{BDI} environment \ac{API}
 to a \ac{DES} simulation platform.
@@ -1171,9 +1172,9 @@ which would make the simulation results unreliable and non-reproducible.
 
 
 \subsection{Design of the Simulated Environment}
-\label{ssec:design-simulated-environment}
+\label{ssec:simulation:design-simulated-environment}
 
-Having defined the requirements for portable \ac{BDI} agent specifications (\Cref{sec:portable-agent-specifications})
+Having defined the requirements for portable \ac{BDI} agent specifications (\Cref{sec:simulation:portable-agent-specifications})
 by encapsulating all platform-specific functionalities
 into a generic environment \ac{API},
 we now focus on the implications of implementing such \ac{API}
@@ -1196,7 +1197,7 @@ concerns the way \emph{external} events are delivered to the agents.
 %
 In this section we focus on the modeling of such events,
 leaving the discussion on
-the scheduling of \emph{internal} events to \Cref{ssec:granularity}.
+the scheduling of \emph{internal} events to \Cref{ssec:simulation:granularity}.
 
 The \ac{BDI} model already assumes agents to be reactive to the external events they perceive.
 %
@@ -1316,7 +1317,7 @@ As for any simulation, the more accurate the model of the environment dynamics,
 the higher the fidelity of the simulation will be.
 
 \subsection{Mapping the \ac{BDI} Execution on a Simulator}
-\label{ssec:granularity}
+\label{ssec:simulation:granularity}
 
 % Import image granularity.pdf
 \begin{figure*}
@@ -1363,7 +1364,7 @@ but at the cost of a more difficult integration mapping.
 \Cref{fig:granularity} summarises the options that we discuss below,
 showing the trade-offs for each choice.
 
-\subsubsection{\acf{AMA}}\label{subsubsec:ama}
+\subsubsection{\acf{AMA}}\label{subsubsec:simulation:ama}
 
 Each \ac{DES} event corresponds to a \emph{full} control-loop iteration of \emph{all} agents in the system,
 making it the most coarse-grained option.
@@ -1380,7 +1381,7 @@ thus inducing implicit synchronisation,
 and discarding all the effects caused by possible
 \emph{interleaving} agents' actions.
 
-\subsubsection{\acf{ACLI}}\label{subsubsec:acli}
+\subsubsection{\acf{ACLI}}\label{subsubsec:simulation:acli}
 
 Each \ac{DES} event corresponds to a \emph{full} control-loop iteration of a \emph{single} agent,
 making this option slightly more fine-grained than \ac{AMA}.
@@ -1394,7 +1395,7 @@ for instance,
 it cannot be captured a situation in which
 deliberation takes too long and makes the sensing phase outdated before an action is taken.
 
-\subsubsection{\acf{ACLP}}\label{subsubsec:aclp}
+\subsubsection{\acf{ACLP}}\label{subsubsec:simulation:aclp}
 
 Every single \emph{atomic phase}
 (sense, deliberate and act)
@@ -1404,7 +1405,7 @@ This option preserves the behaviour of concurrent or distributed \ac{BDI} agents
 allowing phases to interleave across different agents,
 thus capturing complex inter-agent concurrency patterns.
 
-\subsubsection{\ac{ABE}}\label{subsubsec:abe}
+\subsubsection{\ac{ABE}}\label{subsubsec:simulation:abe}
 
 Each \ac{BDI} event is mapped to a single \ac{DES} event.
 %
@@ -1423,7 +1424,7 @@ For this reason, in the remainder of the paper,
 we will consider \ac{ABE} to be subsumed by \ac{ACLP}.
 
 \subsection{Tool Requirements for the Integration}
-\label{ssec:requirements}
+\label{ssec:simulation:requirements}
 Following the key features outlined in the sections above,
 the tools to be adopted for the integration must provide:
 \begin{itemize}
@@ -1443,7 +1444,7 @@ the tools to be adopted for the integration must provide:
 \end{itemize}
 
 \section{Prototype: \jakta{} over \alchemist{}}
-\label{sec:prototype}
+\label{sec:simulation:prototype}
 
 % \samu{qua discuterei meglio il "senso" di questo prototipo, sottolineando che è un prototipo della feasibility e una dimostrazione che applicando le accortezze discusse sopra si riesce ad ottenere il risultato. Il mapping proposto è specifico per le tecnologie, ma la metodologia e le considerazioni sopra sono generali e si possono applicare a framework diversi a patto che si identifichi il modo di individuare e schedulare l'esecuzione degli agenti}
 
@@ -1470,7 +1471,7 @@ The interested reader can refer to~\cite{SNCS:JaktaJournal} for a more detailed 
 and its support to \ac{BDI} agents in real-world deployments.
 
 Further motivations exist for the technological choice of \jakta{} and \alchemist{},
-as we discuss in \Cref{ssec:requirements} and in \Cref{ssec:choices}.
+as we discuss in \Cref{ssec:simulation:requirements} and in \Cref{ssec:simulation:choices}.
 %
 As the reader will notice,
 our prototype is tailored on these two technologies,
@@ -1480,10 +1481,10 @@ However,
 we believe that our experience has a general value:
 not only it proves that \ac{BDI} systems' execution can be swapped between real-world deployments and \ac{DES} simulation
 without changing the \ac{MAS} specification,
-but it also allows us to study the impact of the many simulation granularity levels (see \Cref{ssec:granularity})
+but it also allows us to study the impact of the many simulation granularity levels (see \Cref{ssec:simulation:granularity})
 on the validation of a \ac{BDI} system.
 %
-This is indeed the purpose of \Cref{sec:evaluation}.
+This is indeed the purpose of \Cref{sec:simulation:evaluation}.
 
 Technically speaking,
 our prototype is implemented
@@ -1498,14 +1499,14 @@ The source code is publicly available\footnote{
     % \url{https://anonymous.4open.science/r/jakta-sim-4C2F}
 }
 under a permissive licence
-and archived on Zenodo~\cite{zenodojakta}
+and archived on Zenodo~\cite{zenodojaktajaamas}
 for future reference.
 
 %\subsection{Selection of the \ac{BDI} and {DES} technologies}
 
 \subsection{Design and Technological Choices}
-\label{ssec:choices}
-In line with the requirements in \Cref{ssec:requirements},
+\label{ssec:simulation:choices}
+In line with the requirements in \Cref{ssec:simulation:requirements},
 we selected the \alchemist{} simulator
 and the \jakta{} \ac{BDI} framework
 also because they both run on the \ac{JVM} and are therefore interoperable.
@@ -1513,9 +1514,9 @@ also because they both run on the \ac{JVM} and are therefore interoperable.
 \alchemist{} is designed with extensible base abstractions,
 thus allowing for reasonably straightforward integration with other stand-alone tools;
 indeed,
-it has been used in the past to simulate programmable tuple spaces~\cite{ZambonelliPMC2015},
+it has been used in the past to simulate programmable tuple spaces~\cite{zambonelli2015percom},
 biochemical systems~\cite{MontagnaSAC2012},
-and aggregate programming languages~\cite{PianiniSAC2015,scafi}.
+and aggregate programming languages~\cite{PianiniSAC2015,DBLP:journals/softx/CasadeiVAP22}.
 %
 Complementarily,
 \jakta{} has been designed to be easily adaptable to different execution engines.
@@ -1586,8 +1587,8 @@ At the time of writing,
 for different application domains,
 including
 bio-chemical systems~\cite{MontagnaSAC2012},
-networked tuple spaces\cite{ZambonelliPMC2015},
-and aggregate programming via Protelis~\cite{PianiniSAC2015} and Scafi~\cite{scafi}.
+networked tuple spaces\cite{zambonelli2015percom},
+and aggregate programming via Protelis~\cite{PianiniSAC2015} and Scafi~\cite{DBLP:journals/softx/CasadeiVAP22}.
 
 An \alchemist{} simulation is configured using a YAML file,
 which specifies the \texttt{Environment} type,
@@ -1632,7 +1633,7 @@ significantly lowering the maintenance cost.
 % \samu{RIVEDERE QUESTA SECTION ORA NON FILA COL RESTO}
 % GC: il titolo era fuorviante, l'ho cambiato
 
-As discussed in \Cref{ssec:granularity},
+As discussed in \Cref{ssec:simulation:granularity},
 the mapping between the \ac{BDI} framework and the \ac{DES} simulator
 can be realised with different granularity.
 %
@@ -1640,7 +1641,7 @@ We implemented multiple granularities in our prototype
 to show how each of them
 impacts on the tested behaviour of a \ac{BDI} software.
 %
-We implemented all those introduced in \Cref{ssec:granularity} but \ac{ABE} because,
+We implemented all those introduced in \Cref{ssec:simulation:granularity} but \ac{ABE} because,
 as previously discussed,
 its behaviour is indistinguishable from \ac{ACLP}
 and supporting it
@@ -1666,7 +1667,7 @@ we proceed to identify the modelling abstractions of the two technologies
 and we describe how they have been mapped
 in order to merge the \jakta{} framework into the \alchemist{} simulator.
 
-\subsection{\ac{BDI} \acp{MAS} in \alchemist{}}\label{subsec:mapping}
+\subsection{\ac{BDI} \acp{MAS} in \alchemist{}}\label{subsec:simulation:mapping}
 
 \begin{figure}
     \centering
@@ -1694,7 +1695,7 @@ The mapping of the frameworks' abstractions on each other is summarised in \Cref
 Each agent's lifecycle phases (i.e., sense, deliberate, and act) are mapped
 onto separate \ac{DES} events (\alchemist{}'s \texttt{Reaction}s).
 %
-As introduced in \Cref{ssec:choices},
+As introduced in \Cref{ssec:simulation:choices},
 each such event has a duration modelled through a \texttt{TimeDistribution}.
 %
 To guarantee that each agent's control loop phases are executed in order,
@@ -1760,7 +1761,7 @@ as information stored inside \texttt{Nodes}'
 is reified as perceived knowledge from \jakta{} agents.
 %
 Information inside nodes is stored as key-value pairs
-(\texttt{Molecule}s) and associated \texttt{Concentration}s (c.f. \Cref{ssec:choices}),
+(\texttt{Molecule}s) and associated \texttt{Concentration}s (c.f. \Cref{ssec:simulation:choices}),
 that agents can manipulate through actions.
 %
 Changes are then treated by the simulator as ``regular''
@@ -1778,10 +1779,10 @@ the message is delivered if the recipient's \texttt{Node} is in the neighborhood
 of the sender's \texttt{Node},
 according to the \texttt{LinkingRule} defined in the simulation configuration.
 
-\section{Evaluation}\label{sec:evaluation}
+\section{Evaluation}\label{sec:simulation:evaluation}
 
 In this section,
-we exercise the prototype introduced in \Cref{sec:prototype}
+we exercise the prototype introduced in \Cref{sec:simulation:prototype}
 to demonstrate \emph{feasibility} of the proposed mapping of \ac{BDI} agents over \ac{DES}
 and the \emph{transparency} of execution with respect to the agent specification.
 %
@@ -1817,7 +1818,7 @@ the \ac{UAV} controls are encapsulated in a different \ac{API}.
     One may argue that ``mocking'' is, in a broad sense, a form of simulation.
     %
     However,
-    as we discuss extensively in \Cref{subsec:discrete-simulation},
+    as we discuss extensively in \Cref{subsec:simulation:discrete-simulation},
     we consider as ``simulation'' only the execution of a system in a
     \emph{virtualised} execution environment,
     where both time and space are virtual and detached from the real world,
@@ -1836,7 +1837,7 @@ choosing a coarser granularity for the simulation may hide potential issues in t
 which would instead emerge when a finer granularity is used.
 
 \subsection{Use Case Description}
-\label{ssec:use-case}
+\label{ssec:simulation:use-case}
 We use a \acp{UAV} coordination scenario as our reference.
 %
 We use \jakta{} to instruct a flock of \acp{UAV},
@@ -1865,7 +1866,7 @@ while the leader is located at the arena centre.
 
 Each \ac{UAV} runs the \ac{BDI} control loop in rounds
 at a certain maximum execution frequency
-$f = \nicefrac{1}{T}$, cf. \Cref{subsec:mapping}.
+$f = \nicefrac{1}{T}$, cf. \Cref{subsec:simulation:mapping}.
 %
 Each control-loop phase would take some time to complete, depending on the complexity of the computations involved.
 %
@@ -1878,7 +1879,7 @@ and must be tuned to stay within the physical limits of the \ac{UAV}'s hardware.
 Additionally,
 devices are not started simultaneously,
 each of them experiences a random start delay $\tau_0 \in [0, \nicefrac{1}{f}]$
-    (or, equivalently, $\tau_0 \in [0, T]$ see \Cref{subsec:mapping}).
+    (or, equivalently, $\tau_0 \in [0, T]$ see \Cref{subsec:simulation:mapping}).
 
 \subsection{Modeling \ac{UAV} Behaviour in \jakta{}}
 \label{ssec:bdi-behaviour}
@@ -1943,7 +1944,7 @@ which we implemented both for the real-world deployment and for the \alchemist{}
 
 We use the simulator to compare the execution of the same \ac{MAS} logic
 with different granularities, namely,
-    we consider \ac{AMA}, \ac{ACLI}, and \ac{ACLP} (cf. \Cref{ssec:granularity}).
+    we consider \ac{AMA}, \ac{ACLI}, and \ac{ACLP} (cf. \Cref{ssec:simulation:granularity}).
 %
 We expect that coarser-grained granularities show better system performance
 than more finer-grained
@@ -1977,7 +1978,7 @@ and of its execution using coarse-grained simulation.
 
 \acp{UAV} are modelled as \alchemist{} \texttt{Node}s.
 Each \texttt{Node} is mapped to a \jakta{} platform instance
-that hosts a single \jakta{} agent controlling the \ac{UAV} as described in \Cref{subsec:mapping}.
+that hosts a single \jakta{} agent controlling the \ac{UAV} as described in \Cref{subsec:simulation:mapping}.
 
 Nodes can move in a 2D continuous space using the \alchemist{}'s built-in \texttt{MoveToTarget} action. Agents compute the desired destination based on the perceived positions of the other \acp{UAV} and the leader, and write it to a dedicated \texttt{Molecule} in the environment, which is then read by the \texttt{MoveToTarget} action during its execution which applies the movement considering a speed parameter.
 %
@@ -1990,7 +1991,7 @@ we do not provide the complete \ac{MAS} code here,
 but we highlight in \Cref{fig:code} the platform-agnostic specification and how it is bound with the
 underlying execution platform.
 %
-We refer the interested reader to the companion artefact~\cite{zenodojakta}
+We refer the interested reader to the companion artefact~\cite{zenodojaktajaamas}
 available online\footnotemark for the complete codebase of the experiment.
 
 
@@ -2044,11 +2045,11 @@ available online\footnotemark for the complete codebase of the experiment.
 
 \paragraph{Configuring the Agent Execution and Simulation Parameters}
 
-We investigate how the mapping granularity (cf. \Cref{ssec:granularity}) impacts the system's behaviour.
+We investigate how the mapping granularity (cf. \Cref{ssec:simulation:granularity}) impacts the system's behaviour.
 %
 To do so, we use \ac{AMA} as baseline,
 letting the entire \ac{MAS} run a full cycle every simulated second
-(Dirac Comb distribution with frequency $f=1Hz \rightarrow T=1s$, cf. \Cref{subsec:mapping}),
+(Dirac Comb distribution with frequency $f=1Hz \rightarrow T=1s$, cf. \Cref{subsec:simulation:mapping}),
 thus replicating the behaviour of most current agent-based simulation frameworks, which are time-driven.
 %
 We compare the baseline with \ac{ACLI} and \ac{ACLP},
@@ -2355,7 +2356,7 @@ is also a technological task,
 which requires technological commitments.
 %
 While we try to keep the conceptual discussion about the mapping
-(\Cref{sec:bdi-over-des})
+(\Cref{sec:simulation:bdi-over-des})
 as general as possible,
 we preferred to rely on technologies we know well when implementing the mapping.
 
@@ -2369,7 +2370,7 @@ and this is yet another reason why we chose them.
 We deliberately avoid comparisons with other approaches for \ac{BDI} simulation.
 %
 The reason behind that is that,
-as discussed in \Cref{sec:related-works},
+as discussed in \Cref{sec:simulation:related-works},
 we are not aware of any prior attempt to run \ac{BDI} \acp{MAS} on \acp{DES}
 with the same level of granularity we propose
 and comparisons with other approaches would be unfair.
@@ -2468,7 +2469,7 @@ depending on the goals of the users.
 
 \paragraph{Simplified scenario / Scalability}
 
-The UAV scenario in \Cref{sec:evaluation} has not been tested on real \acp{UAV}.
+The UAV scenario in \Cref{sec:simulation:evaluation} has not been tested on real \acp{UAV}.
 %
 The experiment is not meant to demonstrate the applicability of \ac{BDI} systems to real-world
 \ac{UAV} coordination problems, which may require additional considerations beyond the scope of this work.
@@ -2519,7 +2520,7 @@ This should not be interpreted as a limitation to the scalability of our approac
 as we rely on the \alchemist{} simulator,
 our approach may easily scale to large-scale systems composed by thousands of agents (or more).
 
-\section{Conclusion and Future Work}\label{sec:conclusion}
+\section{Conclusion and Future Work}\label{sec:simulation:conclusion}
 
 In this paper,
 we analysed the role of simulation in the engineering of distributed \ac{BDI} \acp{MAS},
@@ -2547,7 +2548,7 @@ The paper shares two main insights for software engineers designing \acp{MAS}.
 
 \subsection{Achievement of the work objectives}\label{subsec:answering-the-research-questions}
 
-We here comment regarding the sub-objectives listed in \Cref{sec:introduction}.
+We here comment regarding the sub-objectives listed in the introduction.
 
 \paragraph{\ref{rq:methods}: \Paste{RQ1text}}
 
@@ -2634,16 +2635,16 @@ scheduled within the simulator.
 %
 We identify four mapping granularities, each with distinct implications:
 \begin{itemize}
-    \item \textbf{\ac{AMA}} (\Cref{subsubsec:ama}):
+    \item \textbf{\ac{AMA}} (\Cref{subsubsec:simulation:ama}):
     The most coarse-grained approach, synchronising all agents at each \ac{DES} event,
     simplifying implementation but discarding interleaving effects.
-    \item \textbf{\ac{ACLI}} (\Cref{subsubsec:acli}):
+    \item \textbf{\ac{ACLI}} (\Cref{subsubsec:simulation:acli}):
     A finer-grained model where each agent executes its full control loop independently,
     allowing action interleaving but not asynchronous phase execution.
-    \item \textbf{\ac{ACLP}} (\Cref{subsubsec:aclp}):
+    \item \textbf{\ac{ACLP}} (\Cref{subsubsec:simulation:aclp}):
     Each atomic phase (sense, deliberate, act) is a distinct \ac{DES} event,
     preserving concurrency and accurately modelling distributed agent behaviour.
-    \item \textbf{\ac{ABE}} (\Cref{subsubsec:abe}):
+    \item \textbf{\ac{ABE}} (\Cref{subsubsec:simulation:abe}):
     The finest-grained approach, mapping each \ac{BDI} event to a \ac{DES} event,
     useful for debugging but behaviourally equivalent to \ac{ACLP}.
 \end{itemize}
@@ -2785,3 +2786,955 @@ to low-power devices, network communication, and real-time constraints.
 %
 Although we have a preliminary demonstrator with \acp{UGV}~\cite{DBLP:conf/coordination/AguzziBBCCDFPV25},
 the current prototype needs further refinement to be effectively deployed on real-world robot fleets.
+
+\chapter{High-Fidelity Simulation of Aggregate Computing Systems with Collektivity}
+
+\acp{CAS}~\cite{DBLP:conf/birthday/BucchiaroneM19} are composed of a large number of interacting devices that can adapt their behavior based on local interactions and environmental changes.
+%
+Examples of \acp{CAS} include swarms of robots~\cite{DBLP:conf/acsos/AguzziBCMPPV25},
+sensor networks~\cite{DBLP:conf/mobicom/MainwaringCPSA02,DBLP:journals/tosn/IngelrestBSVCP10},
+and \ac{IoT} applications~\cite{DBLP:journals/internet/AguzziCPV22}.
+
+The verification of such systems is a daunting task,
+due to their inherent complexity, emergent behaviors, and the need for scalability.
+%
+Typically, a combination of approaches is employed~\cite{Abeywickrama2025,DBLP:journals/ras/DixonWFZ12},
+including formal analysis~\cite{DBLP:journals/ras/KonurDF12},
+simulation with multiple levels of detail~\cite{PianiniJOS2013,DBLP:journals/swarm/PinciroliTOPBBMFCDBGD12,DBLP:journals/jirs/PlattR22}
+(as a trade-off exists between realism and scalability),
+\ac{HiL} testing~\cite{Sende2024},
+and real-world experimentation~\cite{DBLP:journals/scirobotics/ZhouWWGLWYLCXG22,Werfel2014}.
+%
+Among these approaches,
+simulation is particularly critical,
+as different levels of abstraction can be used to model various aspects of the system,
+ranging from high-level behaviors to low-level physical dynamics.
+%
+While lower-fidelity, large-scale simulators are common~\cite{DBLP:journals/computation/Calderon-ArceBS22},
+high-fidelity simulations that accurately capture physical dynamics and environmental interactions are less explored,
+despite their potential to provide more realistic insights into system behavior
+before moving to more costly \ac{HiL} or real-world experiments.
+%
+Part of the reason for this gap is that developing high-fidelity simulators from scratch can be resource-intensive
+and may require expertise from communities other than those traditionally involved in \ac{CAS} research,
+e.g., to model complex physics, render realistic environments, or handle large-scale interactions efficiently~\cite{Wolf2020,DBLP:conf/fsr/ShahDLK17}.
+
+From this observation stems the motivation for our work:
+relying on game development platforms, such as Unity and Unreal Engine, to create high-fidelity simulations of \acp{CAS}.
+%
+We contribute to this vision by proposing Collektivity,
+a toolchain that integrates aggregate programming
+(using Collektive~\cite{DBLP:conf/acsos/Cortecchia24} as the runtime implementation),
+with Unity,
+demonstrating the feasibility of this approach and discussing the technical challenges and limitations encountered.
+
+The remainder of the paper is structured as follows.
+\Cref{sec:bg} provides background on
+simulation techniques for \acp{CAS}, 
+and the use of game engines as simulation platforms.
+\Cref{sec:integrating-collektive-with-unity} describes the design and implementation of Collektivity.
+\Cref{sec:case-study} presents some exemplars of the use of Collektivity in a simple three-dimensional space and in a richer environment.
+Finally, \Cref{sec:conclusion} summarizes the contribution and future work.
+
+\section{Background and Related Work}\label{sec:bg}
+
+In this section,
+we briefly review the background and related work on \acp{CAS}, aggregate programming,
+simulation techniques for \acp{CAS}, and the use of game development platforms for simulation.
+
+\subsection{\aclp{CAS} and Aggregate Programming}\label{sec:cas-aggregate-programming}
+
+\aclp{CAS} are typically characterized by
+\begin{inlinelist}
+    \item a large number of spatially situated devices,
+    \item predominantly local interactions (e.g., short-range wireless communication and sensing),
+    \item dynamism in both the environment and the network (mobility, failures, intermittent connectivity),
+    and
+    \item an \emph{open} setting where components can appear and disappear over time.
+\end{inlinelist}
+%
+In such conditions, the desired behaviour is naturally expressed at the \emph{collective} level
+(e.g., ``estimate a spatial distribution'', ``form a pattern'', ``route information towards a region''),
+while the actual execution is performed by individual devices with local knowledge.
+%
+This gap between global intent and local execution is one of the core difficulties in engineering and
+assuring \acp{CAS}: small changes in topology, density, or timing may lead to qualitatively different
+emergent outcomes.
+
+A common response to these challenges is to adopt \emph{macro-programming}~\cite{DBLP:journals/csur/Casadei23} approaches,
+where developers
+program the system as a whole instead of explicitly orchestrating each device~\cite{viroli2019jlap}.
+%
+\emph{Aggregate programming}~\cite{BealIEEEComputer2015} is a macro-programming paradigm specifically tailored to spatially distributed
+collectives, in which the programmer specifies the global behaviour of the system as a computation over
+a \emph{computational field}~\cite{DBLP:journals/tocl/AudritoVDPB19}---intuitively, a function mapping each device (and time) to a value.
+%
+The field abstraction promotes composability and reuse: complex collective behaviours can be obtained by
+functional composition of simpler field transformations~\cite{DBLP:journals/tomacs/ViroliABDP18}.
+
+In this landscape, \emph{Collektive}~\cite{DBLP:conf/acsos/Cortecchia24} is a concrete framework for aggregate programming,
+implemented in Kotlin and designed to be portable across multiple backends.
+%
+Operatively,
+each device repeatedly executes the same program in asynchronous rounds.
+In each round, a device:
+\begin{inlinelist}
+    \item reads local sensor values and the messages received from its neighbours;
+    \item computes the shared aggregate program against the previous state (if any), and the inputs of the previous step,
+    producing a new state and a message to be sent to neighbours; and
+    \item sends the message to its neighbours and retains the new state for the next round.
+\end{inlinelist}
+
+Building on the field calculus, \emph{aggregate computing} organizes theory and practice into layers:
+a formal core~\cite{DBLP:journals/tocl/AudritoVDPB19} (to reason about correctness and compositionality),
+reusable libraries of collective
+operators~\cite{DBLP:journals/tomacs/ViroliABDP18},
+and runtime/tooling to execute programs on real or simulated platforms~\cite{PianiniSAC2015,DBLP:journals/softx/CasadeiVAP22,DBLP:journals/scp/AudritoT24}.
+%
+This layered view is particularly useful for \acp{CAS} because it separates concerns:
+local execution and communication are handled by the runtime, while developers program at the level of
+collective information flow and spatial structure.
+%
+Aggregate programs are inherently \emph{situated}: neighbour relations, sensing, and actuation depend on the
+physical environment and on the embodied dynamics of devices.
+%
+As a consequence, the credibility of simulation results depends
+on how faithfully the simulator reproduces motion, sensing, communication constraints, and environmental
+interactions.
+%
+This motivates the exploration of higher-fidelity simulation platforms for
+aggregate programming (and \acp{CAS} in general).
+
+
+
+\subsection{Simulation techniques for \acp{CAS}}\label{sec:simulation-techniques}
+
+Simulation is a cornerstone of \ac{CAS} engineering because it enables controlled,
+repeatable experimentation at scales and costs that are typically impractical with purely physical deployments,
+while supporting systematic assessment of design alternatives under uncertainty and stochasticity~\cite{MittalRiscoMartin2017SimBasedCAS,DBLP:journals/jos/Sargent13}.
+%
+In \acp{CAS}, simulation is rarely monolithic:
+different concerns (e.g., decision-making, networking, sensing, and physics)
+often require different modelling abstractions,
+which naturally leads to heterogeneous simulation pipelines and staged increases in model detail~\cite{DBLP:journals/csur/GomesTBLV18}.
+%
+This section summarizes the main simulation techniques adopted in the \ac{CAS} literature,
+emphasizing the recurring trade-off between realism and scalability~\cite{DBLP:journals/isci/Schut10}.
+
+\paragraph{Agent-based simulation and macro-level models.}
+A common choice for \acp{CAS} is \ac{ABMS}~\cite{DBLP:journals/csr/AbarTLO17},
+where system-level phenomena emerge from local agent rules and interactions,
+matching the typical decentralization and adaptivity assumptions of \acp{CAS}.
+%
+\ac{ABMS} platforms and toolkits are widely used to explore collective behaviours~\cite{DBLP:journals/simulation/LukeCPSB05,North2013RepastSimphony},
+to run large parameter sweeps~\cite{DBLP:conf/hpcs/PianiniSV14},
+and to support model evolution across iterative design cycles~\cite{DBLP:journals/jos/PianiniMV13}.
+%
+%To improve the precision, communicability, and reproducibility of \ac{ABMS} specifications,
+%structured model description protocols (e.g., \ac{ODD} and its updates)
+%are commonly recommended and adopted~\cite{Grimm2006ODD,Grimm2010ODDupdate}.
+
+\paragraph{Embodied and physics-based simulation for robotic \acp{CAS}.}
+When \acp{CAS} components are embodied (e.g., mobile robots),
+physical dynamics can critically shape emergent outcomes,
+making physics-based simulation important for credible evaluation prior to field tests~\cite{DBLP:journals/swarm/BrambillaFBD13,DBLP:journals/computation/Calderon-ArceBS22}.
+%
+To span the realism--scalability continuum,
+the literature includes both
+\begin{inlinelist}
+    \item scalable multi-robot simulators targeting large populations via simplified physics and efficient execution~\cite{DBLP:journals/swarm/PinciroliTOPBBMFCDBGD12}, and
+     \item higher-fidelity simulators targeting accurate contact dynamics, perception, and environment interaction~\cite{DBLP:conf/iros/KoenigH04}.
+\end{inlinelist}
+%
+Comparative studies~\cite{DBLP:journals/simpra/FarleyWM22,DBLP:journals/jirs/PlattR22}
+show that simulator choice (and configuration) measurably impacts performance,
+accuracy, and the transferability of results across settings.
+
+\paragraph{Multi-level, hybrid, and co-simulation.}
+Because \acp{CAS} often couple processes operating at different temporal/spatial scales
+(e.g., fast physics vs.\ slower decision adaptation),
+hybrid approaches that combine paradigms such as \ac{ABMS}
+and system dynamics are used to capture complementary aspects within a single study~\cite{DBLP:journals/eor/NguyenHM24}.
+%
+More generally,
+co-simulation~\cite{DBLP:journals/csur/GomesTBLV18} coordinates multiple specialized simulators (or model components) through explicit coupling,
+allowing heterogeneous models to interoperate while preserving tool specialization.
+%
+These techniques are particularly relevant when networking, control,
+and physics must be represented with different fidelity assumptions,
+or when parts of the system are replaced incrementally to refine realism without discarding prior results~\cite{MittalRiscoMartin2017SimBasedCAS}.
+
+\paragraph{\acl{HIL} and mixed reality.}
+To mitigate the limits of purely simulated evaluation (including model uncertainty and the ``reality gap''),
+the literature explores experiments where simulated components and real hardware interact~\cite{Sende2024},
+enabling progressive realism while keeping costs manageable.
+%
+Mixed reality and \ac{HiL} setups support testing of sensing/communication constraints and partial deployment scenarios,
+and can be used to validate whether behaviours observed in simulation persist when real components are introduced.
+
+%\paragraph{Assurance support: verification, validation, and property checking.}
+%Simulation-based studies typically require explicit verification and validation activities to establish credibility,
+%including checks of conceptual correctness, implementation correctness,
+%and empirical adequacy with respect to intended use~\cite{DBLP:journals/jos/Sargent13}.
+%%
+%For \acp{CAS} with stochasticity and large state spaces,
+%simulation is also used as the basis for statistical reasoning about formal properties (statistical model checking~\cite{DBLP:journals/tomacs/AghaP18}),
+%providing quantitative confidence guarantees when exhaustive exploration is infeasible.
+%%
+%Conversely, when tractable formal models exist,
+%temporal and probabilistic model checking have been applied to swarm/collective behaviours as a complement to simulation,
+%supporting requirements-driven analysis of emergent outcomes~\cite{DBLP:journals/ras/DixonWFZ12,DBLP:journals/ras/KonurDF12}.
+%
+\subsection{Game-engine-based simulation platforms}\label{sec:game-engines}
+
+Modern game engines (e.g., Unity, Unreal Engine, CryEngine) provide an integrated toolchain for
+interactive 3D worlds, combining real-time rendering, rigid-body physics, collision handling,
+animation, and support for heterogeneous Input/Output devices.
+%
+Originally developed for entertainment, these platforms have been increasingly adopted in
+cyber-physical and robotics contexts to obtain visually rich environments and fast iteration
+cycles, especially when perception, human interaction, or environmental complexity are central
+to the study~\cite{Coronado2023XRGameEngines}.
+%
+One example is the use of the Unity game engine as a visualization tool for
+externally generated collective-system simulation traces~\cite{DelGiudice2024SequitSibilla},
+while another is the integration of the Menge crowd-simulation framework with Unity for visual authoring and rendering~\cite{CrowdSimulationInUnity}.
+%
+However,
+in these works the collective logic is not executed natively within the game engine itself;
+rather,
+the game engine is primarily a visualization support.
+%
+As a result, they only partially explore the potential of game engines as high-fidelity simulation
+platforms for \acp{CAS}.
+
+\paragraph{Use in robotics simulation and digital-twin workflows.}
+Robotics researchers have explored game engines as an alternative (or complement) to
+robotics-oriented simulators, typically by coupling the engine to robotic middleware and
+control stacks.
+%
+Comparative studies~\cite{DBLP:journals/jirs/PlattR22,DBLP:journals/simpra/WijayaCPKG24,DBLP:journals/simpra/FarleyWM22}
+report that Unity-based pipelines can simplify scene construction and yield
+high-quality visualization, while robotics-specific simulators may provide more direct support
+for standard robot models and established integration patterns; the trade-off depends on the
+target task and on the required balance between graphical realism, physics fidelity, and tooling
+overhead.
+%
+Game engines are also increasingly used as a front-end for digital-twin experiences, where the
+virtual replica must be both interactive and connected to (or synchronized with) a physical asset,
+again highlighting the need to balance visual immersion with model accuracy and system
+integration~\cite{Singh2025UnityGazeboDT}.
+%
+
+\paragraph{High-fidelity perception and data generation.}
+A key driver for adopting game engines in robotics is the possibility of producing
+visually rich and complex environmental effects,
+supporting better dissemination and synthetic-data generation.
+%
+Representative examples include Unreal-Engine-based simulation environments for autonomous
+vehicles and robots, explicitly targeting high-fidelity visual and physical simulation and
+dataset generation~\cite{DBLP:conf/fsr/ShahDLK17,Wolf2020}.
+%
+Such use cases are closely related to the broader sim-to-real problem:
+even with improved
+rendering, transferring learned or tuned behaviours to the real world remains challenging,
+and typically requires dedicated mitigation strategies
+beyond the choice of simulator alone~\cite{DBLP:journals/natmi/JuJGNL22}.
+
+\paragraph{Bridging the reality gap with mixed reality and incremental realism.}
+
+Game engines also align naturally with staged validation pipelines, where realism is increased
+progressively and parts of the system may be replaced by real components.
+%
+Mixed-reality and hardware-in-the-loop~\cite{Sende2024} approaches can exploit the rendering and interaction
+capabilities of game engines to connect simulated environments with physical devices, helping
+to expose integration issues earlier and to narrow the reality gap.
+
+\paragraph{Implications for aggregate-computing simulation.}
+
+For aggregate programming and \acp{CAS}, game engines are attractive primarily as a
+high-fidelity \emph{environment layer}: they can provide realistic geometry, motion,
+and sensor/actuation interfaces, while the aggregate runtime remains responsible for neighbour
+interaction, distributed rounds, and collective logic.
+%
+This separation suggests a pragmatic integration strategy: use the engine for embodied dynamics
+and scene management, and couple it to the aggregate platform through a well-defined interface
+for sensing, actuation, and neighbourhood exchange.
+%
+The feasibility and limitations of this approach motivate our integration of an aggregate
+programming implementation with Unity, discussed in the remainder of the paper.
+
+\section{Collektivity: running Collektive on top of Unity}\label{sec:integrating-collektive-with-unity}
+
+In this section, we describe Collektivity,
+our proposed integration of the Collektive aggregate programming runtime with a game engine
+to enable high-fidelity physics-based simulation of collective behaviours.
+%
+We discuss the integration requirements,
+the design strategies and implementation nuances,
+and the challenges encountered in bridging these two distinct platforms.
+
+\subsection{Requirements and domain analysis}\label{subsec:requirements}
+
+A general-purpose, high-fidelity environment for the simulation of \acp{CAS},
+must be designed to support a wide range of scenarios and use cases,
+while ensuring that the integration does not introduce prohibitive overheads
+or limit the expressiveness of the programming model.
+%
+With this in mind, we identified the following key requirements for the integration of Collektive with a game engine:
+\begin{itemize}
+    \item[R1] Agnosticism to the case study:
+    the integration layer should not be tailored towards any specific \ac{CAS} case study.
+    Instead, it must provide a general framework where diverse sensing, actuation and information exchange structures can be defined,
+    without requiring any review of the integration interface.
+    \item[R2] Bidirectional Communication:
+    the interaction between the aggregate program and the game engine is inherently bidirectional:
+    the engine must provide the aggregate program with the necessary sensory data
+    (which, as per R1, may vary widely across use cases),
+    while the aggregate program must send actuation commands back to the engine to drive the evolution of the simulation.
+    \item[R3] High-Performance: simulation scalability is a primary concern,
+    hence the communication bridge between the two platforms must minimize latency.
+    Although adding realism will inevitably impact on scalability,
+    the system should be capable to scale to the order of hundreds of deployed devices
+    (compared to the order of thousands or tens of thousands that are typically targeted by lower-fidelity simulators).
+\end{itemize}
+
+\paragraph{Target game engine: Unity}
+
+Among the available game-engine options,
+we selected Unity because it combines mature real-time 3D rendering,
+integrated physics, broad support for external plugins,
+and deployment across multiple target platforms.
+%
+These characteristics have made Unity a common choice in robotics, XR, and digital-twin applications,
+where visual fidelity, interactive scene authoring, and rapid prototyping are central requirements~\cite{Coronado2023XRGameEngines}.
+%
+In addition, comparative studies in robotics simulation report that Unity-based tools can deal with
+large environments, visual quality, and real-time perception-oriented workloads are important,
+while still supporting integration with robotics middleware and custom simulation components~\cite{DBLP:journals/jirs/PlattR22,DBLP:journals/simpra/WijayaCPKG24,Singh2025UnityGazeboDT}.
+%
+Although our implementation targets Unity, the architectural principles discussed here are not inherently engine-specific
+and could be adapted to other game engines offering comparable extensibility and runtime services.
+
+\paragraph{Technical challenges}
+
+The integration must contend with the technical constraints imposed by the two platforms.
+%
+This is a general challenge when integrating systems that were not designed to work together,
+and in this case it is a prominent issue.
+%
+In fact, Unity is meant for \emph{game designers} to quickly create and animate interactive 3D worlds,
+with no clear mechanism to load or use external code.
+%
+At the same time, Collektive is designed to support a certain degree of flexibility when building a compatible runtime
+and is, to a certain extent, designed to be executable in simulated environments;
+however, it provides an abstraction (\texttt{interface Mailbox}) that is meant to be implemented by the integration layer provider,
+and it is not aware of any specific requirement for bidirectional communication with a game engine.
+
+On top of these general challenges, there are specific technical issues related to the different
+technological stacks and runtime environments of the two platforms.
+%
+Collektive, being built on Kotlin Multiplatform, inherits the set of targets supported by the Kotlin toolchain itself.
+%
+As a result,
+it is designed to be portable across different platforms and runtimes by naturally supporting multiple backends
+(\ac{JVM}, \ac{JS}, \ac{WASM}, native code for Windows, Linux x64 and ARM64, and MacOS x64 and ARM64).
+%
+Unfortunately, Unity's runtime is based on a custom .NET implementation that is not natively supported by Collektive's existing backends.
+%
+Therefore,
+Collektive cannot be executed within Unity through any existing Kotlin Multiplatform target.
+
+\subsection{Architecture}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/coordination26/architecture.pdf}
+    \caption{High-level architecture of the integration between Collektive and Unity.
+    %
+    The Unity game engine provides Sensor Data to the Collektive aggregate program, 
+    which computes Actuation Data that is sent back to the engine.
+    %
+    The Shared Data Representation layer allows users to define Sensors and Actuators data schema using platform-agnostic data structures,
+    which are then used to automatically generate concrete data types for both platforms (i.e., Kotlin for Collektive and C\# for Unity), 
+    thus enabling direct communication.
+    }
+    \label{fig:arch}
+\end{figure}
+
+Requirements R1 and R2 induce an architecture where data that flows between the two platforms
+is structured according to a shared schema, which must be flexible enough to accommodate different use cases.
+%
+Since the device behavior is defined by the aggregate program,
+while the environment behavior
+(including physics, position in the world, and neighborhood relationships)
+pertain to the game engine,
+the natural division of responsibilities is to have the game engine provide sensory data to the aggregate program,
+while the aggregate program computes the actuation commands back to the engine.
+
+This architectural choice implication is that, when designing new case studies,
+users must, as first step,
+define the data types that represent sensors and actuators.
+%
+These must constitute an \emph{agnostic} layer,
+expressed in a platform-agnostic format,
+that must, in turn, generate bindings that enable communication between the two platforms.
+
+Architecturally,
+Unity is designed as an active component hosting a game loop,
+while Collektive is designed to be executable in a purely functional style
+(indeed, every aggregate program is a pure function from previous state, sensor inputs,
+and neighbour messages to new state, actuation commands, and outgoing messages):
+this clearly suggests that Unity should drive the execution,
+and Collektive should be invoked as a library to compute the next state and actuation commands at each step of the game loop.
+
+The architecture resulting from these considerations is illustrated in \cref{fig:arch}:
+the agnostic layer generates bindings for C\# and Kotlin,
+plus a shared schema for the data that flows between the two platforms.
+%
+Unity is the active component,
+which, at each step of the game loop,
+\begin{inlinelist}
+    \item collects sensory data from the environment
+    \item calls Collektive providing the data as input, and
+    \item applies the actuation commands based on the data returned by Collektive.
+\end{inlinelist}
+
+\subsection{Integration design}\label{subsec:integration-design}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/coordination26/design}
+    \caption{
+        Design of the integration layer between Collektive and Unity.
+        Components highlighted in yellow must be implemented by the final user.
+    }\label{fig:design}
+\end{figure}
+
+This section details the design of the integration layer that couples Unity's execution model with the Collektive runtime.
+The design follows the architectural decomposition in \cref{fig:design}, separating
+\begin{inlinelist}
+    \item the \emph{environment layer} (Unity),
+    \item the \emph{aggregate layer} (Collektive),
+    and
+    \item an \emph{agnostic data layer} that defines what information flows between the two.
+\end{inlinelist}
+
+\subsubsection{Agnostic data layer: sensors and actuators.}\label{sec:agnostic-data-layer}
+Requirements R1 and R2 imply that the integration cannot hard-code any specific notion of sensing or actuation.
+%
+Instead, Collektivity exposes a thin, platform-independent contract expressed as two families of data types:
+\emph{Sensors} (from Unity to Collektive) and \emph{Actuators} (from Collektive to Unity).
+%
+From this contract, the toolchain generates strongly typed bindings for both C\# and Kotlin, plus the marshaling code needed
+to exchange values across runtimes.
+%
+Practically, this is realized via an \ac{IDL}-driven workflow: users describe the schema once, and code generation produces
+compatible representations on both sides.
+%
+This choice keeps the interface stable while allowing each case study to tailor the exchanged data to its needs.
+
+The agnostic data layer must, in the general case, be provided by the user,
+as it is scenario-specific; however,
+since most scenarios will likely share common sensing and actuation patterns (e.g., position, velocity, proximity, light intensity, etc.),
+in the future a library of common schemas and bindings could be provided to reduce the initial overhead for new users.
+
+%\paragraph{Native bridge and \ac{FFI}.}
+%Unity scripts execute on a .NET runtime, while Collektive programs target Kotlin and, in our project, are compiled to native code.
+%%
+%Communication between the two can be achieved through various inter-process communication mechanisms
+%(e.g., sockets, shared files, or higher-level protocols),
+%or, to avoid the overhead and complexity of inter-process communication, \ac{FFI}.
+%%
+%Later in the paper, we'll show two implementations, based on socket and \ac{FFI}, and discuss their trade-offs.
+
+\subsubsection{Unity-side runtime.}
+Collektivity follows Unity's composition model, where behavior is defined by attaching \texttt{MonoBehaviour} components to \emph{game objects}.
+The integration provides three core components.
+%
+\texttt{SimulationManager}
+centralizes reproducibility concerns (e.g., deterministic initialization via explicit seeds) and exposes an API to create and manage links.
+%
+\texttt{AbstractNode} marks a game object as a Collektive device.
+It defines the extension points that are scenario-specific:
+how sensor data is sampled from the Unity world, and how actuator commands are applied.
+%
+Concrete scenarios are implemented by subclassing \texttt{AbstractNode} (e.g., \texttt{ConcreteNode} in \cref{fig:design}) and providing the
+domain logic for sensing and actuation, while reusing the integration-provided communication and execution machinery.
+%
+\texttt{LinkManager} is a visualization-oriented singleton that maintains and renders the current network links (when enabled),
+decoupling debugging/inspection concerns from simulation logic.
+
+Aggregate programs depend on neighbor exchange, 
+but the definition of \emph{who is a neighbor} is inherently situated and environment-dependent.
+%
+In Collektivity, 
+neighborhood construction is handled by Unity, which creates and removes directed or bidirectional links through the
+\texttt{SimulationManager} \ac{API}.
+%
+This enables multiple strategies, ranging from geometric proximity to occlusion-aware connectivity.
+%
+An efficient pattern leverages Unity's physics system and trigger colliders;
+for instance, a connection rule component that automatically subscribes/unsubscribes links when other nodes enter/exit a proximity
+volume can be implemented by annotating the implementing class with an attribute,
+whose \texttt{OnTriggerEnter} and \texttt{OnTriggerExit} methods call the appropriate link-management \ac{API} to maintain the neighborhood structure.
+%
+%\begin{verbatim}
+%[RequireComponent(typeof(Collider))]
+%public class ProximityNeighborhoodBehaviour : MonoBehaviour {
+%  private Collider _collider;
+%  private Node _node;
+%
+%  private void Start() {
+%    _collider = GetComponent<Collider>();
+%    _node = GetComponentInParent<Node>();
+%  }
+%
+%  private void OnTriggerEnter(Collider other) {
+%    var otherNode = other.GetComponent<Node>();
+%    if (otherNode != null) {
+%      SimulationManager.Instance.Subscribe(_node, otherNode);
+%    }
+%  }
+%
+%  private void OnTriggerExit(Collider other) {
+%    var otherNode = other.GetComponent<Node>();
+%    if (otherNode != null) {
+%      SimulationManager.Instance.Unsubscribe(_node, otherNode);
+%    }
+%  }
+%}
+%\end{verbatim}
+%
+By delegating neighborhood dynamics to Unity, the integration can directly reuse engine-level facilities (collisions, triggers, layers, and spatial
+partitioning), while keeping the Collektive runtime agnostic of the specific spatial model.
+
+At each simulation tick, Unity performs the following steps for each node:
+\begin{inlinelist}
+    \item sample sensors from the world state,
+    \item invokes the Collektive adapter,
+    which evaluates the aggregate program provided the most recent messages from current neighbors and the last device state,
+    returning actuation commands,
+    and
+    \item apply actuators to Unity objects.
+\end{inlinelist}
+%
+This design preserves the functional structure of aggregate rounds while fitting Unity's imperative update loop, and provides a single place
+(\texttt{SimulationManager}) to enforce scheduling policies (e.g., fixed-rate stepping) and to coordinate message delivery.
+
+Collektivity provides the implementation for the \texttt{SimulationManager}, the \texttt{AbstractNode}, and the \texttt{LinkManager},
+plus the code-generation workflow for Sensors/Actuators.
+%
+Scenario developers provide:
+\begin{inlinelist}
+    \item the sensor/actuator schema,
+    \item concrete node components that interpret the schema and implement sensing/actuation, and
+    \item neighborhood rules implemented as Unity components that call the link-management \ac{API}.
+\end{inlinelist}
+
+\subsubsection{Collective-side \ac{API}}\label{subsec:collective-api}
+
+On the Collektive side, Collektivity exposes a minimal \ac{API} that wraps the execution engine and
+presents it as a stateful service to the Unity runtime.
+This \ac{API} has two goals:
+\begin{inlinelist}
+    \item provide Unity with a stable entry point to advance the aggregate computation for each device, and
+    \item internalize all program-dependent artifacts (in particular, neighbor message contents and device state),
+    so that the Unity integration remains independent of the specific aggregate program.
+\end{inlinelist}
+
+In aggregate computing, the shape of the messages exchanged among neighbors is not an application-level design choice:
+it is induced by the program structure and by the compilation strategy of the underlying calculus~\cite{DBLP:journals/tocl/AudritoVDPB19}.
+%
+Consequently, modeling messages as part of the Unity-side schema would undermine R1:
+every change in the aggregate program could require regenerating schemas and bindings and revising Unity-side code,
+which is not sustainable for iterative development and experimentation.
+%
+For this reason, Collektivity treats neighbor messaging as an internal concern of the Collektive runtime, not as part of the
+Sensors/Actuators contract.
+%
+Thus, the collective-side \ac{API} maintains, for each simulated device:
+\begin{inlinelist}
+    \item the latest \emph{device state} produced by the aggregate program (used to support stateful constructs across rounds),
+    \item the most recent \emph{inbound messages} received from current neighbors, and
+    \item the \emph{outbound messages} generated in the last round, which will be delivered to neighbors according to the topology provided by Unity.
+\end{inlinelist}
+In addition, it stores the association between Unity node identifiers and Collektive engine instances,
+so that Unity can refer to devices through stable handles.
+
+At each simulation tick, Unity invokes the collective-side \ac{API} to advance each device by one round.
+For a given device, the \ac{API} evaluates the aggregate program against
+\begin{inlinelist}
+    \item the stored device state,
+    \item the current sensor snapshot provided by Unity,
+    and
+    \item the inbound messages buffered from neighbors.
+\end{inlinelist}
+%
+The evaluation produces a new device state, a set of outbound messages, and the actuator commands.
+%
+Unity then applies the returned actuators to update the game objects, and uses its current link graph to determine how outbound messages
+are routed to neighbor buffers before the next tick.
+%
+This division of responsibilities matches the architecture in \cref{fig:design}:
+Unity owns the environment and the topology,
+while Collektive owns the distributed computation semantics.
+
+\subsection{Implementation strategy}\label{subsec:implementation}
+
+In this section,
+we describe the practical construction of Collektivity,
+discussing the technological choices that realize the design outlined in \Cref{subsec:integration-design}.
+%
+The implementation of Collektivity is publicly available\footnote{\url{https://github.com/pslab-unibo/collektivity}}
+and archived for future reference~\cite{collektivity-zenodo},
+and has the form of a repository template.
+%
+The purpose of the template is to provide a starting point for researchers and practitioners interested in
+integrating experimenting with aggregate programs in Unity.
+
+\begin{table*}[t]
+    \centering
+    \caption{Performance comparison between the native (\ac{FFI}) and socket-based backends.
+    Times are in nanoseconds (ns), lower is better.
+    Speedup is reported as Socket/Native (higher is worse for sockets).}
+    \label{tab:backend-frontend-benchmark}
+    \setlength{\tabcolsep}{6pt}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{l | r | r | r | r | r | r}
+        \hline
+        \textbf{Metric} & \multicolumn{3}{c |}{\textbf{Overhead Collektive-side}} & \multicolumn{3}{c}{\textbf{End-to-end (ns)}} \\
+        \cline{2-4}\cline{5-7}
+        & \textbf{FFI} & \textbf{Socket} & \textbf{Speedup} & \textbf{Native} & \textbf{Socket} & \textbf{Speedup} \\
+        \hline
+        count  & 970 & 969 & -- & 969 & 968 & -- \\
+        median & 13830 & 137857 & 11.20$\times$ & 550600 & 200001950 & 363.32$\times$ \\
+        mean   & 13175 & 170269 & 13.86$\times$ & 484754 & 199963813 & 456.26$\times$ \\
+        p95    & 16597 & 348890 & 28.02$\times$ & 612140 & 200560775 & 719.35$\times$ \\
+        p99    & 36306 & 456583 & 41.25$\times$ & 850520 & 202753798 & 747.95$\times$ \\
+        std    & 4843  & 265368 & -- & 141814 & 3265095 & -- \\
+        \hline
+    \end{tabular}
+\end{table*}
+
+As first step to head into implementation,
+we built an experimental prototype with 12 nodes to compare the performance of two communication strategies
+through a simple benchmark that simulates the core communication pattern of Collektive programs:
+\begin{inlinelist}
+    \item a socket-based backend, where Unity and Collektive run as separate processes and exchange data through TCP sockets, and
+    \item a native backend, where Collektive is compiled to a shared library and directly invoked by Unity through \ac{FFI}.
+\end{inlinelist}
+%
+We expected better performance for the latter,
+but the former has the advantage of being more flexible,
+as any Collektive target could be used,
+instead of limiting the support to the native compilation targets.
+%
+The benchmark is publicly available\footnote{
+    \scriptsize
+    \url{https://github.com/pslab-unibo/experiment-2026-coordination-collektive-unity-benchmark}
+} and archived for future reference~\cite{benchmark-zenodo}.
+%
+\Cref{tab:backend-frontend-benchmark} summarizes the results.
+%
+The performance difference is stark: the socket-based backend is, on average,
+over 450x slower than the native backend,
+with a worst-case slowdown of over 700x.
+%
+Provided the relevance of R3, we adopted the native compilation strategy for the integration,
+and we designed the agnostic data layer to support it.
+
+\subsubsection{Data Model}\label{sec:data-model-and-serialization}
+
+Collektive and Unity use different type systems and memory layouts.
+%
+As discussed in \Cref{sec:agnostic-data-layer},
+a shared data model representation,
+expressed in a platform-agnostic format, 
+is essential to enable communication between the two platforms while maintaining flexibility and extensibility.
+%
+%In such way,
+%users can define the data schema once,
+%and the toolchain generates the bindings to its use in both platforms (i.e., C\# and Kotlin).
+%
+%For data representation,
+%one could consider using widely adopted serialization formats---%
+%for instance, JSON or XML.
+%%
+%In order make use of such information representation,
+%both Collektive and Unity should additionally require to
+%\begin{inlinelist}
+%    \item define a common schema for the data to be exchanged, which is dependent on the specific requirements of the application, and
+%    \item provide parsers and serializers implementations for each information schema.
+%\end{inlinelist}
+%%
+%Such approach, howerver,
+%lacks efficiency, because the modification of the data schema must be reflected on both C\# and Kotlin code,
+%therefore not satisfying requirement R1.
+%%
+%Moreover,
+%type-safety is not guaranteed,
+%as the data is represented as unstructured text.
+%
+%There exist other approaches to data representation and serialization that can better fit
+%the requirements of our integration.
+%
+\emph{Protocol Buffers}\footnote{\url{https://protobuf.dev/}} (\texttt{protobuf}) is a language-neutral,
+platform-neutral mechanism for serializing structured data.
+%
+Protocol Buffers defines data models using a declarative syntax (\texttt{.proto} files)
+that describes their structure in an implementation-agnostic way.
+%
+From a single \texttt{.proto} definition,
+the \texttt{protoc} compiler can generate serialization source code for multiple languages automatically,
+including C\#, Kotlin, Java, and many others.
+%
+Protocol Buffers data structures are defined as \texttt{messages},
+which are composed of fields with a type and a unique identifier (tag).
+%
+In our use case,
+we always have exactly two messages: one for \texttt{Sensors} and one for \texttt{Actuators}
+(indeed, the \texttt{message}s of protocol buffers are \emph{not} the messages that aggregate programs exchange,
+rather, they describe the data that is exchanged with Unity).
+%
+Each field can be a primitive type (e.g., integer, string, boolean)
+or a user-defined message type,
+allowing for nested and complex data structures.
+%
+The tag is used to identify fields in the binary format, 
+enabling efficient serialization and deserialization.
+%
+This makes Protocol Buffers fit for bridging complex data model representation for Kotlin and C\# runtimes.
+%
+In Collektivity, 
+users define \texttt{Sensors} and \texttt{Actuators} data schema using Protocol Buffers,
+the latter will then generate the necessary bindings for both platforms.
+%
+A minimal example of a Protocol Buffers schema for Sensors and Actuators is shown in \Cref{lst:proto-schema}.
+%
+Depending on the specific requirements of the application,
+users can define more complex data structures.
+%including nested messages, repeated fields, and optional fields.
+
+\begin{lstlisting}[
+    basicstyle=\ttfamily,
+    linewidth=\textwidth,
+    caption={
+        Example of Protocol Buffers schema for Sensors and Actuators.
+        %
+        \texttt{sourceIntensity} is a \texttt{double} field used by the aggregate program to determine the direction of movement towards the destination.
+        %
+        \texttt{Vector3} maps a Unity 3D vector, which in this example represents the current position of the device and the target position computed by the aggregate program.
+        %
+        \texttt{repeated Vector3} represents a list of 3D vectors, which in this example represent obstacles positions.
+        %
+        The integer tags (e.g., \texttt{= 1}) are used to identify fields in the binary format.
+    },
+    label={lst:proto-schema},
+]
+message Actuators {
+  Vector3 targetPosition = 1;
+}
+message Sensors {
+  double sourceIntensity = 1;
+  Vector3 currentPosition = 2;
+  repeated Vector3 obstacles = 3;
+}
+\end{lstlisting}
+
+%\subsection{Information Exchange between Unity and Collektive}
+%
+%To facilitate the flow of information between Unity and Collektive,
+%a communication mechanism is required for transmitting sensor data and actuator information.
+%%
+%Following the requirement for high-performance interoperability (R3),
+%the wo viable options for communication identified are
+%\ac{FFI} and socket-based communication.
+%
+%\ac{FFI} allows direct interaction between different programming languages
+%by enabling one language to call functions or use data types defined in another language.
+%%
+%In this context,
+%it allows Unity (C\#) to directly invoke functions from Collektive (Kotlin).
+%%
+%This approach facilitates efficient data exchange without the overhead of inter-process communication.
+%
+%On the other hand,
+%socket-based communication involves establishing a network connection between Unity and Collektive,
+%allowing them to send and receive messages over a network protocol.
+%%
+%This approach is flexible,
+%since it is based on an external and independent component (i.e. a server) which offers a standard interface between the two languages and it is stand-alone---%
+%i.e., it can be developed and tested independently from the rest of the system.
+%%
+%To determine the most performant option that satisfies R3,
+%we conducted a benchmark comparing the two methods aforementioned,
+%which is detailed in \Cref{sec:case-study}.
+%
+%Based on the results of this benchmark,
+%we chose to implement \ac{FFI} in Collektivity,
+%as it provided significantly lower latency and better performance for the integration.
+
+\subsubsection{\ac{FFI} interaction and Engine API}
+
+Collektivity extends the Collektive runtime to support execution within the Unity environment,
+to do so, it provides an \texttt{Engine} (\Cref{lst:engine-api})
+that defines the contract between the aggregate program and the Unity environment---%
+i.e., the operations that Unity can invoke on the Collektive runtime to execute the aggregate program and retrieve the resulting state and actuation commands.
+%
+\texttt{Engine} is the Collektive interface that Unity invokes to execute the aggregate computation at each simulation tick,
+i.e. each update cycle in the Unity execution loop triggers the invocation 
+of the \texttt{step()} function in the \texttt{Engine}.
+%
+This function is invoked by Unity via \ac{FFI} for each simulation node, 
+which identifier is specified during invocation along with \texttt{Sensors} data structure.
+%
+The result returned by Collektive is an \texttt{Actuators} data structure,
+which is then used by Unity to update the simulation environment accordingly.
+%
+\texttt{Sensors} and \texttt{Actuators} are defined in the agnostic data layer,
+and their schema is defined by the user (c.f., \Cref{sec:data-model-and-serialization}).
+
+\lstinputlisting[
+    % float,
+    basicstyle=\scriptsize\ttfamily,
+    linewidth=\textwidth,
+    language=Kotlin,
+    caption={Engine API definition for Collektive library.},
+    label={lst:engine-api},
+]{listings/coordination26/Engine.kt}
+
+Along with the \texttt{step()} function,
+\texttt{Engine} also defines methods for
+\begin{inlinelist}
+    \item register a node for being neighbor of another node (i.e., using \texttt{subscribe()}), 
+    \item unregister a node from being neighbor of another node (i.e., using \texttt{unsubscribe()}),
+    \item add a node to the simulation (i.e., using \texttt{addNode()}), and
+    \item remove a node from the simulation (i.e., using \texttt{removeNode()}).  
+\end{inlinelist}
+%
+This infrastructure is then compiled using Collektive-native,
+and it is directly invoked by Unity via \ac{FFI}.
+
+\section{Exemplars}\label{sec:case-study}
+
+In this section,
+we show a simple and a richer exemplar that we include with Collektivity
+to demonstrate its capabilities and to provide a starting point for users interested in experimenting with aggregate programming in Unity.
+%
+In both exemplars,
+we deploy devices that must navigate towards a source of interest while avoiding obstacles,
+which is a common pattern in \acp{CAS} and is relevant for a wide range of applications (e.g., search and rescue).
+%
+They do so through a gradient ascent strategy, with no cooperative logic is implemented for obstacle avoidance.
+%
+All nodes execute synchronous rounds at a fixed frequency of $20Hz$,
+in which they perceive the local ``intensity'' of the source of interest (based on the distance)
+and detect obstacles in their vicinity.
+%
+Vicinities and communication between nodes are established through a distance-based neighborhood model:
+two nodes are considered neighbors if their separation is within 10 units,
+which defines the connectivity graph for the aggregate computation.
+%
+They exchange this information with their neighbors to compute their next movement direction,
+computing a vector that points to the direction of higher source intensity and away from nearby obstacles
+(including other devices).
+%
+Gradient computations are performed through the standard library in Collektive,
+which provides implementations for all the building blocks in~\cite{DBLP:journals/tomacs/ViroliABDP18}.
+
+\subsection{Simple 3D space}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.49\textwidth]{figures/coordination26/simple-shots/better_1}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/simple-shots/better_2}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/simple-shots/better_3}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/simple-shots/better_4}
+    \caption{Snapshots of the simple 3D space scenario with 100 nodes.}\label{fig:simple}
+\end{figure}
+
+Here, we consider a simple arena with
+four parallelepipedic obstacles that physically obstruct the movement towards the source.
+The environment contains  of $1 \times 3 \times 5$ units.
+%
+Devices are represented by spheres that can move in the 3D space,
+and the arena is a flat plane with a source of interest located at a fixed position.
+%
+We tested the scenario with different numbers of nodes.
+%
+Laptops with integrated graphics could achieve reasonable real-time performance with up to 50 nodes,
+while we easily scaled to 100 nodes on a desktop with a dedicated GPU (nVidia GTX 4070).
+%
+Snapshots in \Cref{fig:simple} show the evolution of the system with 100 nodes.
+
+\subsection{Richer environment}
+
+%\danilo{fate una selezione di quattro snapshot fra quelli che ho messo in images/complex e fate un'immagine migliore}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.49\textwidth]{figures/coordination26/oasis/02}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/oasis/03}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/oasis/05}
+    \includegraphics[width=.49\textwidth]{figures/coordination26/oasis/06}
+    \caption{Snapshots of the Oasis scenario with 100 nodes.}\
+    \label{fig:oasis}
+\end{figure}
+
+
+To showcase the potential of this integration,
+we ran the same experiment in one of Unity's built-in environments (i.e., ``Oasis'').
+%
+In this scenario, obstacles are represented by trees, bushesh, and rocks,
+and the source of interest is located inside a tent located on the opposite side of the arena
+with respect to the initial placement of the nodes.
+%
+Snapshots in \Cref{fig:oasis} show the evolution of the system with 100 nodes.
+%
+This scenario had to be executed on the better equipped desktop to retain real-time performance,
+as the increased complexity of the environment
+(e.g., more complex geometry, more detailed rendering, and more complex physics interactions)
+significantly impacted the performance of the simulation.
+
+\section{Conclusion and Future Work}\label{sec:conclusion}
+
+In this work we presented Collektivity,
+a toolchain for the execution of aggregate programs written 
+in Collektive on top of the Unity game engine.
+%
+This integration enables to leverage Unity's physics capabilities 
+to create realistic and general-purpose simulations for testing and validating \acp{CAS}.
+
+To achieve this integration,
+we designed an architecture to unify the execution model of Unity with the functional nature of aggregate programs,
+we extended the Unity engine to support the direct invocation of Collektive computations through \ac{FFI},
+while using a shared platform-agnostic data model using Protocol Buffer.
+%
+To guide the design and implementation of Collektivity, 
+we conducted a benchmark to compare the performance of \ac{FFI} and socket-based communication strategies, 
+which informed our decision to adopt \ac{FFI} for the integration.
+%
+Finally, 
+we show two examples of unity applications that demonstrates the opportunities of running Collektive on top of Unity,
+both of them provided as a starting point for users interested in experimenting with aggregate programming in Unity.
+
+As future work, 
+we plan to provide additional example scenarios that showcase more complex aggregate computations,
+also including larger populations (e.g., 1{,}000 and 10{,}000 nodes) to demonstrate the scalability of the integration.
+%
+This will offer users a broader reference set of examples for building their own simulations, 
+thereby lowering the entry barrier for experimenting with aggregate programming in Unity.
+%
+We also plan to compare the current implementation with an \ac{ECS}-based one,
+which is a design pattern widely adopted in game development and recently supported by Unity through its \ac{DOTS} framework\footnote{\url{https://unity.com/dots}}.
+
+As discussed in \Cref{subsec:requirements},
+the main technical and design challenges encountered in the integration are expected to recur,
+at least in part, in other game engines.
+%
+To assess this hypothesis,
+we plan to integrate Collektive with another game engine, such as Unreal Engine or Godot.
+%
+This would help evaluate the generality of the proposed design and identify which aspects transfer across engines
+and which require engine-specific solutions.
